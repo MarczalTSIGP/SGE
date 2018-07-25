@@ -1,7 +1,6 @@
 database: &database
-  db:
-    username: postgres
-    password: postgres
+  db.username: postgres
+  db.password: postgres
 
 development:
   <<: *database
