@@ -1,0 +1,21 @@
+<h3>Editar Departamento</h3>
+
+<%= simple_form_for(@department, url: admin_department_path) do |f| %>
+  <div class="form-inputs">
+    <%= f.input :name, error: 'Name is mandatory, please specify one' %>
+    <%= f.input :initials %>
+    <%= f.input :description %>
+    <%= f.input :local %>
+    <%= f.input :phone, as: :tel %>
+    <%= f.input :department_email, placeholder: 'user@domain.com' %>
+    <%= f.input :department_responsible %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+
+
+<%= link_to 'Show', admin_department_path(@department) %> |
+<%= link_to 'Back', admin_department_index_path %>

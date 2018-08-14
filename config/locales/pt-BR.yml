@@ -1,0 +1,17 @@
+pt-BR:
+  activerecord:
+    models:
+      Department:
+        one: "Departamento"
+        other: "Departamentos"
+    attributes:
+      attribute_commons: &commons
+        name: "Nome"
+        phone: "Telefone"
+        description: "Descrição"
+      departament:
+        initials: "Sigla"
+        local: "Local"
+        department_email: "Email do Departamento"
+        department_responsible: "Responsável pelo Departamento"
+        <<: *commons
