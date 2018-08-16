@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 2018_08_06_163504) do
     t.string "initials"
     t.string "local"
     t.string "phone"
-    t.string "department_email"
-    t.string "department_responsible"
+    t.string "email"
+    t.string "responsible"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

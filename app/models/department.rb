@@ -2,9 +2,9 @@ class Department < ApplicationRecord
   validates :name, presence: true
   validates :local, presence: true
   validates :phone, presence: true, length: {minimum: 10, maximum: 11}
-  validates :initials, presence: true, length: {minimum: 3, maximum: 8}
+  validates :initials, presence: true, length: {minimum: 3, maximum: 8}, uniqueness: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :department_email, presence: true, length: { maximum: 255 },
+  validates :email, presence: true, uniqueness: true, length: { maximum: 255 },
             format: { with: VALID_EMAIL_REGEX }
 
   def initials=(s)

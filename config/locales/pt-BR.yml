@@ -1,7 +1,7 @@
 pt-BR:
   activerecord:
     models:
-      Department:
+      department:
         one: "Departamento"
         other: "Departamentos"
     attributes:
@@ -9,9 +9,9 @@ pt-BR:
         name: "Nome"
         phone: "Telefone"
         description: "Descrição"
-      departament:
+      department:
         initials: "Sigla"
         local: "Local"
-        department_email: "Email do Departamento"
-        department_responsible: "Responsável pelo Departamento"
+        email: "Email do Departamento"
+        responsible: "Responsável pelo Departamento"
         <<: *commons

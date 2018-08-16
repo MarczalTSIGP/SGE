@@ -8,8 +8,8 @@ module ApplicationHelper
   end
 
   def bootstrap_class_for(flash_type)
-    { success: 'alert-success', error: 'alert-danger', alert: 'alert-warning',
-      notice: 'alert-info' }[flash_type.to_sym] || flash_type.to_s
+    { success: 'notice-success', error: 'notice-danger', alert: 'notice-warning',
+      notice: 'notice-info' }[flash_type.to_sym] || flash_type.to_s
   end
 
 end

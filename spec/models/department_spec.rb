@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Department, type: :model do
 
   before do
-    @department = create(:department)
+    @department = create(:departments)
   end
 
   it "should be valid" do
@@ -39,7 +39,7 @@ RSpec.describe Department, type: :model do
     valid_addresses = %w[user@example.com USER@foo.COM A_US-ER@foo.bar.org
                          first.last@foo.jp alice+bob@baz.cn]
     valid_addresses.each do |valid_address|
-      @department.department_email = valid_address
+      @department.email = valid_address
       expect(@department).to be_valid, "#{valid_address.inspect} should be valid"
     end
   end
@@ -48,7 +48,7 @@ RSpec.describe Department, type: :model do
     invalid_addresses = %w[user@example,com user_at_foo.org user.name@example.
                            foo@bar_baz.com foo@bar+baz.com]
     invalid_addresses.each do |invalid_address|
-      @department.department_email = invalid_address
+      @department.email = invalid_address
       expect(@department).to_not be_valid, "#{invalid_address.inspect} should be invalid"
     end
   end

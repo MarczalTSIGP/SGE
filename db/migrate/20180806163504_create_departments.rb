@@ -6,8 +6,8 @@ class CreateDepartments < ActiveRecord::Migration[5.2]
       t.string :initials
       t.string :local
       t.string :phone
-      t.string :department_email
-      t.string :department_responsible
+      t.string :email
+      t.string :responsible
 
       t.timestamps
     end

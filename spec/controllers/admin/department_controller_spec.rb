@@ -2,13 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Admin::DepartmentController, type: :controller do
 
-  let(:departmentb) { create(:department) }
+  let(:departmentb) { create(:departments) }
   let(:department_params) { {department_id: departmentb.id} }
   let(:valid_attributes) do
-    department_params.merge({ department: attributes_for(:department) })
+    department_params.merge({departments: attributes_for(:departments) })
   end
   let(:invalid_attributes) do
-    department_params.merge({ department: attributes_for(:department, name: " ") })
+    department_params.merge({departments: attributes_for(:departments, name: " ") })
   end
 
   describe "GET #index" do

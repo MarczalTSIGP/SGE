@@ -7,15 +7,20 @@
 
   <%= stylesheet_link_tag 'admin/application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 
 <body>
 <nav>
-  <%= render 'admin/layouts/nav' %>
+  <%= render 'admin/layouts/sidebar' %>
+  <%= render 'admin/layouts/nav'%>
 </nav>
-<%= render 'shared/flash_messages' %>
-<div class="container">
-  <%= yield %>
+
+<div class="mx-auto container bg-default">
+  <div class="right">
+    <%= render 'shared/flash_messages' %>
+    <%= yield %>
+  </div>
 </div>
 </body>
 </html>

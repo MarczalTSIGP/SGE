@@ -1,4 +1,4 @@
-class Admin::DepartmentController < Admin::BaseController
+class Admin::DepartmentsController < Admin::BaseController
   before_action :set_department, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -39,7 +39,7 @@ class Admin::DepartmentController < Admin::BaseController
   def destroy
     @department.destroy
     flash[:success] = 'Departamento deletado com sucesso.'
-    redirect_to admin_department_index_path
+    redirect_to admin_departments_path
   end
 
   private
@@ -48,6 +48,6 @@ class Admin::DepartmentController < Admin::BaseController
   end
 
   def department_params
-    params.require(:department).permit(:name,:initials,:phone,:description,:local,:department_email,:department_responsible)
+    params.require(:department).permit(:name, :initials, :phone, :description, :local, :email, :responsible)
   end
 end
