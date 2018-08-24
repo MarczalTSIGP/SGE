@@ -11,13 +11,12 @@
 </head>
 
 <body>
-<nav>
-  <%= render 'admin/layouts/sidebar' %>
-  <%= render 'admin/layouts/nav'%>
+<nav class="fixed-top ">
+  <%= render 'admin/layouts/navtop' %>
+  <%= render 'admin/layouts/navbottom' %>
 </nav>
-
-<div class="mx-auto container bg-default">
-  <div class="right">
+<div class="my-3 mt-9">
+  <div class="container">
     <%= render 'shared/flash_messages' %>
     <%= yield %>
   </div>

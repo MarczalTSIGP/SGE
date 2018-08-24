@@ -15,7 +15,7 @@ SimpleForm.setup do |config|
   # whole input.
 
   # How the label text should be generated altogether with the required text.
-  config.label_text = lambda { |label, required, explicit_label| "#{label}" }
+  config.label_text = lambda { |label, required, explicit_label| "x" }
 
   config.wrappers :default, class: :input,
     hint_class: :field_with_hint, error_class: :field_with_errors, valid_class: :field_without_errors do |b|
