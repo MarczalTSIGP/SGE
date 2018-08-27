@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
-  before_validation :register_username
+ # before_validation :register_username
   attr_writer :login
 
   devise :database_authenticatable, :registerable,
@@ -12,8 +12,8 @@ class User < ApplicationRecord
   validates :name, :username, :cpf, :registration_number, presence: true
   validates :registration_number, uniqueness: true
   validates :cpf, length: {is: 11}, uniqueness: true
-  validate :validate_cpf
-  validate :validate_email
+  # validate :validate_cpf
+  #validate :validate_email
 
   def login
     @login || self.username || self.email

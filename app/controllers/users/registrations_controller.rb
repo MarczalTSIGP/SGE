@@ -15,10 +15,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # GET /resource/edit
-   def edit
-
-     super
-   end
+  #  def edit
+  #    super
+  #  end
 
   # PUT /resource
   # def update
@@ -64,6 +63,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def attributes
-    return [:name, :cpf, :registration_number, :active, :email, :password, :password_confirmation, :remember_me]
+    return [:name, :username, :cpf, :registration_number, :active, :email, :password, :password_confirmation, :remember_me]
   end
 end
