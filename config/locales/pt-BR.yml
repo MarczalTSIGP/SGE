@@ -7,14 +7,25 @@ pt-BR:
       department:
         one: "Departamento"
         other: "Departamentos"
+      user:
+        one: "Usuário"
+        other: "Usuários"
     attributes:
       attribute_commons: &commons
         name: "Nome"
         phone: "Telefone"
         description: "Descrição"
+        active: "Ativo"
+        email: "Email"
       department:
         initials: "Sigla"
         local: "Local"
         email: "Email do Departamento"
         responsible: "Responsável pelo Departamento"
+      user:
+        actIve: "Ativo"
+        password: "Senha"
+        password_confirmation: "Confirmação de senha"
+        remember_me: "Lembre-me"
         <<: *commons
+
