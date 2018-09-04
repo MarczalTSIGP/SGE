@@ -7,19 +7,21 @@
 
   <%= stylesheet_link_tag 'admin/application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 
 <body>
-<nav class="fixed-top ">
-  <%= render 'admin/layouts/navtop' %>
-  <%= render 'admin/layouts/navbottom' %>
-</nav>
-<div class="my-3 mt-9">
-  <div class="container">
-    <%= render 'shared/flash_messages' %>
-    <%= yield %>
+<div class="page">
+  <div class="page-main">
+      <%= render 'admin/layouts/navtop' %>
+      <%= render 'admin/layouts/navbottom' %>
+    <div class="my-3 my-md-5">
+      <div class="container">
+        <%= render 'shared/flash_messages' %>
+        <%= yield %>
+      </div>
+    </div>
   </div>
 </div>
+
 </body>
 </html>

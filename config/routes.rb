@@ -4,10 +4,9 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: 'home#index'
-    resources :departments
   end
 
-  namespace :participant do
+  namespace :participants do
     root to: 'home#index'
   end
 
