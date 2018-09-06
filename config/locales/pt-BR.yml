@@ -1,4 +1,7 @@
 pt-BR:
+  flash:
+    messages:
+      update: '%{model} atualizado com sucesso'
   activerecord:
     models:
       department:
