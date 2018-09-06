@@ -1,0 +1,20 @@
+pt-BR:
+  flash:
+    messages:
+      update: '%{model} atualizado com sucesso'
+  activerecord:
+    models:
+      department:
+        one: "Departamento"
+        other: "Departamentos"
+    attributes:
+      attribute_commons: &commons
+        name: "Nome"
+        phone: "Telefone"
+        description: "Descrição"
+      department:
+        initials: "Sigla"
+        local: "Local"
+        email: "Email do Departamento"
+        responsible: "Responsável pelo Departamento"
+        <<: *commons

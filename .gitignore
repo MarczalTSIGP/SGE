@@ -32,3 +32,6 @@
 /config/application.yml
 
 coverage
+
+.idea
+.idea/inspectionProfiles

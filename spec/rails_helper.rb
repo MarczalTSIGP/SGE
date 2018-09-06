@@ -9,7 +9,7 @@ require 'rspec/rails'
 require 'support/factory_bot'
 require 'support/shoulda'
 require 'support/simplecov'
-
+require 'support/database_cleaner'
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -18,4 +18,5 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
+  config.include FactoryBot
 end
