@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
- # before_validation :register_username
+  before_validation :register_username
   attr_writer :login
 
   devise :database_authenticatable, :registerable,
@@ -12,8 +12,8 @@ class User < ApplicationRecord
   validates :name, :username, :cpf, :registration_number, presence: true
   validates :registration_number, uniqueness: true
   validates :cpf, length: {is: 11}, uniqueness: true
-  # validate :validate_cpf
-  #validate :validate_email
+  validate :validate_cpf
+  validate :validate_email
 
   def login
     @login || self.username || self.email
@@ -33,7 +33,7 @@ class User < ApplicationRecord
   def validate_cpf
     array_cpf = self.cpf.to_s.split(//)
     unless (array_cpf[9] == (validation_calculation(array_cpf.take(9)).to_s)) and (array_cpf[10] == (validation_calculation(array_cpf.take(10)).to_s))
-      errors.add(:cpf, "CPF inválido ")
+      errors.add(:cpf, "CPF inválido")
     end
   end
 
@@ -51,13 +51,14 @@ class User < ApplicationRecord
   end
 
   def validate_email
-    unless  (self.email.split('@').last == "utfpr.edu.br")
+    unless (self.email.split('@').last == "utfpr.edu.br")
       errors.add(:email, "Email não institucional")
+    else
+      self.email += "@utfpr.edu.br"
     end
   end
 
   def register_username
     self.username = self.email.split('@').first
-
   end
 end
