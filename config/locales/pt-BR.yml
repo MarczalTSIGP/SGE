@@ -24,6 +24,8 @@ pt-BR:
         responsible: "Responsável pelo Departamento"
       user:
         actIve: "Ativo"
+        cpf: "CPF"
+        registration_number: "Número de Registro"
         password: "Senha"
         password_confirmation: "Confirmação de senha"
         remember_me: "Lembre-me"

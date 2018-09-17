@@ -1,0 +1,57 @@
+<div class="my-3 my-md-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 ml-auto">
+        <h3>Usuários</h3>
+      </div>
+      <div class="col-lg-2 ml-auto">
+        <%= link_to new_user_registration_path , class: 'btn btn-primary' do %>
+          <i class="fe fe-plus"> Adicionar</i>
+        <% end %>
+      </div>
+      <div class="col-lg-4 ml-auto">
+        <%= form_tag(admin_users_disabled_path, method: :get) do %>
+          <%= text_field_tag(:search, params[:search], placeholder: 'Nome') %>
+          <%= submit_tag ('Buscar'), class: 'btn btn-primary' %>
+        <% end %>
+
+      </div>
+      <div class="col-lg-1 ml-auto">
+        <%= link_to admin_users_disabled_path, class: 'btn btn-primary' do %>
+          <i class="fe fe-refresh-cw"> Limpar</i>
+        <% end %>
+      </div>
+    </div>
+    <table class="table table-bordered mt-5">
+      <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Email</th>
+        <th scope="col">Status</th>
+        <th scope="col">Ação</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.active ? "Ativo" : "Desativado" %></td>
+          <td>
+            <% if user.active? %>
+              <%= link_to admin_user_destroy_path(user), method: :delete, data: {confirm: 'Confimar a desativação?'}, name: user.id  , title: 'Desativar', class:  'btn btn-small waves-effect waves-light ligth red' do %>
+                <i class="fe fe-trash">Desativar</i>
+              <% end %>
+            <% else %>
+              <%= link_to admin_user_update_path(user), method: :put, data: {confirm: 'Confimar a Ativação?'},  name: user.id , title: 'Ativar', class:  'btn btn-small waves-effect waves-light ligth red' do %>
+                <i class="fe fe-check">Ativar</i>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

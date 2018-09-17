@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "UsersSessions", type: :feature do
+RSpec.feature "Admin::User::UsersSessions", type: :feature do
   before(:each) do
     create(:user)
     create(:user_inactive)
@@ -14,8 +14,8 @@ RSpec.feature "UsersSessions", type: :feature do
 
     find('input[name="commit"]').click
 
-    expect(page).to have_text("Home#index")
-    expect(current_path).to eq(root_path)
+    expect(page).to have_text("Admin")
+    expect(current_path).to eq(admin_root_path)
   end
 
   scenario "User new session invalid using username" do
@@ -38,8 +38,8 @@ RSpec.feature "UsersSessions", type: :feature do
 
     find('input[name="commit"]').click
 
-    expect(page).to have_text("Home#index")
-    expect(current_path).to eq(root_path)
+    expect(page).to have_text("Admin")
+    expect(current_path).to eq(admin_root_path)
   end
 
   scenario "User new session invalid using email" do
