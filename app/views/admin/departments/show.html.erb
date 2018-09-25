@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-12 department_initials"><h3><%= @department.initials %></h3></div>
+</div>
+
+<div class="row m-2">
+  <div class="col-12 department_name"><%= @department.name %></div>
+</div>
+
+<div class="row m-2">
+  <div class="col-12 department_local"><i class="fe fe-location text-secondary"></i> <%= @department.local %></div>
+</div>
+<div class="row m-2">
+  <div class="col-12 department_phone"><i class="fe fe-phone text-secondary"></i> <%= @department.phone %></div>
+</div>
+<div class="row m-2">
+  <div class="col-12 department_email"><i class="fe fe-at-sign text-secondary"></i> <%= @department.email %></div>
+</div>
+<div class="row m-2">
+  <div class="col-12 department_description"><%= @department.description %></div>
+</div>
+div.row
+<%= link_to admin_departments_path, title: "Voltar", class: "btn btn-outline-secondary m-1" do %>
+  <i class="fe fe-arrow-left"> Voltar </i>
+<% end %>
+
+<%= link_to  edit_admin_department_path(@department), title: "Editar", class: "btn btn-outline-warning m-1" do %>
+<i class="fe fe-edit"> Editar</i>
+<% end %>
+
+

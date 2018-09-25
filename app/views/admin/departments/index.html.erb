@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+<% provide(:page_title, 'Departamentos') %>
+
+<div class="float-left">
+  <%= link_to new_admin_department_path, class: 'btn btn-primary mr-1', title: 'Adicionar' do %>
+    <i class="fe fe-plus mx-auto"></i> Adicionar
+  <% end %>
+</div>
+
+<div class="table-responsive">
+  <table class="table card-table table-vcenter text-nowrap" id="recommendations_table">
+    <thead>
+    <tr>
+      <th>Sigla</th>
+      <th>Local</th>
+      <th>Email</th>
+      <th>Fone</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <%= render @departments %>
+    </tbody>
+  </table>
+</div>
+<div class="d-flex justify-content-center"><%= paginate @departments %></div>

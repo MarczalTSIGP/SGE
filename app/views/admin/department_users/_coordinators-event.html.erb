@@ -1,0 +1,45 @@
+<div class="form-group">
+  <%= simple_form_for(@user_role, method: :post, url: admin_department_add_coordinator_event_path) do |f| %>
+    <label class="form-label">Adicionar Coordenador de Eventos</label>
+    <div class="row gutters-xs">
+      <div class="col">
+        <%= f.association :user,
+                          # collection: User.where.not(id: @coordinators.ids).order(:name),
+                          class: 'form-control custom-select',
+                          label: false %>
+      </div>
+      <span class="col-auto">
+        <%= button_tag(type: 'submit', class: 'btn btn-primary',
+                       'data-toggle': "tooltip", 'data-placement':"bottom", 'title':"Adicionar Coordenador de Eventos") do %>
+    <i class="fe fe-user-plus"></i>
+  <% end %>
+        <%#= f.button :submit, class: 'btn btn-primary' do %>
+
+        <%# end %>
+      </span>
+    </div>
+  <% end %>
+</div>
+
+<!--<div class="table-responsive">-->
+<!--  <table class="table card-table table-stripe">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--      <th colspan="3">Coordenador de Eventos</th>-->
+<!--      <th colspan="2"></th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<%# @coordinators.each do |coordinator| %>
+<!--      <tr>-->
+<!--        <td><%#= coordinator.user.name %></td>-->
+<!--        <td>-->
+<%#= link_to admin_department_destroy_member_path(@department, coordinator), method: :delete, class: 'icon' do %>
+<!--            <i class="fe fe-x"></i>-->
+<%# end %>
+<!--        </td>-->
+<!--      </tr>-->
+<%# end %>
+<!--    </tbody>-->
+<!--  </table>-->
+<!--</div>-->

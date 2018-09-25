@@ -5,10 +5,12 @@ ruby '2.5.1'
 
 # A ~ Z
 
+gem 'active_link_to'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap', '~> 4.1.3'
 gem 'coffee-rails', '~> 4.2'
 gem 'jquery-rails'
+gem 'kaminari'
 gem 'pg', '0.20.0'
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.0'

@@ -15,3 +15,10 @@ pt-BR:
         email: "Email do Departamento"
         responsible: "Responsável pelo Departamento"
         <<: *commons
+    views:
+      pagination:
+        first: "&laquo; Início"
+        last: "Final &raquo;"
+        previous: "&lsaquo; Anterior"
+        next: "Próximo &rsaquo;"
+        truncate: "&hellip;"

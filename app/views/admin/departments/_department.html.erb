@@ -1,0 +1,24 @@
+<tr>
+  <th><%= department.initials %></th>
+  <td><%= department.local %></td>
+  <td><%= department.email %></td>
+  <td><%= department.phone %></td>
+  <td>
+    <div class="btn-list float-right">
+      <%= link_to admin_department_members_path(department), class: "btn btn-icon mr-1", title: 'Adicionar Membros' do %>
+        <i class="fe fe-user-plus"></i>
+      <% end %>
+      <%= link_to admin_department_path(department), class: "btn btn-icon mr-1", title: 'Visualizar' do %>
+        <i class="fe fe-eye"></i>
+      <% end %>
+      <%= link_to edit_admin_department_path(department), class: "btn btn-icon mr-1", title: 'Editar' do %>
+        <i class="fe fe-edit"></i>
+      <% end %>
+      <%= link_to admin_department_path(department), method: :delete, class: "btn btn-icon mr-1",
+                  title: 'Deletar', data: {confirm: 'Are you sure?'} do %>
+        <i class="fe fe-trash-2"></i>
+      <% end %>
+    </div>
+  </td>
+</tr>
+

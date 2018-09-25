@@ -1,0 +1,21 @@
+<%= simple_form_for [:admin, @department] do |f| %>
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :initials %>
+    <%= f.input :description %>
+    <%= f.input :local %>
+    <%= f.input :phone, class:'form-control', input_html: { 'data-mask': '(##)####-####',
+                                                            'placeholder': "(00)0000-0000",
+                                                            'data-mask-clearifnotmatch': 'true',
+                                                            'autocomplete': 'off',
+                                                            'maxlength': '13'} %>
+    <%= f.input :email, placeholder: 'user@domain.com' %>
+  </div>
+
+  <div class="form-actions float-right">
+    <%= f.button :submit, class:'btn btn-primary'%>
+  </div>
+<% end %>
+<%= link_to admin_departments_path, class: 'btn btn-secondary' do%>
+<i class="fe fe-arrow-left">Voltar</i>
+<% end %>

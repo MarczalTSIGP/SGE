@@ -1,0 +1,53 @@
+<div class="row row-cards row-deck">
+  <% @departments.each do |department| %>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+      <div class="card rounded">
+        <div class="card-status bg-sgeyellow card-status-left"></div>
+
+        <div class="card-header">
+          <h3 class="card-title bg-sgeorange"><%= department.initials %></h3>
+        </div>
+
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 text-center text-sgeorange"><%= department.name %></div>
+          </div>
+          <div class="row text-left">
+            <div class="col-3 text-center"><i class="fe fe-user"></i></div>
+            <div class="col-9"><%= department.responsible %></div>
+          </div>
+          <div class="row">
+            <div class="col-3 text-center"><i class="fe fe-phone"></i></div>
+            <div class="col-9"><%= department.phone %></div>
+          </div>
+          <div class="row">
+            <div class="col-3 text-center"><i class="fe fe-at-sign"></i></div>
+            <div class="col-9"><%= department.email %></div>
+          </div>
+          <div class="row">
+            <div class="col-3 text-center"><i class="fe fe-map-pin"></i></div>
+            <div class="col-9"><%= department.local %></div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <div class="btn-list float-right">
+            <%= link_to admin_department_path(department), class: "btn btn-icon mr-1", title: 'Adicionar' do %>
+              <i class="fe fe-user-plus"></i>
+            <% end %>
+            <%= link_to admin_department_path(department), class: "btn btn-icon btn-outline-primary mr-1", title: 'Visualizar' do %>
+              <i class="fe fe-eye"></i>
+            <% end %>
+            <%= link_to edit_admin_department_path(department), class: "btn btn-icon btn-outline-warning mr-1", title: 'Editar' do %>
+              <i class="fe fe-edit"></i>
+            <% end %>
+            <%= link_to admin_department_path(department), method: :delete, class: "btn btn-icon btn-outline-danger mr-1",
+                        title: 'Deletar', data: {confirm: 'Are you sure?'} do %>
+              <i class="fe fe-trash-2"></i>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
