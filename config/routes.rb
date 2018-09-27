@@ -1,14 +1,23 @@
 Rails.application.routes.draw do
 
   root to: 'home#index'
-  devise_for :users, path: 'admin/users', controllers: {registrations: 'admin/users/registrations', sessions: 'admin/users/sessions'}
-  namespace :admin do
-    root to: 'home#index'
 
-    get 'users/disabled', to: 'users/disabled#index'
-    delete 'users/disabled/:id', to: 'users/disabled#destroy', as: 'user_destroy'
-    put 'users/disabled/:id', to: 'users/disabled#update', as: 'user_update'
+#========================================
+# Admin area to user
+#========================================
+  devise_for :users, controllers: {sessions: 'admin/users/sessions'}
+  authenticate :user do
+    namespace :admin do
+      root to: 'home#index'
+      resources :registrations, path: 'users/registration', module: 'users',
+                      as: :user_registration, except: :destroy
+
+      delete 'users/registration/disable/:id', to: 'users/registrations#disable', as: 'user_disable'
+      put 'users/registration/active/:id', to: 'users/registrations#active', as: 'user_active'
+    end
   end
+#========================================
+
 
   namespace :participants do
     root to: 'home#index'

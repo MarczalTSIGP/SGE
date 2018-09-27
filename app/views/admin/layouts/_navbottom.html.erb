@@ -4,39 +4,23 @@
       <div class="col-lg order-lg-first">
         <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
           <li class="nav-item">
-            <%= link_to admin_root_path, class: 'nav-link active' do %>
+            <%= link_to admin_root_path, class: 'nav-link' do %>
               <i class="fe fe-home"></i> Home
             <% end %>
           </li>
+
           <% if current_user.try(:admin?) %>
             <li class="nav-item">
-              <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown" aria-expanded="true">
+              <a href="javascript:void(0)" class="nav-link " data-toggle="dropdown" aria-expanded="true">
                 <i class="fe fe-users"></i> Usuarios</a>
               <div class="dropdown-menu dropdown-menu-arrow">
-                <%= link_to admin_users_disabled_path, class: 'dropdown-item' do %>
+                <%= link_to admin_user_registration_index_path, class: 'dropdown-item' do %>
                   Gerenciar
                 <% end %>
               </div>
             </li>
           <% end %>
 
-          <li class="nav-item">
-            <a href="javascript:void(0)" class="nav-link" data-toggle="dropdown" aria-expanded="true">
-              <i class="fe fe-user"></i> Perfil</a>
-            <div class="dropdown-menu dropdown-menu-arrow">
-              <%= link_to edit_user_registration_path, class: 'dropdown-item' do %>
-                Editar
-              <% end %>
-
-            </div>
-          </li>
-          <% if user_signed_in? %>
-            <li class="nav-item">
-              <%= link_to destroy_user_session_path, class: 'nav-link ', method: :delete do %>
-                <i class="fe fe-log-out"></i> Sair</a>
-              <% end %>
-            </li>
-          <% end %>
         </ul>
       </div>
     </div>

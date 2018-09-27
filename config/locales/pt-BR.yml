@@ -2,6 +2,7 @@ pt-BR:
   flash:
     messages:
       update: '%{model} atualizado com sucesso'
+      create: '%{model} criado com sucesso'
   activerecord:
     models:
       department:
@@ -26,6 +27,7 @@ pt-BR:
         actIve: "Ativo"
         cpf: "CPF"
         registration_number: "Número de Registro"
+        alternative_email: "Email Alternativo"
         password: "Senha"
         password_confirmation: "Confirmação de senha"
         remember_me: "Lembre-me"

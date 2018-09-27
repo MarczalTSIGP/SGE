@@ -6,9 +6,29 @@
         <%= image_tag 'sge-logo.png', class: 'header-brand-img', alt: "Sistema Gerenciador de Eventos" %>
       <% end %>
 
-      <a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse">
-        <span class="header-toggler-icon"></span>
-      </a>
+<!--      <a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse">-->
+<!--        <span class="header-toggler-icon"></span>-->
+<!--      </a>-->
+      <div class="d-flex order-lg-2 ml-auto">
+
+        <div class="dropdown">
+          <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+            <span class="avatar"><i class="fe fe-user"></i></span>
+            <span class="ml-2 d-none d-lg-block">
+                      <span class="text-default"><%= current_user.name %> </span>
+                      <small class="text-muted d-block mt-1"> </small>
+                    </span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+            <%= link_to edit_admin_user_registration_path(current_user), class: 'dropdown-item', method: :get do %>
+                        <i class="dropdown-icon fe fe-user"></i> Perfil
+            <% end %>
+            <%= link_to destroy_user_session_path, class: 'dropdown-item', method: :delete do %>
+              <i class="dropdown-icon  fe fe-log-out"></i> Sair</i>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

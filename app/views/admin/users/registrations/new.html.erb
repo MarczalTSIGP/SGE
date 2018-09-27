@@ -4,34 +4,32 @@
     <div class="container">
       <div class="row">
         <div class="col col-login mx-auto">
-          <h2>Sign up</h2>
-          <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <h2>Registrar Usuário</h2>
+          <%= simple_form_for(@user, url: admin_user_registration_index_path, method: :post) do |f| %>
             <%= f.error_notification %>
 
             <div class="form-inputs">
               <%= f.input :name, autofocus: true %>
-              <%= f.input :email, label: "Email Institucional" do %>
+
+              <%= f.input :username, label: "Email Institucional" do %>
                 <div class="input-group">
-                <%= f.input_field :email, class: "form-control"%>
-                <span class="input-group-append"><span class="input-group-text">@utfp.edu.br</span></span>
+                  <%= f.input_field :username, class: "form-control" %>
+                  <span class="input-group-append"><span class="input-group-text">@utfp.edu.br</span></span>
                 </div>
               <% end %>
-
-            <%= f.input :registration_number %>
-            <%= f.input :cpf %>
-            <%= f.input :password, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
-            <%= f.input :password_confirmation %>
-            <%= f.input :active, as: :boolean %>
+              <%= f.input :alternative_email, autofocus: true %>
+              <%= f.input :registration_number %>
+              <%= f.input :cpf %>
+              <%= f.input :active, as: :checkbox_tabler %>
             </div>
 
             <div class="form-actions">
-              <%= f.button :submit, "Sign up" %>
+              <%= f.button :submit, "Cadastrar" %>
             </div>
           <% end %>
 
-          <%= render "admin/users/shared/links" %>
-          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 </div>

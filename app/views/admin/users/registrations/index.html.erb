@@ -1,57 +1,68 @@
 <div class="my-3 my-md-5">
   <div class="container">
     <div class="row">
-      <div class="col-lg-5 ml-auto">
-        <h3>Usuários</h3>
+      <div class="col-lg-5 ml-auto p-0">
+        <h3 id="usuario">Usuários</h3>
       </div>
-      <div class="col-lg-2 ml-auto">
-        <%= link_to new_user_registration_path , class: 'btn btn-primary' do %>
+      <div class="col-lg-2 ml-auto p-0">
+        <%= link_to new_admin_user_registration_path, class: 'btn btn-success' do %>
           <i class="fe fe-plus"> Adicionar</i>
         <% end %>
       </div>
-      <div class="col-lg-4 ml-auto">
-        <%= form_tag(admin_users_disabled_path, method: :get) do %>
-          <%= text_field_tag(:search, params[:search], placeholder: 'Nome') %>
-          <%= submit_tag ('Buscar'), class: 'btn btn-primary' %>
+      <div class="col-lg-4 ml-auto p-0">
+        <%= form_tag(admin_user_registration_index_path, method: :get) do %>
+          <%= text_field_tag(:search, params[:search], placeholder: 'Nome ou Email ') %>
+          <%= button_tag ('Buscar'), type: "submit", class: 'btn btn-primary' do %>
+            <i class="fe fe-search">Buscar</i>
+          <% end %>
         <% end %>
 
       </div>
-      <div class="col-lg-1 ml-auto">
-        <%= link_to admin_users_disabled_path, class: 'btn btn-primary' do %>
-          <i class="fe fe-refresh-cw"> Limpar</i>
+      <div class="col-lg-1 ml-auto p-0">
+        <%= link_to admin_user_registration_index_path, class: 'btn btn-secondary' do %>
+          <i class="fe fe-refresh-cw">Limpar</i>
         <% end %>
       </div>
     </div>
-    <table class="table table-bordered mt-5">
-      <thead>
-      <tr>
-        <th scope="col">Nome</th>
-        <th scope="col">Email</th>
-        <th scope="col">Status</th>
-        <th scope="col">Ação</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <% @users.each do |user| %>
+    <% unless @users.empty? %>
+      <table class="table table-bordered mt-5">
+        <thead>
         <tr>
-          <td><%= user.name %></td>
-          <td><%= user.email %></td>
-          <td><%= user.active ? "Ativo" : "Desativado" %></td>
-          <td>
-            <% if user.active? %>
-              <%= link_to admin_user_destroy_path(user), method: :delete, data: {confirm: 'Confimar a desativação?'}, name: user.id  , title: 'Desativar', class:  'btn btn-small waves-effect waves-light ligth red' do %>
-                <i class="fe fe-trash">Desativar</i>
-              <% end %>
-            <% else %>
-              <%= link_to admin_user_update_path(user), method: :put, data: {confirm: 'Confimar a Ativação?'},  name: user.id , title: 'Ativar', class:  'btn btn-small waves-effect waves-light ligth red' do %>
-                <i class="fe fe-check">Ativar</i>
-              <% end %>
-            <% end %>
-          </td>
+          <th scope="col">Nome</th>
+          <th scope="col">Email</th>
+          <th scope="col">Status</th>
+          <th scope="col">Ação</th>
         </tr>
-      <% end %>
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.active ? "Ativo" : "Desativado" %></td>
+            <td>
+              <% if user.active? %>
+                <%= link_to admin_user_disable_path(user), method: :delete, data: {confirm: 'Confimar a desativação?'}, name: user.id, title: 'Desativar', class: 'btn btn-small waves-effect waves-light ligth red' do %>
+                  <i class="fe fe-user-x"></i>
+                <% end %>
+              <% else %>
+                <%= link_to admin_user_active_path(user), method: :put, data: {confirm: 'Confimar a Ativação?'}, name: user.id, title: 'Ativar', class: 'btn btn-small waves-effect waves-light ligth red' do %>
+                  <i class="fe fe-user-check"></i>
+                <% end %>
+              <% end %>
+              <%= link_to edit_admin_user_registration_path(user), method: :get, name: user.id, title: 'Editar', class: 'btn btn-small waves-effect waves-light ligth red' do %>
+                <i class="fe fe-edit"></i>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <div class="text-center m-9 p-5">
+        <h2>Nenhum registro encontrado</h2>
+      </div>
+    <% end %>
   </div>
 </div>

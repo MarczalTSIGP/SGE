@@ -6,4 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create(name: 'admin', username: 'admin', email: 'admin@utfpr.edu.br', cpf: '05443678043', registration_number: '1', admin: true, active: true, password: '123456', support: true)
+User.create_with(name: 'Administrador',
+                 user_name: 'admin',
+                 registration_number: '1',
+                 cpf: '05443678043',
+                 admin: true, active: true,
+                 password: '123456',
+                 support: true).find_or_create_by(email: 'admin@utfpr.edu.br')
