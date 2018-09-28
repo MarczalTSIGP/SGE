@@ -6,9 +6,15 @@ class Department < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, uniqueness: true, length: { maximum: 255 },
             format: { with: VALID_EMAIL_REGEX }
-  has_many :department_roles, dependent: :destroy
+
+  has_many :department_users
+  has_many :users, through: :department_users
 
   def initials=(s)
     write_attribute(:initials, s.to_s.upcase) # The to_s is in case you get nil/non-string
+  end
+
+  def add_member(member, role)
+    department_users.create(user: member, role: Role.find_by(flag: role))
   end
 end

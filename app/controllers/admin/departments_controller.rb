@@ -2,7 +2,6 @@ class Admin::DepartmentsController < Admin::BaseController
   before_action :set_department, only: [:show, :edit, :update, :destroy]
 
   def index
-    # @users = User.order(:name).page params[:page]
     @departments = Department.page(params[:page]).per(12)
   end
 
@@ -41,6 +40,26 @@ class Admin::DepartmentsController < Admin::BaseController
     @department.destroy
     flash[:success] = 'Departamento deletado com sucesso.'
     redirect_to admin_departments_path
+  end
+
+  def members
+    @department = Department.find(params[:department_id])
+    @members = @department.users
+    @no_members = User.not_in(@department)
+    @roles = Role.all
+  end
+
+  def add_member
+    @department = Department.find(params[:department_id])
+    member = @department.department_users.build(user_id: params[:member][:user],
+                                              role_id: params[:member][:role])
+    p member
+    if member.save
+      flash[:sucess] = "Membro adicionado com sucesso"
+    else
+      flash[:danger] = "Problemas na adição"
+    end
+    redirect_to admin_department_members_path(@department)
   end
 
   private

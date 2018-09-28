@@ -1,0 +1,45 @@
+<div class="form-group">
+  <%= simple_form_for(:member, url: admin_department_members_path(@department),
+                      method: :post) do |f| %>
+    <label class="form-label">Adicionar membro de departamento</label>
+    <div class="row gutters-xs">
+      <div class="col">
+        <%= f.input :user,
+                          collection: @no_members,
+                          class: 'form-control custom-select',
+                          label: false %>
+      </div>
+      <div class="col">
+        <%= f.input :role,
+                          collection: @roles,
+                          class: 'form-control custom-select',
+                          label: false %>
+      </div>
+  
+      <span class="col-auto">
+      <%= button_tag(type: 'submit', class: 'btn btn-primary',
+                   'data-toggle': "tooltip", 'data-placement': "bottom", 'title': "Adicionar Chefe de Departamento") do %>
+        <i class="fe fe-user-plus"></i>
+        <% end %>
+      </span>
+    </div>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col">
+    <% @members.each do |member| %>
+      <div class="col tag mt-1">
+        <span class="col-6">
+          <%= member.name %>
+        </span>
+        <span class="col-5 tag-addon tag-info">
+          <%= member.role_by(@department).name %>
+        </span>
+        <%= link_to '#', method: :delete, class: 'col-1 tag-addon' do %>
+          <i class="fe fe-x"></i>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

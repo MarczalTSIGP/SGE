@@ -15,15 +15,15 @@ ActiveRecord::Schema.define(version: 2018_09_19_154437) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "department_roles", force: :cascade do |t|
+  create_table "department_users", force: :cascade do |t|
     t.bigint "department_id"
     t.bigint "user_id"
     t.bigint "role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["department_id"], name: "index_department_roles_on_department_id"
-    t.index ["role_id"], name: "index_department_roles_on_role_id"
-    t.index ["user_id"], name: "index_department_roles_on_user_id"
+    t.index ["department_id"], name: "index_department_users_on_department_id"
+    t.index ["role_id"], name: "index_department_users_on_role_id"
+    t.index ["user_id"], name: "index_department_users_on_user_id"
   end
 
   create_table "departments", force: :cascade do |t|
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2018_09_19_154437) do
     t.string "flag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["flag"], name: "index_roles_on_flag"
   end
 
   create_table "users", force: :cascade do |t|
@@ -50,7 +51,4 @@ ActiveRecord::Schema.define(version: 2018_09_19_154437) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "department_roles", "departments"
-  add_foreign_key "department_roles", "roles"
-  add_foreign_key "department_roles", "users"
 end

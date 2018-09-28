@@ -1,11 +1,11 @@
 class Role < ApplicationRecord
-  has_many :department_roles, dependent: :destroy
+  has_many :department_users
 
   def self.manager
-    find_by_flag('manager')
+    find_by(:manager)
   end
 
-  def self.coordinator
-    find_by_flag('event')
+  def self.envent_coordinator
+    find_by(:event_coordinator)
   end
 end
