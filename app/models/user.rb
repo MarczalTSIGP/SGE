@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
 
-  before_validation :register_username
+  after_validation :register_username
   before_create :complete_email
 
   attr_writer :login
@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
 
   validates :name, :username, :cpf, :registration_number, presence: true
-  validates :registration_number, uniqueness: true
+  validates :registration_number, :username, uniqueness: true
   validates :cpf, length: {is: 11}, uniqueness: true
   validate :validate_cpf
 
@@ -24,12 +24,23 @@ class User < ApplicationRecord
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     if login = conditions.delete(:login)
-      where(conditions.to_h).where(["lower(username) = :value OR lower(email) = :value", {:value => login.downcase}]).first
+      where(conditions.to_h).where(["lower(username) = :value OR lower(email) = :value",
+                                    {:value => login.downcase}]).first
     elsif conditions.has_key?(:username) || conditions.has_key?(:email)
       where(conditions.to_h).first
     end
   end
 
+  def self.search(search)
+    if search
+      where("name LIKE ? OR email LIKE ? OR alternative_email LIKE ?",
+            "%#{search}%", "%#{search}%", "%#{search}%").where(support: false).order('created_at DESC')
+    else
+      where(support: false).order('created_at DESC')
+    end
+  end
+
+  private
 
   def email_required?
     false
@@ -43,18 +54,11 @@ class User < ApplicationRecord
     false
   end
 
-  private
-
   def validate_cpf
     array_cpf = self.cpf.to_s.split(//)
     unless (array_cpf[9] == (validation_calculation(array_cpf.take(9)).to_s)) and (array_cpf[10] == (validation_calculation(array_cpf.take(10)).to_s))
-      errors.add(:cpf, "inválido")
+      errors.add(:cpf, I18n.t('errors.messages.invalid'))
     end
-  end
-
-
-  def self.search(search)
-    where("name LIKE ? or email LIKE ? or alternative_email LIKE ?", "%#{search}%", "%#{search}%", "%#{search}%")
   end
 
   def validation_calculation(array_cpf)
@@ -67,9 +71,10 @@ class User < ApplicationRecord
     return soma * 10 % 11
   end
 
-
   def register_username
-    self.username = self.username.split('@').first
+    unless (self.username.nil?)
+      self.username = self.username.split('@').first
+    end
   end
 
   def complete_email

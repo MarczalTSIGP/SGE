@@ -1,10 +1,8 @@
 class Admin::Users::SessionsController < Devise::SessionsController
-  # before_action :configure_sign_in_params, only: [:create]
   prepend_before_action :require_no_authentication, only: [:cancel]
 
-  layout 'admin/users/layouts/application'
+  layout 'admin/users/sessions/layouts/application'
 
-  # POST /resource/sign_in
   def create
     super do |resource|
       unless resource.active?
@@ -14,7 +12,6 @@ class Admin::Users::SessionsController < Devise::SessionsController
         return
       end
     end
-
   end
 
   def after_sign_out_path_for(resource_or_scope)

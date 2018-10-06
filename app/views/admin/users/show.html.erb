@@ -1,0 +1,17 @@
+<div class="card card-profile">
+  <div class="card-body text-center">
+
+    <h3 class="mb-3"><%= @user.name %></h3>
+    <p class="mb-4"><%= @user.username %></p>
+    <p class="mb-4"><%= @user.email %></p>
+    <p class="mb-4"><%= @user.alternative_email %></p>
+    <p class="mb-4"><%= @user.registration_number %></p>
+    <p class="mb-4"><%= mask_cpf(@user.cpf) %></p>
+    <p class="mb-4"> <%= translate_active(@user) %></p>
+
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to "Voltar", admin_users_path, class: 'btn btn-secondary' %>
+</div>

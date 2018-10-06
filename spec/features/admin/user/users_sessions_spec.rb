@@ -1,56 +1,60 @@
 require 'rails_helper'
 
 RSpec.feature "Admin::User::UsersSessions", type: :feature do
-  before(:each) do
-    create(:user)
-    create(:user_inactive)
-  end
+  let!(:user) {create(:user)}
+  let!(:user_inactive) {create(:user_inactive)}
 
-  scenario "User new session valid using username" do
-    visit new_user_session_path
+  describe '#create' do
+    context 'with valid user' do
 
-    fill_in id: "user_login", with: "test"
-    fill_in id: "user_password", with: "123456"
+      it "by username" do
+        visit new_user_session_path
 
-    find('input[name="commit"]').click
+        fill_in id: "user_login", with: "test"
+        fill_in id: "user_password", with: "123456"
 
-    expect(page).to have_text("Admin")
-    expect(current_path).to eq(admin_root_path)
-  end
+        find('input[name="commit"]').click
 
-  scenario "User new session invalid using username" do
-    visit new_user_session_path
+        expect(page).to have_text("Dashboard")
+        expect(current_path).to eq(admin_root_path)
+      end
+      it "by email" do
+        visit new_user_session_path
 
-    fill_in id: "user_login", with: "test2"
-    fill_in id: "user_password", with: "123456"
+        fill_in id: "user_login", with: "test@utfpr.edu.br"
+        fill_in id: "user_password", with: "123456"
 
-    find('input[name="commit"]').click
+        find('input[name="commit"]').click
 
-    expect(page).to have_text("Log in")
-    expect(current_path).to eq(new_user_session_path)
-  end
+        expect(page).to have_text("Dashboard")
+        expect(current_path).to eq(admin_root_path)
+      end
+    end
+    context 'with invalid user' do
+      it "by username" do
+        visit new_user_session_path
 
-  scenario "User new session valid using email" do
-    visit new_user_session_path
+        fill_in id: "user_login", with: "test2"
+        fill_in id: "user_password", with: "123456"
 
-    fill_in id: "user_login", with: "test@utfpr.edu.br"
-    fill_in id: "user_password", with: "123456"
+        find('input[name="commit"]').click
 
-    find('input[name="commit"]').click
+        expect(page).to have_text("Faça login na sua conta")
+        expect(current_path).to eq(new_user_session_path)
+      end
 
-    expect(page).to have_text("Admin")
-    expect(current_path).to eq(admin_root_path)
-  end
 
-  scenario "User new session invalid using email" do
-    visit new_user_session_path
+      it "by email" do
+        visit new_user_session_path
 
-    fill_in id: "user_login", with: "test2@utfpr.edu.br"
-    fill_in id: "user_password", with: "123456"
+        fill_in id: "user_login", with: "test2@utfpr.edu.br"
+        fill_in id: "user_password", with: "123456"
 
-    find('input[name="commit"]').click
+        find('input[name="commit"]').click
 
-    expect(page).to have_text("Log in")
-    expect(current_path).to eq(new_user_session_path)
+        expect(page).to have_text("Faça login na sua conta")
+        expect(current_path).to eq(new_user_session_path)
+      end
+    end
   end
 end
