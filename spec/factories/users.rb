@@ -1,8 +1,9 @@
 FactoryBot.define do
   factory :user, class: User do
-    name "test"
+    name "cde"
     username "test@utfpr.edu.br"
     cpf "49503267080"
+    alternative_email "teste@gmail.com"
     registration_number "123456"
     password "123456"
     password_confirmation "123456"
@@ -20,7 +21,7 @@ FactoryBot.define do
     admin true
   end
   factory :user_inactive, class: User do
-    name "test2"
+    name "abc"
     username "test2@utfpr.edu.br"
     cpf "99905883096"
     registration_number "123458"
