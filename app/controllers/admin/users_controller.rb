@@ -5,7 +5,8 @@ class Admin::UsersController < Admin::BaseController
   def index
     @users = User.search(params[:term])
     if @users.empty?
-      flash.now[:notice] = 'Nenhum usuário encontrado!'
+      flash.now[:notice] =t('flash.actions.search.empty.m',
+                            model: t('activerecord.models.user.one'))
     end
   end
 

@@ -1,9 +1,11 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-
-  after_validation :register_username
+  VALID_USERNAME_REGEX = /\A[a-z0-9\-_]+\z/i
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  before_validation :register_username
   before_create :complete_email
+  after_update :complete_email
 
   attr_writer :login
 
@@ -11,9 +13,11 @@ class User < ApplicationRecord
          :validatable, authentication_keys: [:login]
 
 
-  validates :name, :username, :cpf, :registration_number, presence: true
+  validates :name, :cpf, :registration_number, presence: true
   validates :registration_number, :username, uniqueness: true
   validates :cpf, length: {is: 11}, uniqueness: true
+  validates :username, presence: true, format: {with: VALID_USERNAME_REGEX}
+  validates :alternative_email,   allow_blank:  true, format: {with: VALID_EMAIL_REGEX}
   validate :validate_cpf
 
 
@@ -34,9 +38,9 @@ class User < ApplicationRecord
   def self.search(search)
     if search
       where("name LIKE ? OR email LIKE ? OR alternative_email LIKE ?",
-            "%#{search}%", "%#{search}%", "%#{search}%").where(support: false).order('created_at DESC')
+            "%#{search}%", "%#{search}%", "%#{search}%").where(support: false).order('name ASC')
     else
-      where(support: false).order('created_at DESC')
+      where(support: false).order('name ASC')
     end
   end
 
@@ -68,7 +72,12 @@ class User < ApplicationRecord
       multi = digit.to_i * (array_cpf.length + 1 - index)
       soma += multi
     end
-    return soma * 10 % 11
+    result = soma * 10 % 11
+    if result == 10
+      return 0
+    else
+      return result
+    end
   end
 
   def register_username

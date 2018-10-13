@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   authenticate :user do
     namespace :admin do
       root to: 'home#index'
-      resources :users, except: :destroy, constraints: {id: /\d/}
+      resources :users, except: :destroy,  constraints: { id: /[0-9]+/}
       get 'users/search/(:term)', to: 'users#index',
           as: 'users_search',
           constraints: {term: /[^\/]+/}

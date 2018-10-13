@@ -53,17 +53,18 @@ RSpec.feature "Admin::User", type: :feature do
           expect(page).to have_content("CPF " + I18n.t('errors.messages.taken'))
           expect(page).to have_content("Número de Registro " + I18n.t('errors.messages.taken'))
           expect(page).to have_content("Usuário institucional " + I18n.t('errors.messages.taken'))
-
           expect(current_path).to eq(admin_users_path)
         end
 
         it 'show errors invalid' do
           attributes = attributes_for(:user_invalid)
           fill_in id: 'user_cpf', with: attributes[:cpf]
+          fill_in id: 'user_alternative_email', with: attributes[:alternative_email]
           find('input[name="commit"]').click
           expect(page).to have_selector('div.alert.alert-danger',
                                         text: I18n.t('flash.actions.errors'))
-          expect(page).to have_content(I18n.t('errors.messages.invalid'), count: 1)
+          expect(page).to have_content("CPF " + I18n.t('errors.messages.invalid'))
+          expect(page).to have_content("Email Alternativo " + I18n.t('errors.messages.invalid'))
         end
 
       end
@@ -146,10 +147,12 @@ RSpec.feature "Admin::User", type: :feature do
       it 'show errors invalid' do
         attributes = attributes_for(:user_invalid)
         fill_in id: 'user_cpf', with: attributes[:cpf]
+        fill_in id: 'user_alternative_email', with: attributes[:alternative_email]
         find('input[name="commit"]').click
         expect(page).to have_selector('div.alert.alert-danger',
                                       text: I18n.t('flash.actions.errors'))
-        expect(page).to have_content(I18n.t('errors.messages.invalid'), count: 1)
+        expect(page).to have_content("CPF " + I18n.t('errors.messages.invalid'))
+        expect(page).to have_content("Email Alternativo " + I18n.t('errors.messages.invalid'))
       end
     end
   end

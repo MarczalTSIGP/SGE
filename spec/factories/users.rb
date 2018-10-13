@@ -13,6 +13,7 @@ FactoryBot.define do
   factory :user_admin, class: User do
     name "test admin"
     username "test_admin@utfpr.edu.br"
+    alternative_email "test_admin@email.com"
     cpf "16590783268"
     registration_number "123457"
     password "123456"
@@ -32,6 +33,7 @@ FactoryBot.define do
   factory :user_invalid, class: User do
     name "test1"
     username "test1@gmail.com"
+    alternative_email "aaaa"
     cpf "12345678901"
     registration_number "123457"
     password "123456"

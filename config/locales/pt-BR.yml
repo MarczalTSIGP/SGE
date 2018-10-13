@@ -17,6 +17,10 @@ pt-BR:
         m: '%{model} desativado com sucesso!'
         f: '%{model} desativada com sucesso!'
       errors: 'Existem dados incorretos!'
+      search:
+          empty:
+            m: 'Nenhum %{model} encontrado!'
+            f: 'Nenhum %{model} encontrado!'
   helpers:
     boolean:
       user:

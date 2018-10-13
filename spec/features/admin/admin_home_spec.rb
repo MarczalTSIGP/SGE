@@ -9,7 +9,7 @@ RSpec.feature "Admin::Home", type: :feature do
       sign_in user_acitve
       visit admin_root_path
       expect(page).to have_selector(:css, 'a[href="/admin"]')
-      expect(page).to have_text('Admin')
+      expect(page).to have_text('Dashboard')
     end
   end
 end
