@@ -2,11 +2,19 @@ database: &database
   db.username: postgres
   db.password: postgres
 
+mailer: &mailer
+  mailer.host: localhost
+  mailer.port: '3000'
+
 development:
   <<: *database
+  <<: *mailer
 
 test:
   <<: *database
+  <<: *mailer
 
 production:
   <<: *database
+  mailer.host: sge.gp.utfpr.edu.br
+  mailer.port: '80'

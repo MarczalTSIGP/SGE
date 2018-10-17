@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+git_source(:github) {|repo| "https://github.com/#{repo}.git"}
 
 ruby '2.5.1'
 
 # A ~ Z
-
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap', '~> 4.1.3'
 gem 'coffee-rails', '~> 4.2'
+gem 'devise'
 gem 'jquery-rails'
 gem 'pg', '0.20.0'
 gem 'puma', '~> 3.11'
@@ -18,12 +18,12 @@ gem 'simple_form'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
-
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'factory_bot_rails'
   gem 'fuubar'
   gem 'rspec-rails', '~> 3.7'
+  gem 'faker'
 end
 
 group :development do
