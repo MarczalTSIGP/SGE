@@ -1,25 +1,23 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  VALID_USERNAME_REGEX = /\A[a-z0-9\-_]+\z/i
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  before_validation :register_username
-  before_create :complete_email
-  after_update :complete_email
+  include PrettyCPF
 
   attr_writer :login
 
   devise :database_authenticatable, :rememberable, :trackable,
          :validatable, authentication_keys: [:login]
 
+  after_validation :username_errors_message
+  before_create :set_default_password # we will use ldap not password! it is necessary until configure ldap
 
   validates :name, :cpf, :registration_number, presence: true
-  validates :registration_number, :username, uniqueness: true
-  validates :cpf, length: {is: 11}, uniqueness: true
-  validates :username, presence: true, format: {with: VALID_USERNAME_REGEX}
-  validates :alternative_email,   allow_blank:  true, format: {with: VALID_EMAIL_REGEX}
-  validate :validate_cpf
+  validates :registration_number, :username, :cpf, uniqueness: { case_sensitive: false }
+  validates :alternative_email, allow_blank:  true, format: {with: Devise.email_regexp}
+  validates :cpf, cpf: :true
 
+  def username=(username)
+    super
+    self.email=(username + '@utfpr.edu.br')
+  end
 
   def login
     @login || self.username || self.email
@@ -37,7 +35,7 @@ class User < ApplicationRecord
 
   def self.search(search)
     if search
-      where("name LIKE ? OR email LIKE ? OR alternative_email LIKE ?",
+      where("unaccent(name) ILIKE ? OR email ILIKE ? OR alternative_email ILIKE ?",
             "%#{search}%", "%#{search}%", "%#{search}%").where(support: false).order('name ASC')
     else
       where(support: false).order('name ASC')
@@ -58,38 +56,14 @@ class User < ApplicationRecord
     false
   end
 
-  def validate_cpf
-    array_cpf = self.cpf.to_s.split(//)
-    unless (array_cpf[9] == (validation_calculation(array_cpf.take(9)).to_s)) and (array_cpf[10] == (validation_calculation(array_cpf.take(10)).to_s))
-      errors.add(:cpf, I18n.t('errors.messages.invalid'))
-    end
-  end
-
-  def validation_calculation(array_cpf)
-    soma = 0
-    multi = 0
-    array_cpf.each_with_index do |digit, index|
-      multi = digit.to_i * (array_cpf.length + 1 - index)
-      soma += multi
-    end
-    result = soma * 10 % 11
-    if result == 10
-      return 0
-    else
-      return result
-    end
-  end
-
-  def register_username
-    unless (self.username.nil?)
-      self.username = self.username.split('@').first
-    end
-  end
-
-  def complete_email
-    self.email = self.username + '@utfpr.edu.br'
+  def set_default_password
     self.password = 123456
   end
 
+  def username_errors_message
+    unless self.errors.messages[:email].nil?
+      self.errors.messages[:username] = self.errors.messages[:email];
+    end
+  end
 
 end

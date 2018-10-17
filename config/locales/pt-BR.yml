@@ -39,6 +39,9 @@ pt-BR:
         f: 'Todas %{model}'
       active: 'Ativar %{model}'
       disable: 'Desativar %{model}'
+  devise:
+    login:
+      title: 'Faça login na sua conta'
   activerecord:
     models:
       department:

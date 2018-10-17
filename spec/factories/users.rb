@@ -1,45 +1,21 @@
+require './lib/faker/cpf'
+
 FactoryBot.define do
   factory :user, class: User do
-    name "cde"
-    username "test@utfpr.edu.br"
-    cpf "49503267080"
-    alternative_email "teste@gmail.com"
-    registration_number "123456"
-    password "123456"
-    password_confirmation "123456"
-    active true
-    admin false
-  end
-  factory :user_admin, class: User do
-    name "test admin"
-    username "test_admin@utfpr.edu.br"
-    alternative_email "test_admin@email.com"
-    cpf "16590783268"
-    registration_number "123457"
-    password "123456"
-    password_confirmation "123456"
-    active true
-    admin true
-  end
-  factory :user_inactive, class: User do
-    name "abc"
-    username "test2@utfpr.edu.br"
-    cpf "99905883096"
-    registration_number "123458"
-    password "123456"
-    password_confirmation "123456"
-    active false
-  end
-  factory :user_invalid, class: User do
-    name "test1"
-    username "test1@gmail.com"
-    alternative_email "aaaa"
-    cpf "12345678901"
-    registration_number "123457"
-    password "123456"
-    password_confirmation "123456"
-    active false
-  end
+    name { 'nome' }
+    cpf { Faker::CPF.numeric }
+    sequence(:username) { |n| "username#{n}" }
+    sequence(:registration_number) { |n| "123456#{n}" }
+    alternative_email { "alternative@gmail.com" }
+    password { "123456" }
+    password_confirmation { "123456" }
 
+    trait :inactive do
+      active { false }
+    end
 
+    trait :admin do
+      active { true }
+    end
+  end
 end

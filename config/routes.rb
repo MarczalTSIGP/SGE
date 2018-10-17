@@ -14,7 +14,7 @@ Rails.application.routes.draw do
           as: 'users_search',
           constraints: {term: /[^\/]+/}
 
-      delete 'users/disable/:id', to: 'users#disable', as: 'user_disable'
+      put 'users/disable/:id', to: 'users#disable', as: 'user_disable'
       put 'users/active/:id', to: 'users#active', as: 'user_active'
     end
   end

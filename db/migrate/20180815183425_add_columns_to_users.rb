@@ -12,6 +12,5 @@ class AddColumnsToUsers < ActiveRecord::Migration[5.2]
     add_index :users, :cpf, unique: true
     add_index :users, :username, unique: true
     add_index :users, :registration_number, unique: true
-
   end
 end

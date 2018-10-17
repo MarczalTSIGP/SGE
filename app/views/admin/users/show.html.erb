@@ -6,8 +6,8 @@
     <p class="mb-4"><%= @user.email %></p>
     <p class="mb-4"><%= @user.alternative_email %></p>
     <p class="mb-4"><%= @user.registration_number %></p>
-    <p class="mb-4"><%= mask_cpf(@user.cpf) %></p>
-    <p class="mb-4"> <%= translate_active(@user) %></p>
+    <p class="mb-4"><%= @user.cpf.pretty %></p>
+    <p class="mb-4"><%= t("helpers.boolean.user.#{@user.active}") %></p>
 
   </div>
 </div>

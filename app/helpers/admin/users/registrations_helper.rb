@@ -1,7 +1,7 @@
 module Admin::Users::RegistrationsHelper
   def link_to_active_disable(user)
     if user.active?
-      link_to admin_user_disable_path(user), method: :delete,
+      link_to admin_user_disable_path(user), method: :put,
         class: 'icon',
         title: t('helpers.links.disable',
                  model: t('activerecord.models.user.one')),

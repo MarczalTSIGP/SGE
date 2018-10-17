@@ -10,7 +10,8 @@ require 'support/factory_bot'
 require 'support/shoulda'
 require 'support/simplecov'
 require 'support/database_cleaner'
-require 'support/user_spec_helper'
+require 'support/helpers/form'
+
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
@@ -18,9 +19,15 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
+
   config.include FactoryBot
+
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::ControllerHelpers, type: :view
   config.include Devise::Test::IntegrationHelpers, type: :feature
 
+  config.include Helpers::Form, type: :feature
+
+  config.filter_run focus: true
+  config.run_all_when_everything_filtered = true
 end
