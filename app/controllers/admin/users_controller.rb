@@ -3,7 +3,7 @@ class Admin::UsersController < Admin::BaseController
   before_action :set_user, only: [:active, :disable, :edit, :update, :show]
 
   def index
-    @users = User.search(params[:term])
+    @users = User.page(params[:page]).per(10).search(params[:term])
     if @users.empty?
       flash.now[:notice] =t('flash.actions.search.empty.m',
                             model: t('activerecord.models.user.one'))
