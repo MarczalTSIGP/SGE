@@ -34,8 +34,6 @@ class User < ApplicationRecord
   end
 
   def self.search(search)
-    printf("##############################################################")
-    print(search)
     if search
           where("unaccent(name) ILIKE unaccent(?) OR email ILIKE ? OR alternative_email ILIKE ?",
             "%#{search}%", "%#{search}%", "%#{search}%").where(support: false).order('name ASC')
