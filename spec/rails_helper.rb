@@ -11,6 +11,7 @@ require 'support/shoulda'
 require 'support/simplecov'
 require 'support/database_cleaner'
 require 'support/helpers/form'
+require 'support/devise_routing'
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -30,4 +31,10 @@ RSpec.configure do |config|
 
   config.filter_run focus: true
   config.run_all_when_everything_filtered = true
+
+  config.include DeviseRoutingHelpers, type: :routing
+
+  config.before(:each, type: :routing) do
+    mock_warden_for_route_tests!
+  end
 end

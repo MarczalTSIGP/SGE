@@ -2,7 +2,7 @@ class Admin::UsersController < Admin::BaseController
   before_action :set_user, only: [:active, :disable, :edit, :update, :show]
 
   def index
-    @users = User.search(params[:term])
+    @users = User.page(params[:page]).per(10).search(params[:term])
 
     return unless @users.empty?
 
