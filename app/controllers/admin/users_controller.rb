@@ -1,16 +1,16 @@
 class Admin::UsersController < Admin::BaseController
-
   before_action :set_user, only: [:active, :disable, :edit, :update, :show]
 
   def index
     @users = User.search(params[:term])
-    if @users.empty?
-      flash.now[:notice] =t('flash.actions.search.empty.m',
-                            model: t('activerecord.models.user.one'))
-    end
+
+    return unless @users.empty?
+
+    flash.now[:notice] = t('flash.actions.search.empty.m',
+                           model: t('activerecord.models.user.one'))
   end
 
-  def show;  end
+  def show; end
 
   def new
     @user = User.new
@@ -28,7 +28,7 @@ class Admin::UsersController < Admin::BaseController
     end
   end
 
-  def edit;  end
+  def edit; end
 
   def update
     if @user.update(users_params)
@@ -67,5 +67,4 @@ class Admin::UsersController < Admin::BaseController
                                  :alternative_email,
                                  :registration_number, :cpf, :active)
   end
-
 end

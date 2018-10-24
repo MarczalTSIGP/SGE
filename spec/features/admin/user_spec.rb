@@ -1,15 +1,13 @@
 require 'rails_helper'
 
-RSpec.feature "Admin::User", type: :feature do
-
-  let(:admin) {create(:user, :admin)}
+RSpec.feature 'Admin::User', type: :feature do
+  let(:admin) { create(:user, :admin) }
 
   before(:each) do
     login_as(admin, scope: :user)
   end
 
   describe '#create' do
-
     before(:each) do
       visit new_admin_user_path
     end
@@ -35,7 +33,7 @@ RSpec.feature "Admin::User", type: :feature do
         within('table tbody') do
           expect(page).to have_content(attributes[:name])
           expect(page).to have_content(attributes[:email])
-          expect(page).to have_content(I18n.t("helpers.boolean.user.true"))
+          expect(page).to have_content(I18n.t('helpers.boolean.user.true'))
         end
       end
     end
@@ -73,7 +71,7 @@ RSpec.feature "Admin::User", type: :feature do
   end
 
   describe '#update' do
-    let(:user) {create (:user)}
+    let(:user) { create(:user) }
 
     before(:each) do
       visit edit_admin_user_path(user)
@@ -109,7 +107,7 @@ RSpec.feature "Admin::User", type: :feature do
         within('table tbody') do
           expect(page).to have_content(attributes[:name])
           expect(page).to have_content(attributes[:email])
-          expect(page).to have_content(I18n.t("helpers.boolean.user.false"))
+          expect(page).to have_content(I18n.t('helpers.boolean.user.false'))
         end
       end
     end
@@ -179,17 +177,17 @@ RSpec.feature "Admin::User", type: :feature do
       visit admin_users_search_path(user.name)
       expect(page).to have_content(user.name)
       expect(page).to have_content(user.email)
-      expect(page).to have_content(I18n.t("helpers.boolean.user.true"))
+      expect(page).to have_content(I18n.t('helpers.boolean.user.true'))
       expect(current_path).to eq(admin_users_search_path(user.name))
     end
 
     it 'activating user' do
-      expect(page).to have_content(I18n.t("helpers.boolean.user.false"), 1)
+      expect(page).to have_content(I18n.t('helpers.boolean.user.false'), 1)
 
       active_link = "a[href='#{admin_user_active_path(user_inactive)}'][data-method='put']"
       find(active_link).click
 
-      expect(page).to have_content(I18n.t("helpers.boolean.user.true"), 2)
+      expect(page).to have_content(I18n.t('helpers.boolean.user.true'), 2)
       expect(page).to have_selector('div.alert.alert-success',
                                     text: I18n.t('flash.actions.active.m',
                                                  model: I18n.t('activerecord.models.user.one')))
@@ -198,12 +196,12 @@ RSpec.feature "Admin::User", type: :feature do
     end
 
     it 'disable user' do
-      expect(page).to have_content(I18n.t("helpers.boolean.user.false"), 1)
+      expect(page).to have_content(I18n.t('helpers.boolean.user.false'), 1)
 
       disable_link = "a[href='#{admin_user_disable_path(user)}'][data-method='put']"
       find(disable_link).click
 
-      expect(page).to have_content(I18n.t("helpers.boolean.user.false"), 2)
+      expect(page).to have_content(I18n.t('helpers.boolean.user.false'), 2)
       expect(page).to have_selector('div.alert.alert-success',
                                     text: I18n.t('flash.actions.disable.m',
                                                  model: I18n.t('activerecord.models.user.one')))
@@ -213,7 +211,7 @@ RSpec.feature "Admin::User", type: :feature do
   end
 
   describe '#show' do
-    let!(:user) {create(:user)}
+    let!(:user) { create(:user) }
 
     before(:each) do
       visit admin_user_path(user)
@@ -230,4 +228,3 @@ RSpec.feature "Admin::User", type: :feature do
     end
   end
 end
-

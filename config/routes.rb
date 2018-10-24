@@ -1,18 +1,17 @@
 Rails.application.routes.draw do
-
   root to: 'home#index'
 
   #========================================
   # Admin area to user
   #========================================
-  devise_for :users, controllers: {sessions: 'admin/users/sessions'}
+  devise_for :users, controllers: { sessions: 'admin/users/sessions' }
   authenticate :user do
     namespace :admin do
       root to: 'home#index'
-      resources :users, except: :destroy,  constraints: { id: /[0-9]+/}
+      resources :users, except: :destroy, constraints: { id: /[0-9]+/ }
       get 'users/search/(:term)', to: 'users#index',
-          as: 'users_search',
-          constraints: {term: /[^\/]+/}
+                                  as: 'users_search',
+                                  constraints: { term: %r{[^/]+} }
 
       put 'users/disable/:id', to: 'users#disable', as: 'user_disable'
       put 'users/active/:id', to: 'users#active', as: 'user_active'

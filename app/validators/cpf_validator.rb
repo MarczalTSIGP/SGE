@@ -1,19 +1,19 @@
 class CpfValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
-    unless is_valid?(value)
-      record.errors[attribute] << (options[:message] || I18n.t('errors.messages.invalid'))
-    end
+    return if valid?(value)
+
+    record.errors[attribute] << (options[:message] || I18n.t('errors.messages.invalid'))
   end
 
-  def is_valid?(cpf)
-    digits = cpf.to_s.split(//).map { |s| s.to_i }
-    digit_9 = digits[9]
-    digit_10 = digits[10]
-    first_9_digits = digits.take(9)
-    first_10_digits = digits.take(10)
+  def valid?(cpf)
+    digits = cpf.to_s.split(//).map(&:to_i)
+    digit_nine = digits[9]
+    digit_ten = digits[10]
+    first_nine_digits = digits.take(9)
+    first_ten_digits = digits.take(10)
 
-    return digit_9 == calc_cpf_digit(first_9_digits) &&
-           digit_10 == calc_cpf_digit(first_10_digits)
+    digit_nine == calc_cpf_digit(first_nine_digits) &&
+      digit_ten == calc_cpf_digit(first_ten_digits)
   end
 
   def calc_cpf_digit(digits)
@@ -24,10 +24,9 @@ class CpfValidator < ActiveModel::EachValidator
       soma += multi
     end
     result = soma * 10 % 11
-    if result == 10
-      return 0
-    else
-      return result
-    end
+
+    return 0 if result == 10
+
+    result
   end
 end
