@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   root to: 'home#index'
   concern :paginatable do
     get '(page/:page)', action: :index, on: :collection, as: ''
@@ -22,8 +23,18 @@ Rails.application.routes.draw do
     end
   end
   #========================================
+  #========================================
+  # Participant area to user
+  #========================================
+  devise_for :clients, path: 'participants',
+             controllers: { passwords: 'participants/clients/passwords',
+                            registrations: 'participants/clients/registrations',
+                            sessions: 'participants/clients/sessions' }
 
-  namespace :participants do
-    root to: 'home#index'
+  authenticate :client do
+    namespace :participants do
+      root to: 'home#index'
+
+    end
   end
 end

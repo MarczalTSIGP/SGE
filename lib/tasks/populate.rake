@@ -26,6 +26,13 @@ namespace :db do
                    admin: bol.sample, active: bol.sample,
                    password: '123456',
                    support: false)
+
+      Client.create(name: Faker::Name.name,
+                    ra: rn,
+                    email: email,
+                    cpf: cpf,
+                    password: '123456' ,
+                    active: bol.sample)
     end
   end
 end

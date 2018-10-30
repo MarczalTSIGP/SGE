@@ -42,6 +42,15 @@ pt-BR:
   devise:
     login:
       title: 'Faça login na sua conta'
+    registration:
+      title: 'Criar Conta'
+      password_character_length: 'caracteres no mínimo'
+      edit: 'Editar Perfil'
+      current_password: 'Precisamos da sua senha atual para confirmar suas alterações'
+    links:
+      login: 'Entrar'
+      registration: 'Criar Conta'
+      forgot_your_password: 'Esqueceu sua senha?'
   activerecord:
     models:
       department:
@@ -50,6 +59,9 @@ pt-BR:
       user:
         one: 'Usuário'
         other: 'Usuários'
+      client:
+          one: 'Cliente'
+          other: 'Clientes'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
@@ -57,6 +69,14 @@ pt-BR:
         description: 'Descrição'
         active: 'Ativo'
         email: 'Email'
+      client:
+        alternative_email: 'Email Alternativo'
+        cpf: 'CPF'
+        name: 'Nome'
+        password: 'Senha'
+        password_confirmation: 'Confirmação de senha'
+        ra: 'Registro Acadêmico'
+        current_password: 'Senha Atual'
       department:
         initials: 'Sigla'
         local: 'Local'
