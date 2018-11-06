@@ -32,10 +32,9 @@ checks:
     config:
       threshold: # language-specific defaults. an override will affect all languages.
 
-engines:
+plugins:
   rubocop:
     enabled: true
-    channel: rubocop-0-54
     config:
       file: ".rubocop.yml"
   brakeman:
