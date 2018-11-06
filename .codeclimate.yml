@@ -32,7 +32,7 @@ checks:
     config:
       threshold: # language-specific defaults. an override will affect all languages.
 
-plugins:
+engines:
   rubocop:
     enabled: true
     channel: rubocop-0-54
