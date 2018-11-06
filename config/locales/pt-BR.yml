@@ -39,6 +39,13 @@ pt-BR:
         f: 'Todas %{model}'
       active: 'Ativar %{model}'
       disable: 'Desativar %{model}'
+    buttons:
+      log_in: 'Entrar'
+      proceed: 'Prosseguir'
+      change_my_password: 'Mudar minha senha'
+      commit: 'Entrar'
+      register: 'Cadastrar'
+      update: 'Atualizar'
   devise:
     login:
       title: 'Faça login na sua conta'
@@ -51,6 +58,16 @@ pt-BR:
       login: 'Entrar'
       registration: 'Criar Conta'
       forgot_your_password: 'Esqueceu sua senha?'
+    passwords:
+      new:
+        title: 'Esqueceu sua senha?'
+      edit:
+        title: 'Mude sua senha'
+  enums:
+    type:
+      server: 'Servidor'
+      external: 'Externo'
+      academic: 'Acadêmico'
   activerecord:
     models:
       department:
@@ -72,6 +89,7 @@ pt-BR:
       client:
         alternative_email: 'Email Alternativo'
         cpf: 'CPF'
+        kind: 'Tipo'
         name: 'Nome'
         password: 'Senha'
         password_confirmation: 'Confirmação de senha'

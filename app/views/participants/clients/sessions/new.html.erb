@@ -8,7 +8,7 @@
       <%= f.input :remember_me, as: :checkbox_tabler if devise_mapping.rememberable? %>
 
       <div class="form-footer">
-        <%= f.button :submit, 'Entrar', class: 'btn btn-primary btn-block' %>
+        <%= f.button :submit, t('helpers.buttons.commit'), class: 'btn btn-primary btn-block' %>
       </div>
     <% end %>
 

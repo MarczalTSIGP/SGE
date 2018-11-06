@@ -31,7 +31,7 @@ namespace :db do
                     ra: rn,
                     email: email,
                     cpf: cpf,
-                    password: '123456' ,
+                    password: '123456',
                     active: bol.sample)
     end
   end
