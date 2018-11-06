@@ -1,0 +1,70 @@
+<% provide(:head_title, t('activerecord.models.user.other')) %>
+<% provide(:page_title, t('activerecord.models.user.other')) %>
+
+<div class="row mb-4">
+
+  <div class="col-lg-3">
+    <div class="input-icon my-3 my-lg-0">
+      <%= text_field_tag :search, params[:term], id: 'users_search_input',
+                         data: {url: admin_users_search_path},
+                         class: 'form-control',
+                         placeholder: 'Search...' %>
+      <div class="input-icon-addon">
+        <i class="fe fe-search"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-9 text-right">
+    <%= link_to new_admin_user_path,
+                class: 'btn btn-secondary',
+                title: t('helpers.links.new.m', model: t('activerecord.models.user.one')),
+                data: {toggle: 'tooltip', placement: 'top'} do %>
+      <i class="fe fe-plus"></i>
+    <% end %>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-data card-table table-vcenter text-nowrap">
+    <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.user.name') %></th>
+      <th><%= t('activerecord.attributes.user.email') %></th>
+      <th><%= t('activerecord.attributes.user.active') %></th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td><%= t("helpers.boolean.user.#{user.active}") %></td>
+        <td>
+          <%= link_to admin_user_path(user),
+                      method: :get, class: 'icon',
+                      title: t('helpers.links.show.m',
+                               model: t('activerecord.models.user.one')),
+                      data: {toggle: 'tooltip', placement: 'top'} do %>
+            <i class="fe fe-eye"></i>
+          <% end %>
+          <%= link_to_active_disable(user) %>
+          <%= link_to edit_admin_user_path(user),
+                      method: :get, class: 'icon',
+                      title: t('helpers.links.edit',
+                               model: t('activerecord.models.user.one')),
+                      data: {toggle: 'tooltip', placement: 'top'} do %>
+            <i class="fe fe-edit"></i>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="d-flex justify-content-center">
+  <%= paginate @users %>
+</div>

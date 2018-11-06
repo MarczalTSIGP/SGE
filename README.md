@@ -1,3 +1,7 @@
+[![Maintainability](https://api.codeclimate.com/v1/badges/f5b22054f71b4908acbb/maintainability)](https://codeclimate.com/github/utfpr-gp-tsi/SGE/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/f5b22054f71b4908acbb/test_coverage)](https://codeclimate.com/github/utfpr-gp-tsi/SGE/test_coverage)
+[![Build Status](https://travis-ci.org/utfpr-gp-tsi/SGE.svg?branch=master)](https://travis-ci.org/utfpr-gp-tsi/SGE)
+
 ## SGE
  **Event Management System with control of frequency, certificates and declarations**
 

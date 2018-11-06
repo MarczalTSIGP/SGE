@@ -3,13 +3,21 @@
     <div class="row align-items-center">
       <div class="col-lg order-lg-first">
         <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
+
           <li class="nav-item">
-            <%= link_to admin_root_path, class: 'nav-link active' do %>
-              <i class="fe fe-home"></i> Home</a>
-              <% end %>
+            <%= link_to admin_root_path, class: 'nav-link' do %>
+              <i class="fe fe-home"></i> Home
+            <% end %>
           </li>
+          <li class="nav-item">
+            <%= link_to admin_users_path,
+                        class: 'dropdown-item' do %>
+              <%= t('activerecord.models.user.other') %>
+            <% end %>
+          </li>
+
         </ul>
       </div>
     </div>
-  </div>
+  </div> <!-- .container -->
 </div>

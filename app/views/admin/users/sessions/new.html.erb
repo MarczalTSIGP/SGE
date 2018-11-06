@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="card-body p-6">
+    <div class="card-title"><%= t('devise.login.title') %></div>
+
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <%= f.input :login, required: false, autofocus: true, label_html: {class: 'form-label'} %>
+      <%= f.input :password, required: false, label_html: {class: 'form-label'} %>
+      <%= f.input :remember_me, as: :checkbox_tabler if devise_mapping.rememberable? %>
+
+      <div class="form-footer">
+        <%= f.button :submit, 'Entrar', class: 'btn btn-primary btn-block' %>
+      </div>
+    <% end %>
+
+  </div>
+</div>

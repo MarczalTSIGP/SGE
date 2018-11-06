@@ -1,20 +1,75 @@
 pt-BR:
   flash:
-    messages:
-      update: '%{model} atualizado com sucesso'
+    actions:
+      update:
+        m: '%{model} atualizado com sucesso!'
+        f: '%{model} atualizada com sucesso!'
+      create:
+        m: '%{model} criado com sucesso!'
+        f: '%{model} criada com sucesso!'
+      destroy:
+        m: '%{model} removido com sucesso!'
+        f: '%{model} removida com sucesso!'
+      active:
+        m: '%{model} ativado com sucesso!'
+        f: '%{model} ativado com sucesso!'
+      disable:
+        m: '%{model} desativado com sucesso!'
+        f: '%{model} desativada com sucesso!'
+      errors: 'Existem dados incorretos!'
+      search:
+          empty:
+            m: 'Nenhum %{model} encontrado!'
+            f: 'Nenhum %{model} encontrado!'
+  helpers:
+    boolean:
+      user:
+        'true': 'Ativo'
+        'false': 'Desativo'
+    links:
+      new:
+        m: 'Novo %{model}'
+        f: 'Nova %{model}'
+      edit: 'Editar %{model}'
+      show:
+         m: 'Visualizar %{model}'
+         f: 'Visualizar %{model}'
+      all:
+        m: 'Todos %{model}'
+        f: 'Todas %{model}'
+      active: 'Ativar %{model}'
+      disable: 'Desativar %{model}'
+  devise:
+    login:
+      title: 'Faça login na sua conta'
   activerecord:
     models:
       department:
-        one: "Departamento"
-        other: "Departamentos"
+        one: 'Departamento'
+        other: 'Departamentos'
+      user:
+        one: 'Usuário'
+        other: 'Usuários'
     attributes:
       attribute_commons: &commons
-        name: "Nome"
-        phone: "Telefone"
-        description: "Descrição"
+        name: 'Nome'
+        phone: 'Telefone'
+        description: 'Descrição'
+        active: 'Ativo'
+        email: 'Email'
       department:
-        initials: "Sigla"
-        local: "Local"
-        email: "Email do Departamento"
-        responsible: "Responsável pelo Departamento"
+        initials: 'Sigla'
+        local: 'Local'
+        email: 'Email do Departamento'
+        responsible: 'Responsável pelo Departamento'
+      user:
         <<: *commons
+        username: 'Usuário institucional'
+        active: 'Ativo'
+        cpf: 'CPF'
+        registration_number: 'Número de Registro'
+        alternative_email: 'Email Alternativo'
+        password: 'Senha'
+        password_confirmation: 'Confirmação de senha'
+        remember_me: 'Lembre-me'
+

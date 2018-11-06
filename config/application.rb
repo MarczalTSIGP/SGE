@@ -18,9 +18,10 @@ module Sge
     config.time_zone = 'Brasilia'
 
     config.i18n.enforce_available_locales = false
-    config.i18n.available_locales = ["pt-BR"]
+    config.i18n.available_locales = ['pt-BR']
     config.i18n.default_locale = :'pt-BR'
+    config.time_zone = 'Brasilia'
 
-    ENV.update YAML.load_file('config/application.yml')[Rails.env] rescue {}
+    ENV.update YAML.load_file('config/application.yml')[Rails.env]
   end
 end

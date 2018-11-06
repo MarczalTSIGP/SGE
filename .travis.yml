@@ -1,0 +1,21 @@
+env:
+  global:
+    - CC_TEST_REPORTER_ID=58107d2379a29ee6287ba36f9b3c5698ddb390bd9b4c5258508a4faa4a5d6fd3
+addons:
+  postgresql: 9.6
+before_script:
+  - cp config/database.yml.travis config/database.yml
+  - cp config/application.yml.travis config/application.yml
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+dist: trusty
+language: ruby
+rvm:
+  - 2.5.1
+script:
+  - bundle exec rails db:migrate RAILS_ENV=test
+  - bundle exec rspec
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

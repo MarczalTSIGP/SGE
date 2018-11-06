@@ -1,6 +1,3 @@
 class Participants::HomeController < Participants::BaseController
-
-  def index
-  end
-
+  def index; end
 end
