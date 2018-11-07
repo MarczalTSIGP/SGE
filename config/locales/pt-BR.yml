@@ -63,6 +63,15 @@ pt-BR:
         title: 'Esqueceu sua senha?'
       edit:
         title: 'Mude sua senha'
+    mailer:
+      hello: 'Olá'
+      reset_password:
+        header: 'Alguém solicitou um link para alterar sua senha. Você pode fazer isso através do link abaixo.'
+        link: 'Trocar minha senha'
+        ignore: 'Se você não solicitou isso, ignore este e-mail.'
+        info: 'Sua senha não mudará até que você acesse o link acima e crie uma nova senha.'
+        change: 'Estamos entrando em contato para notificá-lo de que sua senha foi alterada.'
+
   enums:
     type:
       server: 'Servidor'
@@ -110,4 +119,3 @@ pt-BR:
         password: 'Senha'
         password_confirmation: 'Confirmação de senha'
         remember_me: 'Lembre-me'
-
