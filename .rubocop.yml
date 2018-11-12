@@ -78,6 +78,8 @@ Style/FormatString:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+    - 'lib/tasks/populate.rake'
+    - 'config/routes.rb'
 
 Naming/VariableNumber:
   EnforcedStyle: non_integer
