@@ -10,8 +10,11 @@ require 'support/factory_bot'
 require 'support/shoulda'
 require 'support/simplecov'
 require 'support/database_cleaner'
-require 'support/helpers/form'
 require 'support/devise_routing'
+require 'support/helpers/form'
+require 'support/helpers/page'
+require 'support/matchers/have_contents'
+require 'support/matchers/have_flash'
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -28,6 +31,7 @@ RSpec.configure do |config|
   config.include Devise::Test::IntegrationHelpers, type: :feature
 
   config.include Helpers::Form, type: :feature
+  config.include Helpers::Page, type: :feature
 
   config.filter_run focus: true
   config.run_all_when_everything_filtered = true

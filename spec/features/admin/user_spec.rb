@@ -1,39 +1,38 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin::User', type: :feature do
+RSpec.describe 'Admin::User', type: :feature do
   let(:admin) { create(:user, :admin) }
+  let(:model_name) { I18n.t('activerecord.models.user.one') }
+  let(:model_plural_name) { I18n.t('activerecord.models.user.other') }
 
-  before(:each) do
+  before do
     login_as(admin, scope: :user)
   end
 
   describe '#create' do
-    before(:each) do
+    before do
       visit new_admin_user_path
     end
 
     context 'with valid fields' do
+      let(:params) { attributes_for_form(:user) }
+      let(:index_table_data) do
+        [params[:user_name], "#{params[:user_username]}@utfpr.edu.br",
+         I18n.t('helpers.boolean.user.true')]
+      end
+
       it 'create recommendation' do
-        attributes = attributes_for(:user)
+        fill_and_submit_form('.simple_form', params) do
+          check('user_active')
+        end
 
-        fill_in id: 'user_name', with: attributes[:name]
-        fill_in id: 'user_username', with: attributes[:username]
-        fill_in id: 'user_registration_number', with: attributes[:registration_number]
-        fill_in id: 'user_cpf', with: attributes[:cpf]
-        check('user_active')
-
-        submit_form
-
-        expect(current_path).to eq(admin_users_path)
-        expect(page).to have_text(I18n.t('activerecord.models.user.other'))
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.create.m',
-                                                   model: I18n.t('activerecord.models.user.one')))
+        expect(page).to have_current_path(admin_users_path)
+        expect(page).to have_text(model_plural_name)
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.create.m',
+                                                          model: model_name))
 
         within('table tbody') do
-          expect(page).to have_content(attributes[:name])
-          expect(page).to have_content(attributes[:email])
-          expect(page).to have_content(I18n.t('helpers.boolean.user.true'))
+          expect(page).to have_contents(index_table_data)
         end
       end
     end
@@ -41,8 +40,8 @@ RSpec.feature 'Admin::User', type: :feature do
     context 'with invalid fields' do
       it 'show blank errors' do
         submit_form
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
         expect(page).to have_content(I18n.t('errors.messages.blank'), count: 3)
       end
 
@@ -52,10 +51,9 @@ RSpec.feature 'Admin::User', type: :feature do
         fill_in id: 'user_cpf', with: admin.cpf
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash('danger', text: I18n.t('flash.actions.errors'))
         expect(page).to have_content(I18n.t('errors.messages.taken'), count: 3)
-        expect(current_path).to eq(admin_users_path)
+        expect(page).to have_current_path(admin_users_path)
       end
 
       it 'show invalid errors' do
@@ -63,8 +61,7 @@ RSpec.feature 'Admin::User', type: :feature do
         fill_in id: 'user_alternative_email', with: 'adsf@adsf.asd@'
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
         expect(page).to have_content(I18n.t('errors.messages.invalid'), count: 3)
       end
     end
@@ -73,11 +70,11 @@ RSpec.feature 'Admin::User', type: :feature do
   describe '#update' do
     let(:user) { create(:user) }
 
-    before(:each) do
+    before do
       visit edit_admin_user_path(user)
     end
 
-    context 'fill fields' do
+    context 'with fields filled' do
       it 'with correct values' do
         expect(page).to have_field 'user_name', with: user.name
         expect(page).to have_field 'user_username', with: user.username
@@ -87,27 +84,23 @@ RSpec.feature 'Admin::User', type: :feature do
     end
 
     context 'with valid fields' do
+      let(:params) { attributes_for_form(:user) }
+      let(:index_table_data) do
+        [params[:user_name], "#{params[:user_username]}@utfpr.edu.br",
+         I18n.t('helpers.boolean.user.true')]
+      end
+
       it 'update recommendation' do
-        attributes = attributes_for(:user)
+        fill_and_submit_form('.simple_form', params) do
+          uncheck('user_active')
+        end
 
-        fill_in id: 'user_name', with: attributes[:name]
-        fill_in id: 'user_username', with: attributes[:username]
-        fill_in id: 'user_alternative_email', with: attributes[:alternative_email]
-        fill_in id: 'user_registration_number', with: attributes[:registration_number]
-        fill_in id: 'user_cpf', with: attributes[:cpf]
-        uncheck('user_active')
-        submit_form
-
-        expect(current_path).to eq(admin_users_path)
-
-        expect(page).to have_selector('div.alert.alert-success',
-                                      text: I18n.t('flash.actions.update.m',
-                                                   model: I18n.t('activerecord.models.user.one')))
+        expect(page).to have_current_path(admin_users_path)
+        expect(page).to have_flash(:success, text: I18n.t('flash.actions.update.m',
+                                                          model: model_name))
 
         within('table tbody') do
-          expect(page).to have_content(attributes[:name])
-          expect(page).to have_content(attributes[:email])
-          expect(page).to have_content(I18n.t('helpers.boolean.user.false'))
+          expect(page).to have_contents(index_table_data)
         end
       end
     end
@@ -121,8 +114,8 @@ RSpec.feature 'Admin::User', type: :feature do
         fill_in id: 'user_cpf', with: ''
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_current_path(admin_user_path(user))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
         expect(page).to have_content(I18n.t('errors.messages.blank'), count: 3)
       end
 
@@ -132,11 +125,9 @@ RSpec.feature 'Admin::User', type: :feature do
         fill_in id: 'user_registration_number', with: admin.registration_number
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
-
+        expect(page).to have_current_path(admin_user_path(user))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
         expect(page).to have_content(I18n.t('errors.messages.taken'), count: 3)
-        expect(current_path).to eq(admin_user_path(user))
       end
 
       it 'show invalid errors' do
@@ -144,8 +135,7 @@ RSpec.feature 'Admin::User', type: :feature do
         fill_in id: 'user_alternative_email', with: '@Asdf@ASD'
         submit_form
 
-        expect(page).to have_selector('div.alert.alert-danger',
-                                      text: I18n.t('flash.actions.errors'))
+        expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
         expect(page).to have_content(I18n.t('errors.messages.invalid'), count: 2)
       end
     end
@@ -155,7 +145,7 @@ RSpec.feature 'Admin::User', type: :feature do
     let!(:user) { create(:user) }
     let!(:user_inactive) { create(:user, :inactive) }
 
-    before(:each) do
+    before do
       visit admin_users_path
     end
 
@@ -175,45 +165,40 @@ RSpec.feature 'Admin::User', type: :feature do
 
     it 'search users' do
       visit admin_users_search_path(user.name)
+
       expect(page).to have_content(user.name)
       expect(page).to have_content(user.email)
       expect(page).to have_content(I18n.t('helpers.boolean.user.true'))
-      expect(current_path).to eq(admin_users_search_path(user.name))
+      expect(page).to have_current_path(admin_users_search_path(user.name))
     end
 
     it 'activating user' do
       expect(page).to have_content(I18n.t('helpers.boolean.user.false'), 1)
 
-      active_link = "a[href='#{admin_user_active_path(user_inactive)}'][data-method='put']"
-      find(active_link).click
+      click_on_link(admin_user_active_path(user_inactive), method: :put)
 
+      expect(page).to have_current_path(admin_users_path)
       expect(page).to have_content(I18n.t('helpers.boolean.user.true'), 2)
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.active.m',
-                                                 model: I18n.t('activerecord.models.user.one')))
-
-      expect(current_path).to eq(admin_users_path)
+      expect(page).to have_flash(:success, text: I18n.t('flash.actions.active.m',
+                                                        model: model_name))
     end
 
     it 'disable user' do
       expect(page).to have_content(I18n.t('helpers.boolean.user.false'), 1)
 
-      disable_link = "a[href='#{admin_user_disable_path(user)}'][data-method='put']"
-      find(disable_link).click
+      click_on_link(admin_user_disable_path(user), method: :put)
 
+      expect(page).to have_current_path(admin_users_path)
       expect(page).to have_content(I18n.t('helpers.boolean.user.false'), 2)
-      expect(page).to have_selector('div.alert.alert-success',
-                                    text: I18n.t('flash.actions.disable.m',
-                                                 model: I18n.t('activerecord.models.user.one')))
-
-      expect(current_path).to eq(admin_users_path)
+      expect(page).to have_flash(:success, text: I18n.t('flash.actions.disable.m',
+                                                        model: model_name))
     end
   end
 
   describe '#show' do
     let!(:user) { create(:user) }
 
-    before(:each) do
+    before do
       visit admin_user_path(user)
     end
 
