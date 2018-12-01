@@ -10,6 +10,7 @@ AllCops:
     - 'railties/test/fixtures/tmp/*/'
     - 'db/schema.rb'
     - 'db/migrate/20180815183209_devise_create_users.rb'
+    - 'db/migrate/20181029220807_devise_create_clients.rb'
     - 'config/initializers/simple_form.rb'
     - 'config/initializers/simple_form_bootstrap.rb'
     - 'config/initializers/devise.rb'
@@ -44,6 +45,7 @@ Metrics/MethodLength:
 Metrics/AbcSize:
   Exclude:
     - 'lib/faker/cpf.rb'
+    - 'app/models/concerns/login_authentication.rb'
 
 Style/MixinUsage:
   Exclude:
@@ -78,6 +80,8 @@ Style/FormatString:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+    - 'lib/tasks/populate.rake'
+    - 'config/routes.rb'
 
 Naming/VariableNumber:
   EnforcedStyle: non_integer

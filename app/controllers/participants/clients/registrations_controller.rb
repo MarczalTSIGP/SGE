@@ -17,6 +17,10 @@ class Participants::Clients::RegistrationsController < Devise::RegistrationsCont
     devise_parameter_sanitizer.permit(:account_update, keys: attributes)
   end
 
+  def after_update_path_for(resource)
+    participants_root_path(resource)
+  end
+
   def attributes
     [:name, :ra, :cpf, :alternative_email, :email, :password,
      :password_confirmation,

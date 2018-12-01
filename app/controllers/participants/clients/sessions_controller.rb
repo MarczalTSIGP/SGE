@@ -2,16 +2,6 @@ class Participants::Clients::SessionsController < Devise::SessionsController
   layout 'participants/clients/layouts/application'
 
   # POST /resource/sign_in
-  def create
-    super do |resource|
-      unless resource.active?
-        sign_out
-        flash[:notice] = I18n.t('devise.failure.disabled')
-        redirect_to new_client_session_path
-        return
-      end
-    end
-  end
 
   protected
 

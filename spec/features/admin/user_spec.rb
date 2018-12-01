@@ -32,6 +32,7 @@ RSpec.feature 'Admin::User', type: :feature do
 
         within('table tbody') do
           expect(page).to have_content(attributes[:name])
+          expect(page).to have_content(attributes[:name])
           expect(page).to have_content(attributes[:email])
           expect(page).to have_content(I18n.t('helpers.boolean.user.true'))
         end
