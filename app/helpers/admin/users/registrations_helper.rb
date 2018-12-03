@@ -15,7 +15,8 @@ module Admin::Users::RegistrationsHelper
             title: t("helpers.links.#{status}",
                      model: t('activerecord.models.user.one')),
             data: { toggle: 'tooltip', placement: 'top' } do
-      raw("<i class='fe fe-#{icon}'></i>")
+
+      content_tag(:i, '', class: "fe fe-#{icon}")
     end
   end
 end

@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.feature 'Admin::User::UsersSessions', type: :feature do
+RSpec.describe 'Admin::User::UsersSessions', type: :feature do
   let!(:user) { create(:user) }
   let!(:user_inactive) { create(:user, :inactive) }
 
   describe '#create' do
-    before(:each) do
+    before do
       visit new_user_session_path
     end
 
@@ -16,7 +16,7 @@ RSpec.feature 'Admin::User::UsersSessions', type: :feature do
 
         submit_form
 
-        expect(current_path).to eq(admin_root_path)
+        expect(page).to have_current_path(admin_root_path)
       end
 
       it 'login by email' do
@@ -25,7 +25,7 @@ RSpec.feature 'Admin::User::UsersSessions', type: :feature do
 
         submit_form
 
-        expect(current_path).to eq(admin_root_path)
+        expect(page).to have_current_path(admin_root_path)
       end
     end
 
@@ -38,7 +38,7 @@ RSpec.feature 'Admin::User::UsersSessions', type: :feature do
 
         expect(page).to have_text(I18n.t('devise.failure.invalid',
                                          authentication_keys: 'Login'))
-        expect(current_path).to eq(new_user_session_path)
+        expect(page).to have_current_path(new_user_session_path)
       end
 
       it 'not login by email' do
@@ -48,7 +48,7 @@ RSpec.feature 'Admin::User::UsersSessions', type: :feature do
         submit_form
 
         expect(page).to have_text(I18n.t('devise.login.title'))
-        expect(current_path).to eq(new_user_session_path)
+        expect(page).to have_current_path(new_user_session_path)
       end
     end
 
@@ -60,7 +60,7 @@ RSpec.feature 'Admin::User::UsersSessions', type: :feature do
         submit_form
 
         expect(page).to have_text(I18n.t('devise.failure.locked'))
-        expect(current_path).to eq(new_user_session_path)
+        expect(page).to have_current_path(new_user_session_path)
       end
     end
   end
