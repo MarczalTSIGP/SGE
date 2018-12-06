@@ -22,7 +22,7 @@ class Client < ApplicationRecord
 
   def self.human_kinds
     hash = {}
-    kinds.keys.each { |key| hash[I18n.t("enums.type.#{key}")] = key }
+    kinds.each_key { |key| hash[I18n.t("enums.type.#{key}")] = key }
     hash
   end
 end

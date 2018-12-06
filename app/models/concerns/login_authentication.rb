@@ -18,9 +18,8 @@ module LoginAuthentication
       column = @arguable_opts[:include]
       column = column.join("''")
       if (login = conditions.delete(:login))
-        where(conditions.to_h).where(['lower(' + column + ') = :value OR lower(email) = :value',
-                                      { value: login.downcase }]).first
-      elsif conditions.haskey?(column) || conditions.haskey?(:email) || where(conditions.to_h).first
+        where(['lower(' + column + ') = :value OR lower(email) = :value',
+               { value: login.downcase }]).first
       end
     end
   end

@@ -1,8 +1,6 @@
 class Participants::Clients::SessionsController < Devise::SessionsController
   layout 'participants/clients/layouts/application'
 
-  # POST /resource/sign_in
-
   protected
 
   def after_sign_out_path_for(_resource_or_scope)
