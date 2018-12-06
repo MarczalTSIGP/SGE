@@ -32,10 +32,8 @@
 /config/application.yml
 
 coverage
-<<<<<<< HEAD
 
-.idea
 .idea/inspectionProfiles
-=======
 .idea/*
->>>>>>> Informações adiocionais e alteração das informações adicionais/ Login pelo username
+
+.ruby-gemset

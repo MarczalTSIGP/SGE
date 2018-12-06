@@ -38,6 +38,7 @@ group :development do
 
   gem 'brakeman', require: false
   gem 'rubocop', require: false
+  gem 'rubocop-rspec', require: false
 end
 
 group :test do
