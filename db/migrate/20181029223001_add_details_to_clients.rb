@@ -7,6 +7,6 @@ class AddDetailsToClients < ActiveRecord::Migration[5.2]
       t.string :alternative_email
     end
     add_index :clients, :cpf, unique: true
-    add_index :clients, :ra, unique: truel
+    add_index :clients, :ra, unique: true
   end
 end
