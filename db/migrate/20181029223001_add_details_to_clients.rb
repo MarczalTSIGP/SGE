@@ -1,10 +1,12 @@
 class AddDetailsToClients < ActiveRecord::Migration[5.2]
   def change
-    add_column :clients, :cpf, :string
-    add_column :clients, :name, :string
-    add_column :clients, :ra, :integer
-    add_column :clients, :alternative_email, :string
+    change_table :clients, bulk: true do |t|
+      t.string :cpf
+      t.string :name
+      t.integer :ra
+      t.string :alternative_email
+    end
     add_index :clients, :cpf, unique: true
-    add_index :clients, :ra, unique: true
+    add_index :clients, :ra, unique: truel
   end
 end

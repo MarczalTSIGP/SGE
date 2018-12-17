@@ -1,9 +1,10 @@
 require 'rails_helper'
 
-RSpec.feature 'Participants::Client::ClientsRegistrations', type: :feature do
+RSpec.describe 'Participants::Client::ClientsRegistrations', type: :feature do
   describe '#create' do
     let(:client) { create(:client) }
-    before(:each) do
+
+    before do
       visit new_client_registration_path
     end
 
@@ -18,7 +19,7 @@ RSpec.feature 'Participants::Client::ClientsRegistrations', type: :feature do
         fill_in id: 'client_password_confirmation', with: client.password_confirmation
         submit_form
 
-        expect(current_path).to eq(participants_root_path)
+        expect(page).to have_current_path(participants_root_path)
       end
 
       it 'external' do
@@ -31,7 +32,7 @@ RSpec.feature 'Participants::Client::ClientsRegistrations', type: :feature do
         fill_in id: 'client_password_confirmation', with: client.password_confirmation
         submit_form
 
-        expect(current_path).to eq(participants_root_path)
+        expect(page).to have_current_path(participants_root_path)
       end
 
       it 'server' do
@@ -44,7 +45,7 @@ RSpec.feature 'Participants::Client::ClientsRegistrations', type: :feature do
         fill_in id: 'client_password_confirmation', with: client.password_confirmation
         submit_form
 
-        expect(current_path).to eq(participants_root_path)
+        expect(page).to have_current_path(participants_root_path)
       end
     end
 
@@ -52,7 +53,7 @@ RSpec.feature 'Participants::Client::ClientsRegistrations', type: :feature do
       it 'blank' do
         submit_form
 
-        expect(current_path).to eq(client_registration_path)
+        expect(page).to have_current_path(client_registration_path)
         expect(page).to have_content('div.client_name', I18n.t('errors.messages.blank'))
         expect(page).to have_content('div.client_cpf', I18n.t('errors.messages.blank'))
         expect(page).to have_content('div.client_email', I18n.t('errors.messages.blank'))
@@ -62,7 +63,7 @@ RSpec.feature 'Participants::Client::ClientsRegistrations', type: :feature do
 
       it 'type is not included in the list' do
         submit_form
-        expect(current_path).to eq(client_registration_path)
+        expect(page).to have_current_path(client_registration_path)
         expect(page).to have_content I18n.t('errors.messages.inclusion'), count: 1
       end
 
@@ -71,7 +72,7 @@ RSpec.feature 'Participants::Client::ClientsRegistrations', type: :feature do
         fill_in id: 'client_email', with: client.email
 
         submit_form
-        expect(current_path).to eq(participants_root_path)
+        expect(page).to have_current_path(participants_root_path)
         expect(page).to have_content(I18n.t('errors.messages.taken'), count: 2)
       end
     end
@@ -80,13 +81,14 @@ RSpec.feature 'Participants::Client::ClientsRegistrations', type: :feature do
   describe '#update' do
     let!(:client) { create(:client) }
     let!(:client2) { create(:client) }
+    let(:client3) { build(:client) }
 
-    before(:each) do
+    before do
       login_as(client, scope: :client)
       visit edit_client_registration_path(client)
     end
 
-    context 'fill fields' do
+    context 'with fill fields' do
       it 'with correct values' do
         expect(page).to have_current_path(edit_client_registration_path(client))
         expect(page).to have_field id: 'client_name', with: client.name
@@ -95,21 +97,22 @@ RSpec.feature 'Participants::Client::ClientsRegistrations', type: :feature do
         expect(page).to have_field 'client_cpf', with: client.cpf
       end
     end
+
     context 'with valid fields' do
       it 'update recommendation' do
-        attributes = attributes_for(:client)
-        fill_in id: 'client_name', with: attributes[:name]
-        fill_in id: 'client_email', with: attributes[:email]
-        fill_in id: 'client_alternative_email', with: attributes[:alternative_email]
-        fill_in id: 'client_cpf', with: attributes[:cpf]
+        fill_in id: 'client_name', with: client3.name
+        fill_in id: 'client_email', with: client3.email
+        fill_in id: 'client_alternative_email', with: client3.alternative_email
+        fill_in id: 'client_cpf', with: client3.cpf
         fill_in id: 'client_password', with: '654321'
         fill_in id: 'client_password_confirmation', with: '654321'
         fill_in id: 'client_current_password', with: client.password
         submit_form
-        expect(current_path).to eq(participants_root_path(client))
+        expect(page).to have_current_path(participants_root_path(client))
         expect(page).to have_content(I18n.t('devise.registrations.updated'))
       end
     end
+
     context 'with invalid fields' do
       it 'show blank errors' do
         fill_in id: 'client_name', with: ''
@@ -125,7 +128,7 @@ RSpec.feature 'Participants::Client::ClientsRegistrations', type: :feature do
         fill_in id: 'client_alternative_email', with: client2.alternative_email
         submit_form
         expect(page).to have_content(I18n.t('errors.messages.taken'), count: 3)
-        expect(current_path).to eq(participants_root_path)
+        expect(page).to have_current_path(participants_root_path)
       end
 
       it 'show invalid errors' do

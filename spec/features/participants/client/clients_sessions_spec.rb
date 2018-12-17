@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.feature 'Participants::Client::ClientsSessions', type: :feature do
+RSpec.describe 'Participants::Client::ClientsSessions', type: :feature do
   let!(:client) { create(:client) }
 
   describe '#create' do
-    before(:each) do
+    before do
       visit new_client_session_path
     end
 
@@ -15,7 +15,7 @@ RSpec.feature 'Participants::Client::ClientsSessions', type: :feature do
 
         submit_form
 
-        expect(current_path).to eq(participants_root_path)
+        expect(page).to have_current_path(participants_root_path)
       end
 
       it 'login by email' do
@@ -24,7 +24,7 @@ RSpec.feature 'Participants::Client::ClientsSessions', type: :feature do
 
         submit_form
 
-        expect(current_path).to eq(participants_root_path)
+        expect(page).to have_current_path(participants_root_path)
       end
     end
 
@@ -37,7 +37,7 @@ RSpec.feature 'Participants::Client::ClientsSessions', type: :feature do
 
         expect(page).to have_text(I18n.t('devise.failure.invalid',
                                          authentication_keys: 'Login'))
-        expect(current_path).to eq(new_client_session_path)
+        expect(page).to have_current_path(new_client_session_path)
       end
 
       it 'not login by email' do
@@ -47,7 +47,7 @@ RSpec.feature 'Participants::Client::ClientsSessions', type: :feature do
         submit_form
 
         expect(page).to have_text(I18n.t('devise.login.title'))
-        expect(current_path).to eq(new_client_session_path)
+        expect(page).to have_current_path(new_client_session_path)
       end
     end
   end

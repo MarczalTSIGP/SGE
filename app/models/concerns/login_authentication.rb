@@ -9,17 +9,20 @@ module LoginAuthentication
 
     def arguable(opts = {})
       @arguable_opts = opts
+      @arguable_opts = @arguable_opts[:include].join("''")
     end
   end
 
   included do
     def self.find_for_database_authentication(warden_conditions)
       conditions = warden_conditions.dup
-      column = @arguable_opts[:include]
-      column = column.join("''")
-      if (login = conditions.delete(:login))
-        where(['lower(' + column + ') = :value OR lower(email) = :value',
-               { value: login.downcase }]).first
+      login = conditions.delete(:login).downcase
+      if login.include?('@')
+        find_by(email: login)
+      elsif @arguable_opts == 'username'
+        find_by(username: login)
+      elsif @arguable_opts == 'cpf'
+        find_by(cpf: login)
       end
     end
   end
