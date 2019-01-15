@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Participants::Clients::RegistrationsController < Devise::RegistrationsController
-  layout 'participants/clients/layouts/application'
+  layout :choose_layout
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
@@ -34,5 +34,11 @@ class Participants::Clients::RegistrationsController < Devise::RegistrationsCont
      :password_confirmation,
      :remember_me,
      :kind]
+  end
+
+  def choose_layout
+    return 'participants/layouts/application' if client_signed_in?
+
+    'participants/clients/layouts/application'
   end
 end

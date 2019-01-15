@@ -3,13 +3,12 @@ module LoginAuthentication
   extend ActiveSupport::Concern
 
   module ClassMethods
-    attr_reader :arguable_opts
+    attr_reader :login_method
 
     private
 
-    def arguable(opts = {})
-      @arguable_opts = opts
-      @arguable_opts = @arguable_opts[:include].join("''")
+    def also_login_by(login_method)
+      @login_method = login_method
     end
   end
 
@@ -17,13 +16,11 @@ module LoginAuthentication
     def self.find_for_database_authentication(warden_conditions)
       conditions = warden_conditions.dup
       login = conditions.delete(:login).downcase
-      if login.include?('@')
-        find_by(email: login)
-      elsif @arguable_opts == 'username'
-        find_by(username: login)
-      elsif @arguable_opts == 'cpf'
-        find_by(cpf: login)
-      end
+      conditions = { email: login }
+
+      conditions = { @login_method => login } unless login.include?('@')
+
+      find_by(conditions)
     end
   end
 end

@@ -1,5 +1,5 @@
 class Participants::Clients::SessionsController < Devise::SessionsController
-  layout 'participants/clients/layouts/application'
+  layout 'participants/clients/layouts/session'
 
   protected
 

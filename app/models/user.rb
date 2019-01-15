@@ -1,8 +1,9 @@
 class User < ApplicationRecord
+  attr_writer :login
+
   include PrettyCPF
   include LoginAuthentication
-  arguable include: [:username]
-  attr_writer :login
+  also_login_by :username
 
   devise :database_authenticatable, :rememberable, :trackable,
          :validatable, authentication_keys: [:login]

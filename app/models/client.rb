@@ -1,9 +1,12 @@
 class Client < ApplicationRecord
-  include PrettyCPF
   attr_writer :login
+
+  include PrettyCPF
   include LoginAuthentication
-  arguable include: [:cpf]
+  also_login_by :cpf
+
   enum kind: { server: 'server', external: 'external', academic: 'academic' }, _prefix: :kind
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
