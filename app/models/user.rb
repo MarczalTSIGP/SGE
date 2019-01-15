@@ -1,7 +1,9 @@
 class User < ApplicationRecord
-  include PrettyCPF
-
   attr_writer :login
+
+  include PrettyCPF
+  include LoginAuthentication
+  also_login_by :username
 
   devise :database_authenticatable, :rememberable, :trackable,
          :validatable, authentication_keys: [:login]
@@ -21,16 +23,6 @@ class User < ApplicationRecord
 
   def login
     @login || username || email
-  end
-
-  def self.find_for_database_authentication(warden_conditions)
-    conditions = warden_conditions.dup
-    if (login = conditions.delete(:login))
-      where(conditions.to_h).find_by(['lower(username) = :value OR lower(email) = :value',
-                                      { value: login.downcase }])
-    elsif conditions.haskey?(:username) || conditions.haskey?(:email)
-      find_by(conditions.to_h)
-    end
   end
 
   def self.search(search)

@@ -1,0 +1,39 @@
+<%= provide(:page_title, t('devise.registration.title')) %>
+
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= f.error_notification %>
+  <div class="form-inputs">
+    <%= f.input :name,
+      required: true,
+      autofocus: true,
+      label_html: { class: 'form-label' } %>
+    <%= f.input :cpf,
+      required: true,
+      autofocus: true,
+      label_html: { class: 'form-label' } %>
+    <%= f.input :email,
+      required: true,
+      autofocus: true,
+      label_html: { class: 'form-label' } %>
+    <%= f.input :alternative_email,
+      required: true,
+      autofocus: true,
+      label_html: { class: 'form-label' } %>
+    <%= f.input :kind, as: :radio_buttons, collection: Client.human_kinds,
+      item_wrapper_class: 'inline custom-control custom-radio custom-control-inline' %>
+    <%= f.input :password,
+      required: true,
+      hint: ("#{@minimum_password_length}  #{t('devise.registration.password_character_length')}" if @minimum_password_length),
+      label_html: { class: 'form-label' } %>
+    <%= f.input :password_confirmation,
+      required: true,
+      label_html: { class: 'form-label' } %>
+  </div>
+
+  <div class="text-right">
+    <%= f.button :submit, t('helpers.buttons.register'), class: 'btn btn-primary' %>
+  </div>
+
+<% end %>
+
+<%= render "participants/clients/shared/links" %>

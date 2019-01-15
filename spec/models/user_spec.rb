@@ -1,5 +1,4 @@
 require 'rails_helper'
-
 RSpec.describe User, type: :model do
   describe 'validations' do
     context 'when shoulda matchers do' do
@@ -7,7 +6,6 @@ RSpec.describe User, type: :model do
 
       it { is_expected.to validate_presence_of(:name) }
       it { is_expected.to validate_presence_of(:registration_number) }
-
       it { is_expected.to validate_uniqueness_of(:registration_number).case_insensitive }
       it { is_expected.to validate_uniqueness_of(:cpf).case_insensitive }
       it { is_expected.to validate_uniqueness_of(:username).case_insensitive }

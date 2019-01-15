@@ -13,9 +13,10 @@ Rails.application.routes.draw do
     namespace :admin do
       root to: 'home#index'
       resources :users, except: :destroy, constraints: { id: /[0-9]+/ }, concerns: :paginatable
-      get 'users/search/(:term)/(page/:page)', to: 'users#index',
-                                               as: 'users_search',
-                                               constraints: { term: %r{[^/]+} }
+      get 'users/search/(:term)/(page/:page)',
+          to: 'users#index',
+          as: 'users_search',
+          constraints: { term: %r{[^/]+} }
 
       put 'users/disable/:id', to: 'users#disable', as: 'user_disable'
       put 'users/active/:id', to: 'users#active', as: 'user_active'
@@ -23,7 +24,16 @@ Rails.application.routes.draw do
   end
   #========================================
 
-  namespace :participants do
-    root to: 'home#index'
+  #========================================
+  # Participant area to user
+  #========================================
+  devise_for :clients, path: 'participants', controllers:
+      { passwords: 'participants/clients/passwords',
+        registrations: 'participants/clients/registrations',
+        sessions: 'participants/clients/sessions' }
+  authenticate :client do
+    namespace :participants do
+      root to: 'home#index'
+    end
   end
 end
