@@ -18,9 +18,9 @@ pt-BR:
         f: '%{model} desativada com sucesso!'
       errors: 'Existem dados incorretos!'
       search:
-          empty:
-            m: 'Nenhum %{model} encontrado!'
-            f: 'Nenhum %{model} encontrado!'
+        empty:
+          m: 'Nenhum %{model} encontrado!'
+          f: 'Nenhum %{model} encontrado!'
   helpers:
     boolean:
       user:
@@ -32,13 +32,14 @@ pt-BR:
         f: 'Nova %{model}'
       edit: 'Editar %{model}'
       show:
-         m: 'Visualizar %{model}'
-         f: 'Visualizar %{model}'
+        m: 'Visualizar %{model}'
+        f: 'Visualizar %{model}'
       all:
         m: 'Todos %{model}'
         f: 'Todas %{model}'
       active: 'Ativar %{model}'
       disable: 'Desativar %{model}'
+      destroy: 'Excluir %{model}'
     buttons:
       log_in: 'Entrar'
       proceed: 'Prosseguir'
@@ -46,6 +47,7 @@ pt-BR:
       commit: 'Entrar'
       register: 'Cadastrar'
       update: 'Atualizar'
+      close: 'Fechar'
   devise:
     login:
       title: 'Faça login na sua conta'
@@ -71,8 +73,10 @@ pt-BR:
         ignore: 'Se você não solicitou isso, ignore este e-mail.'
         info: 'Sua senha não mudará até que você acesse o link acima e crie uma nova senha.'
         change: 'Estamos entrando em contato para notificá-lo de que sua senha foi alterada.'
-
   enums:
+    kinds:
+      certified: 'Certificado'
+      declaration: 'Declaração'
     type:
       server: 'Servidor'
       external: 'Externo'
@@ -86,8 +90,11 @@ pt-BR:
         one: 'Usuário'
         other: 'Usuários'
       client:
-          one: 'Cliente'
-          other: 'Clientes'
+        one: 'Cliente'
+        other: 'Clientes'
+      document:
+        one: 'Documento'
+        other: 'Documentos'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
@@ -109,6 +116,14 @@ pt-BR:
         local: 'Local'
         email: 'Email do Departamento'
         responsible: 'Responsável pelo Departamento'
+      document:
+        description: 'Descrição'
+        activity: 'Atividades'
+        kind: 'Tipo'
+        client: 'Participante'
+        participants: 'Participantes'
+        users: "Responsáveis"
+        date: 'Data'
       user:
         <<: *commons
         username: 'Usuário institucional'

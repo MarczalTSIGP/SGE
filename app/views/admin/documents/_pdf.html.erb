@@ -1,0 +1,38 @@
+<div class="a4_vertical bg-gray-lightest ">
+  <div class="row m-2 h-100">
+    <div class=" col-3">
+      <div class="linear-gradient-yellow h-100 w-100">
+        <%= image_tag 'utfpr.png', class: 'vertical-align-img pr-5', alt: "UTFPR" %>
+      </div>
+    </div>
+    <div class="col-9 pt-9">
+      <div class="text-center">
+        <%= image_tag 'brasao da republica_cor.jpg', class: "w-25 h-25", alt: "Brasão da República" %>
+        <p class="mb-0">República Federativa do Brasil</p>
+        <p class="mb-0">Ministério da Educação</p>
+        <h5>Universidade Tecnológica Federal do Paraná</h5>
+        <h1 class="pt-9" id="document_kind"><%=t("enums.kinds.#{@document.kind}").upcase  %></h1>
+      </div>
+      <div class="p-7 pt-0">
+        <%= @document.description.html_safe %>
+      </div>
+
+    </div>
+  </div>
+</div>
+<hr>
+<div class="a4_vertical bg-gray-lightest">
+  <div class="row">
+    <div class="col-12">
+      <div class="p-9 pt-0">
+        <%= @document.activity.html_safe %>
+      </div>
+      <div>
+        <% @document.users.each do |user| %>
+          <h4 class="text-center text-capitalize"><%= user.name %></h4>
+          <br>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

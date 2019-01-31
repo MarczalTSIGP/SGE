@@ -5,6 +5,8 @@ class User < ApplicationRecord
   include LoginAuthentication
   also_login_by :username
 
+  has_many :documents
+
   devise :database_authenticatable, :rememberable, :trackable,
          :validatable, authentication_keys: [:login]
 

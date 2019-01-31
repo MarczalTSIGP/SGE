@@ -12,6 +12,9 @@ class Client < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, authentication_keys: [:login]
 
+
+  has_many :documents
+
   validates :name, :cpf, presence: true
   validates :alternative_email, allow_blank: true, uniqueness: { case_sensitive: false }
   validates :cpf, uniqueness: { case_sensitive: false }
@@ -27,5 +30,9 @@ class Client < ApplicationRecord
     hash = {}
     kinds.each_key { |key| hash[I18n.t("enums.type.#{key}")] = key }
     hash
+  end
+
+  def self.search(query)
+    order(:name).where("name ilike ?", "#{query}%")
   end
 end

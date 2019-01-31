@@ -1,0 +1,82 @@
+<% provide(:head_title, t('activerecord.models.document.other')) %>
+<% provide(:page_title, t('activerecord.models.document.other')) %>
+
+<div class="row mb-4">
+
+  <div class="col-lg-3">
+    <div class="input-icon my-3 my-lg-0">
+      <%= text_field_tag :search, params[:term], id: 'users_search_input',
+                         data: { url: admin_documents_search_path },
+                         class: 'form-control',
+                         placeholder: 'Search...' %>
+      <div class="input-icon-addon">
+        <i class="fe fe-search"></i>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-9 text-right">
+    <%= link_to new_admin_document_path,
+                class: 'btn btn-secondary',
+                title: t('helpers.links.new.m', model: t('activerecord.models.document.one')),
+                data: { toggle: 'tooltip', placement: 'top' } do %>
+      <i class="fe fe-plus"></i>
+    <% end %>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-data card-table table-vcenter text-nowrap">
+    <thead>
+    <tr>
+
+      <th><%= t('activerecord.attributes.document.users') %></th>
+      <th><%= t('activerecord.attributes.document.kind') %></th>
+      <th><%= t('activerecord.attributes.document.date') %></th>
+
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @documents.each do |document| %>
+      <tr>
+        <td><% document.users.each do |user| %>
+            <%= user.name %>
+            <br>
+          <% end %>
+        </td>
+        <td><%= t("enums.kinds.#{document.kind}") %></td>
+        <td><%= document.created_at.strftime("%d-%m-%Y") %></td>
+        <td>
+          <%= link_to admin_document_path(document),
+                      method: :get, class: 'icon',
+                      title: t('helpers.links.show.m',
+                               model: t('activerecord.models.document.one')),
+                      data: { toggle: 'tooltip', placement: 'top' } do %>
+            <i class="fe fe-eye"></i>
+          <% end %>
+          <%= link_to edit_admin_document_path(document),
+                      method: :get, class: 'icon',
+                      title: t('helpers.links.edit',
+                               model: t('activerecord.models.document.one')),
+                      data: { toggle: 'tooltip', placement: 'top' } do %>
+            <i class="fe fe-edit"></i>
+          <% end %>
+          <%= link_to admin_document_path(document),
+                      method: :delete, class: 'icon',
+                      title: t('helpers.links.destroy',
+                               model: t('activerecord.models.document.one')),
+                      data: { toggle: 'tooltip', placement: 'top' } do %>
+            <i class="fe fe-delete"></i>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="d-flex justify-content-center">
+  <%= paginate @documents %>
+</div>

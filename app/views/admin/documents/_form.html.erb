@@ -1,0 +1,42 @@
+<%= simple_form_for [:admin, @document], html: { multipart: true } do |f| %>
+
+  <%= f.input :kind, as: :radio_buttons, collection: Document.human_kinds,
+              item_wrapper_class: 'inline custom-control custom-radio custom-control-inline' %>
+
+  <%= f.input :description, as: :summernote %>
+  <%= f.input :activity, as: :summernote %>
+  <%= f.input :participants, as: :file, class: "pb-5 mb-5" %>
+  <%= link_to "Modelo", "/modelo.csv" %>
+  <%= f.input :user_ids, collection: @users, input_html: { multiple: true } %>
+  <div class='d-flex'>
+    <%= link_to t('helpers.links.all.m', model: t('activerecord.models.document.other')),
+                admin_documents_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+    <%= f.button :button, 'Preview', name: 'preview_button' %>
+  </div>
+
+  <% if @document.valid? %>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Preview</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-12">
+                <%= render 'pdf', document: @document %>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('helpers.buttons.close') %></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_30_191328) do
+ActiveRecord::Schema.define(version: 2019_01_23_181352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,6 +18,20 @@ ActiveRecord::Schema.define(version: 2018_10_30_191328) do
 
 # Could not dump table "clients" because of following StandardError
 #   Unknown type 'client_kinds' for column 'kind'
+
+  create_table "clients_documents", force: :cascade do |t|
+    t.bigint "document_id"
+    t.bigint "client_id"
+    t.integer "hours"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_clients_documents_on_client_id"
+    t.index ["document_id", "client_id"], name: "index_clients_documents_on_document_id_and_client_id", unique: true
+    t.index ["document_id"], name: "index_clients_documents_on_document_id"
+  end
+
+# Could not dump table "documents" because of following StandardError
+#   Unknown type 'document_kinds' for column 'kind'
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -47,4 +61,17 @@ ActiveRecord::Schema.define(version: 2018_10_30_191328) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  create_table "users_documents", force: :cascade do |t|
+    t.bigint "document_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["document_id"], name: "index_users_documents_on_document_id"
+    t.index ["user_id"], name: "index_users_documents_on_user_id"
+  end
+
+  add_foreign_key "clients_documents", "clients"
+  add_foreign_key "clients_documents", "documents"
+  add_foreign_key "users_documents", "documents"
+  add_foreign_key "users_documents", "users"
 end

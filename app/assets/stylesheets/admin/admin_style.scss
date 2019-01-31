@@ -1,0 +1,24 @@
+@import "summernote-bs4";
+@import "summernote-custom-theme.min";
+
+.a4_vertical {
+  width: 793px;
+  height: 1122px;
+}
+
+.a4_horizontal {
+  width: 1122px;
+  height: 793px;
+}
+
+.vertical-align-img {
+  position: absolute;
+  bottom: 0;
+}
+
+.linear-gradient-yellow {
+  background-image: linear-gradient(rgb(254, 203, 41), white);
+}
+.modal-lg {
+  min-width: 70%;
+}

@@ -11,7 +11,7 @@
           <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
             <span class="avatar"><i class="fe fe-user"></i></span>
             <span class="ml-2 d-none d-lg-block">
-              <span class="text-default"><%= current_user.name %> </span>
+              <span class="text-default"><%= truncate(current_user.name, length: 15) %> </span>
               <small class="text-muted d-block mt-1"> </small>
             </span>
           </a>

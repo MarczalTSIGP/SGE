@@ -11,8 +11,14 @@
           </li>
           <li class="nav-item">
             <%= link_to admin_users_path,
-                        class: 'dropdown-item' do %>
+                        class: 'nav-link' do %>
               <%= t('activerecord.models.user.other') %>
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to admin_documents_path,
+                        class: 'nav-link' do %>
+              <%= t('activerecord.models.document.other') %>
             <% end %>
           </li>
 
