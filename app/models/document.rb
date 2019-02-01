@@ -4,7 +4,7 @@ class Document < ApplicationRecord
   attr_accessor :participants
 
 
-  has_and_belongs_to_many :clients
+  has_many :clients
   has_many :users
   has_many :users_documents, dependent: :destroy
   has_many :users, through: :users_documents
@@ -12,7 +12,8 @@ class Document < ApplicationRecord
   validates :description, presence: true
   validates :activity, presence: true
   validates :kind, inclusion: { in: Document.kinds.values }
-  # validates :clients,
+  validates :user_ids, presence: true
+  validates :participants, presence: true
 
   def self.search(search)
     if search

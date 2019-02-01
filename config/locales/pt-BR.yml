@@ -48,6 +48,7 @@ pt-BR:
       register: 'Cadastrar'
       update: 'Atualizar'
       close: 'Fechar'
+      preview: 'Pre-visualizaçãp'
   devise:
     login:
       title: 'Faça login na sua conta'
@@ -123,6 +124,7 @@ pt-BR:
         client: 'Participante'
         participants: 'Participantes'
         users: "Responsáveis"
+        user_ids: "Responsáveis"
         date: 'Data'
       user:
         <<: *commons
