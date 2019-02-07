@@ -53,11 +53,11 @@ class Admin::DocumentsController < Admin::BaseController
   end
 
   def destroy
-    if @document.destroy
+    if subscription?
+      flash[:alert] = 'Não é possível remover documento com assinatura!'
+    elsif @document.destroy
       flash[:success] = I18n.t('flash.actions.destroy.m',
                                model: t('activerecord.models.document.one'))
-    else
-      flash[:alert] = 'Não é possível remover documento com vínculos!'
     end
     redirect_to admin_documents_path
   end
@@ -81,4 +81,9 @@ class Admin::DocumentsController < Admin::BaseController
     params.require(:document).permit(:description, :kind, :activity, :participants, user_ids: [])
   end
 
+  def subscription?
+    @document.users_documents.each do |ud|
+      return ud.subscription? == true
+    end
+  end
 end

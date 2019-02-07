@@ -1,11 +1,11 @@
 class Document < ApplicationRecord
-  require 'csv'
+  
   enum kind: { certified: 'certified', declaration: 'declaration' }, _prefix: :kind
   attr_accessor :participants
 
 
-  has_many :clients
-  has_many :users
+  has_many :clients_documents, dependent: :destroy
+  has_many :clients, through: :clients_documents
   has_many :users_documents, dependent: :destroy
   has_many :users, through: :users_documents
 
@@ -13,7 +13,7 @@ class Document < ApplicationRecord
   validates :activity, presence: true
   validates :kind, inclusion: { in: Document.kinds.values }
   validates :user_ids, presence: true
-  validates :participants, presence: true
+  validates :participants, presence: true, on: :create
 
   def self.search(search)
     if search

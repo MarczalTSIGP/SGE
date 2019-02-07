@@ -21,6 +21,8 @@ pt-BR:
         empty:
           m: 'Nenhum %{model} encontrado!'
           f: 'Nenhum %{model} encontrado!'
+  prompt:
+    confirm: 'Tem certeza?'
   helpers:
     boolean:
       user:
@@ -48,7 +50,7 @@ pt-BR:
       register: 'Cadastrar'
       update: 'Atualizar'
       close: 'Fechar'
-      preview: 'Pre-visualizaçãp'
+      preview: 'Pre-visualização'
   devise:
     login:
       title: 'Faça login na sua conta'

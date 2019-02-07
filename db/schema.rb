@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2019_01_23_181352) do
   create_table "users_documents", force: :cascade do |t|
     t.bigint "document_id"
     t.bigint "user_id"
+    t.boolean "subscription", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["document_id"], name: "index_users_documents_on_document_id"

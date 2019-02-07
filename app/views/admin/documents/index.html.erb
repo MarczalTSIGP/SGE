@@ -41,7 +41,8 @@
     <tbody>
     <% @documents.each do |document| %>
       <tr>
-        <td><% document.users.each do |user| %>
+        <td>
+          <% document.users.each do |user| %>
             <%= user.name %>
             <br>
           <% end %>
@@ -67,8 +68,10 @@
                       method: :delete, class: 'icon',
                       title: t('helpers.links.destroy',
                                model: t('activerecord.models.document.one')),
-                      data: { toggle: 'tooltip', placement: 'top' } do %>
-            <i class="fe fe-delete"></i>
+                      data: { confirm: t('prompt.confirm'),
+                              toggle: 'tooltip',
+                              placement: 'top' } do %>
+            <i class="fe fe-trash-2"></i>
           <% end %>
         </td>
       </tr>

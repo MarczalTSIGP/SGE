@@ -20,5 +20,12 @@ module Helpers
       attributes.keys.each { |k| attributes["#{model}_#{k}".to_sym] = attributes.delete(k) }
       attributes
     end
+
+    def expect_page_not_have_in(field, content)
+      within(field) do
+        expect(page).not_to have_content(content)
+      end
+    end
+
   end
 end
