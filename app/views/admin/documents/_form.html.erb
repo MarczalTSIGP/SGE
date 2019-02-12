@@ -5,8 +5,42 @@
 
   <%= f.input :description, as: :summernote %>
   <%= f.input :activity, as: :summernote %>
-  <%= f.input :participants, as: :file, class: "pb-5 mb-5" %>
-  <%= link_to "Modelo", "/modelo.csv" %>
+
+<%= f.label :participants%>
+  <ul class="nav nav-tabs" id="nav-tab">
+    <li class="nav-item active "><a class="nav-link" data-toggle="tab" href="#input">Campo</a></li>
+    <li class="nav-item "><a class="nav-link" data-toggle="tab" href="#file">Arquivo </a></li>
+  </ul>
+  <div class="tab-content m-5">
+    <div id="file" class="tab-pane fade in active">
+      <div class="row">
+        <div class="col-6">
+          <div class="custom-file">
+            <%= f.input :participants, as: :file, label_html: { class: 'custom-file-label' }, html: { class: "custom-file-input" } %>
+          </div>
+        </div>
+        <div class="col-6 align-self-center">
+          <%= link_to "Modelo", "/modelo.csv" %>
+        </div>
+      </div>
+    </div>
+    <div id="input" class="tab-pane fade">
+      <div id='client_documents'>
+        <%= f.simple_fields_for :client_documents do |client| %>
+          <%= render 'client_document_fields', :f => client %>
+        <% end %>
+        <div class='links'>
+          <%= link_to_add_association f, :client_documents,
+                                      title: 'Adicionar Participantes',
+                                      data: { toggle: 'tooltip', placement: 'top' },
+                                      class: 'btn btn-secondary',
+                                      partial: 'client_document_fields' do %>
+            <i class="fe fe-plus"></i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
   <%= f.input :user_ids, collection: @users, input_html: { multiple: true } %>
   <div class='d-flex'>
     <%= link_to t('helpers.links.all.m', model: t('activerecord.models.document.other')),

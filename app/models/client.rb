@@ -13,7 +13,9 @@ class Client < ApplicationRecord
          :recoverable, :rememberable, :validatable, authentication_keys: [:login]
 
 
-  has_many :documents
+
+  has_many :client_documents, dependent: :destroy
+  has_many :documents, through: :client_documents
 
   validates :name, :cpf, presence: true
   validates :alternative_email, allow_blank: true, uniqueness: { case_sensitive: false }

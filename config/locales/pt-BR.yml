@@ -128,6 +128,9 @@ pt-BR:
         users: "Responsáveis"
         user_ids: "Responsáveis"
         date: 'Data'
+      client_document:
+        hours: "Horas"
+        clients: "Nome"
       user:
         <<: *commons
         username: 'Usuário institucional'

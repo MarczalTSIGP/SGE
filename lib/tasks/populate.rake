@@ -13,7 +13,7 @@ namespace :db do
                      password: '123456',
                      support: true).find_or_create_by(email: 'admin@utfpr.edu.br')
 
-    20.times do |i|
+    100.times do |i|
       email = Faker::Internet.unique.email
       rn = 1_234_567 + i
       bol = [true, false]
@@ -27,23 +27,25 @@ namespace :db do
                    password: '123456',
                    support: false)
 
-      Client.create(name: Faker::Name.name,
-                    ra: rn,
-                    email: email,
-                    cpf: cpf,
-                    password: '123456',
-                    kind: Client.kinds.values.sample)
+      client = Client.create(name: Faker::Name.name,
+                             ra: rn,
+                             email: email,
+                             cpf: cpf,
+                             password: '123456',
+                             kind: Client.kinds.values.sample)
 
-      Document.create(description: Faker::Lorem.paragraphs,
-                   activity: Faker::Lorem.paragraphs,
-                   user_ids: [User.all.sample.id],
-                   participants: Faker::CSV.participants,
-                   kind: Document.kinds.values.sample)
+      document = Document.create(description: Faker::Lorem.paragraphs,
+                                 activity: Faker::Lorem.paragraphs,
+                                 user_ids: [User.where(support: false).where(active: true).sample.id],
+                                 participants: Faker::CSV.participants,
+                                 kind: Document.kinds.values.sample)
 
       UsersDocument.update(UsersDocument.last.id,
                            subscription: [true, false].sample)
 
-
+      ClientDocument.create(document_id: document.id,
+                            client_id: client.id,
+                            hours: Faker::Number.between(1, 10))
     end
   end
 end

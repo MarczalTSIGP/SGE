@@ -18,6 +18,7 @@ class Admin::DocumentsController < Admin::BaseController
   def create
     @document = Document.new(document_params)
     if params[:preview_button]
+      @document.attributes = document_params
       render :new
     elsif @document.save
       Document.csv_import(params[:document][:participants], @document.id)
@@ -39,9 +40,10 @@ class Admin::DocumentsController < Admin::BaseController
 
   def update
     if params[:preview_button]
-      @document.update(document_params)
+      @document.attributes = document_params
       render :edit
     elsif @document.update(document_params)
+      @document.clients.build
       Document.csv_import(params[:document][:participants], @document.id)
       flash[:success] = t('flash.actions.update.m',
                           model: t('activerecord.models.document.one'))
@@ -78,7 +80,16 @@ class Admin::DocumentsController < Admin::BaseController
   end
 
   def document_params
-    params.require(:document).permit(:description, :kind, :activity, :participants, user_ids: [])
+    params.require(:document).permit(:description,
+                                     :kind, :activity,
+                                     :participants,
+                                     user_ids: [],
+
+                                     client_documents_attributes: [
+                                         :id,
+                                         :client_id,
+                                         :hours,
+                                         :_destroy])
   end
 
   def subscription?

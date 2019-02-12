@@ -95,7 +95,7 @@ RSpec.describe 'Admin::Document', type: :feature do
           submit_form
 
           expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-          expect(page).to have_content(I18n.t('errors.messages.blank'), count: 4)
+          expect(page).to have_content(I18n.t('errors.messages.blank'), count: 3)
         end
         it 'type is not included in the list' do
           submit_form

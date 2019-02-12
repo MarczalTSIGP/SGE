@@ -1,11 +1,15 @@
 class Document < ApplicationRecord
-  
+
   enum kind: { certified: 'certified', declaration: 'declaration' }, _prefix: :kind
   attr_accessor :participants
 
+  has_many :client_documents, dependent: :destroy
+  has_many :clients, through: :client_documents, class_name: 'Client'
 
-  has_many :clients_documents, dependent: :destroy
-  has_many :clients, through: :clients_documents
+
+  accepts_nested_attributes_for :client_documents, :clients, allow_destroy: true
+
+
   has_many :users_documents, dependent: :destroy
   has_many :users, through: :users_documents
 
@@ -13,7 +17,7 @@ class Document < ApplicationRecord
   validates :activity, presence: true
   validates :kind, inclusion: { in: Document.kinds.values }
   validates :user_ids, presence: true
-  validates :participants, presence: true, on: :create
+  # validates :participants, presence: true, on: :create
 
   def self.search(search)
     if search
@@ -32,14 +36,13 @@ class Document < ApplicationRecord
 
   def self.csv_import(file, document_id)
     unless (file.nil?)
-      ClientsDocument.where(document_id: document_id).destroy_all
       CSV.foreach(file.path, headers: true) do |row|
         document_hash = {}
         row.to_hash.each_pair do |key, value|
           document_hash.merge!({ key.downcase => value })
         end
         if (client_id = Client.find_by(cpf: document_hash['cpf']))
-          document = ClientsDocument.new
+          document = ClientDocument.new
           document.client_id = client_id.id
           document.hours = document_hash['horas']
           document.document_id = document_id
