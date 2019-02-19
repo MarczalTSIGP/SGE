@@ -5,7 +5,6 @@ module FileSpecHelper
       File.open(Dir[path_to('csv')].sample)
     end
 
-
     private
 
     def path_to(folder)
@@ -17,7 +16,6 @@ module FileSpecHelper
       csv = Faker::CSV.participants
 
       File.write(path, csv)
-
     end
   end
 end

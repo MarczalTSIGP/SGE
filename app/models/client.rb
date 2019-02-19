@@ -12,8 +12,6 @@ class Client < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, authentication_keys: [:login]
 
-
-
   has_many :client_documents, dependent: :destroy
   has_many :documents, through: :client_documents
 
@@ -35,6 +33,6 @@ class Client < ApplicationRecord
   end
 
   def self.search(query)
-    order(:name).where("name ilike ?", "#{query}%")
+    order(:name).where('name ilike ?', "#{query}%")
   end
 end

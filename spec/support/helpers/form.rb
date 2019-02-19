@@ -9,7 +9,6 @@ module Helpers
         fields.each do |field, val|
           fill_in field, with: val
         end
-
         yield if block_given?
       end
       submit_form
@@ -26,6 +25,5 @@ module Helpers
         expect(page).not_to have_content(content)
       end
     end
-
   end
 end

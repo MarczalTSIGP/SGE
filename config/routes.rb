@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   root to: 'home#index'
   concern :paginatable do
     get '(page/:page)', action: :index, on: :collection, as: ''
@@ -14,7 +13,9 @@ Rails.application.routes.draw do
     namespace :admin do
       root to: 'home#index'
       resources :documents, constraints: { id: /[0-9]+/ }, concerns: :paginatable
-      get 'documents/subscriptions', to: 'documents#subscriptions', as: 'users_documents_subscriptions'
+      get 'documents/subscriptions',
+          to: 'documents#subscriptions',
+          as: 'users_documents_subscriptions'
       put 'documents/sign/:id', to: 'documents#sign', as: 'users_documents_sign'
 
       get 'documents/search/(:term)/(page/:page)',
@@ -29,8 +30,6 @@ Rails.application.routes.draw do
 
       put 'users/disable/:id', to: 'users#disable', as: 'user_disable'
       put 'users/active/:id', to: 'users#active', as: 'user_active'
-
-
     end
   end
   #========================================

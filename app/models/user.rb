@@ -38,8 +38,9 @@ class User < ApplicationRecord
   end
 
   def self.signature(user)
-    user.users_documents.map { |d| d.subscription }.count(false) > 0
+    user.users_documents.map(&:subscription).count(false).positive?
   end
+
   private
 
   def email_required?
