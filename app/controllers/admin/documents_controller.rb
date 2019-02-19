@@ -17,11 +17,7 @@ class Admin::DocumentsController < Admin::BaseController
 
   def create
     @document = Document.new(document_params)
-    if params[:preview_button]
-      @document.attributes = document_params
-      render :new
-    elsif @document.save
-      Document.csv_import(params[:document][:participants], @document.id)
+    if @document.save
       flash[:success] = t('flash.actions.create.m',
                           model: t('activerecord.models.document.one'))
       redirect_to admin_documents_path
@@ -34,15 +30,11 @@ class Admin::DocumentsController < Admin::BaseController
   def show;
   end
 
-
   def edit;
   end
 
   def update
-    if params[:preview_button]
-      @document.attributes = document_params
-      render :edit
-    elsif @document.update(document_params)
+    if @document.update(document_params)
       @document.clients.build
       Document.csv_import(params[:document][:participants], @document.id)
       flash[:success] = t('flash.actions.update.m',
@@ -64,6 +56,13 @@ class Admin::DocumentsController < Admin::BaseController
     redirect_to admin_documents_path
   end
 
+  def subscriptions
+    @user_documents = UsersDocument.where(user_id: current_user, subscription: false)
+  end
+
+  def sign
+    redirect_to admin_users_documents_subscriptions_path
+  end
 
   private
 
@@ -83,8 +82,11 @@ class Admin::DocumentsController < Admin::BaseController
     params.require(:document).permit(:description,
                                      :kind, :activity,
                                      :participants,
-                                     user_ids: [],
-
+                                     users_documents_attributes: [
+                                         :id,
+                                         :user_id,
+                                         :function,
+                                         :_destroy],
                                      client_documents_attributes: [
                                          :id,
                                          :client_id,
@@ -96,5 +98,6 @@ class Admin::DocumentsController < Admin::BaseController
     @document.users_documents.each do |ud|
       return ud.subscription? == true
     end
+    return false
   end
 end

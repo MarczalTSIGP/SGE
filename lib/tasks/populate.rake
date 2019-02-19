@@ -18,14 +18,14 @@ namespace :db do
       rn = 1_234_567 + i
       bol = [true, false]
       cpf = Faker::CPF.numeric
-      User.create!(name: Faker::Name.name,
-                   email: email,
-                   username: email.split('@')[0],
-                   registration_number: rn,
-                   cpf: cpf,
-                   admin: bol.sample, active: bol.sample,
-                   password: '123456',
-                   support: false)
+      user = User.create!(name: Faker::Name.name,
+                          email: email,
+                          username: email.split('@')[0],
+                          registration_number: rn,
+                          cpf: cpf,
+                          admin: bol.sample, active: bol.sample,
+                          password: '123456',
+                          support: false)
 
       client = Client.create(name: Faker::Name.name,
                              ra: rn,
@@ -36,16 +36,18 @@ namespace :db do
 
       document = Document.create(description: Faker::Lorem.paragraphs,
                                  activity: Faker::Lorem.paragraphs,
-                                 user_ids: [User.where(support: false).where(active: true).sample.id],
-                                 participants: Faker::CSV.participants,
+                                 # participants: Faker::CSV.participants,
                                  kind: Document.kinds.values.sample)
 
-      UsersDocument.update(UsersDocument.last.id,
-                           subscription: [true, false].sample)
 
-      ClientDocument.create(document_id: document.id,
-                            client_id: client.id,
-                            hours: Faker::Number.between(1, 10))
+      # ClientDocument.create(document_id: document.id,
+      #                       client_id: client.id,
+      #                       hours: Faker::Number.between(1, 10))
+
+      UsersDocument.create(document_id: document.id,
+                           user_id: user.id,
+                           subscription: [true, false].sample,
+                           function: Faker::Lorem.word)
     end
   end
 end

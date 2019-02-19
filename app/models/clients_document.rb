@@ -1,4 +1,4 @@
-class ClientDocument < ApplicationRecord
+class ClientsDocument < ApplicationRecord
   belongs_to :client
   belongs_to :document
 

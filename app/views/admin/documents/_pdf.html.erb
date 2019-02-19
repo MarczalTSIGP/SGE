@@ -11,10 +11,10 @@
         <p class="mb-0">República Federativa do Brasil</p>
         <p class="mb-0">Ministério da Educação</p>
         <h5>Universidade Tecnológica Federal do Paraná</h5>
-        <h1 class="pt-9" id="document_kind"><%=t("enums.kinds.#{@document.kind}").upcase  %></h1>
+        <h1 class="pt-9 text-uppercase " id="document_kind"><%= t("enums.kinds.#{@document.try(:kind)}") %></h1>
       </div>
-      <div class="p-7 pt-0">
-        <%= @document.description.html_safe %>
+      <div class="p-7 pt-0" id="document_description_view">
+        <%= raw(@document.try(:description)) %>
       </div>
 
     </div>
@@ -24,12 +24,13 @@
 <div class="a4_vertical bg-gray-lightest">
   <div class="row">
     <div class="col-12">
-      <div class="p-9 pt-0">
-        <%= @document.activity.html_safe %>
+      <div class="p-9 pt-0" id="document_activity_view">
+        <%= raw(@document.try(:activity))%>
       </div>
-      <div>
-        <% @document.users.each do |user| %>
-          <h4 class="text-center text-capitalize"><%= user.name %></h4>
+      <div id="document_users">
+        <% @document.users_documents.each do |user_document| %>
+          <h4 class="text-center text-capitalize"><%= user_document.user.try(:name) %></h4>
+          <h6 class="text-center text-capitalize"><%= user_document.function %></h6>
           <br>
         <% end %>
       </div>

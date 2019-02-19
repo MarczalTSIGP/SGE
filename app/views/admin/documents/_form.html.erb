@@ -3,53 +3,35 @@
   <%= f.input :kind, as: :radio_buttons, collection: Document.human_kinds,
               item_wrapper_class: 'inline custom-control custom-radio custom-control-inline' %>
 
-  <%= f.input :description, as: :summernote %>
-  <%= f.input :activity, as: :summernote %>
+  <%= f.input :description, as: :summernote, label: t("helpers.label.document.description_front") %>
+  <%= f.input :activity, as: :summernote, label: t("helpers.label.document.activity_verse") %>
 
-<%= f.label :participants%>
-  <ul class="nav nav-tabs" id="nav-tab">
-    <li class="nav-item active "><a class="nav-link" data-toggle="tab" href="#input">Campo</a></li>
-    <li class="nav-item "><a class="nav-link" data-toggle="tab" href="#file">Arquivo </a></li>
-  </ul>
-  <div class="tab-content m-5">
-    <div id="file" class="tab-pane fade in active">
-      <div class="row">
-        <div class="col-6">
-          <div class="custom-file">
-            <%= f.input :participants, as: :file, label_html: { class: 'custom-file-label' }, html: { class: "custom-file-input" } %>
-          </div>
-        </div>
-        <div class="col-6 align-self-center">
-          <%= link_to "Modelo", "/modelo.csv" %>
-        </div>
-      </div>
-    </div>
-    <div id="input" class="tab-pane fade">
-      <div id='client_documents'>
-        <%= f.simple_fields_for :client_documents do |client| %>
-          <%= render 'client_document_fields', :f => client %>
-        <% end %>
-        <div class='links'>
-          <%= link_to_add_association f, :client_documents,
-                                      title: 'Adicionar Participantes',
-                                      data: { toggle: 'tooltip', placement: 'top' },
-                                      class: 'btn btn-secondary',
-                                      partial: 'client_document_fields' do %>
-            <i class="fe fe-plus"></i>
-          <% end %>
-        </div>
-      </div>
+  <%= f.label :users %>
+
+  <div id='users_documents'>
+    <%= f.simple_fields_for :users_documents do |user| %>
+      <%= render 'users_document_fields', f: user %>
+    <% end %>
+
+    <div class='links mb-5'>
+      <%= link_to_add_association f, :users_documents,
+                                  title: t('helpers.links.title.add_users'),
+                                  data: { toggle: 'tooltip', placement: 'top' },
+                                  class: 'btn btn-secondary',
+                                  partial: 'users_document_fields' do %>
+        <i class="fe fe-plus"></i>
+      <% end %>
     </div>
   </div>
-  <%= f.input :user_ids, collection: @users, input_html: { multiple: true } %>
+
   <div class='d-flex'>
     <%= link_to t('helpers.links.all.m', model: t('activerecord.models.document.other')),
                 admin_documents_path, class: 'btn btn-secondary' %>
     <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
-    <%= f.button :button, t('helpers.buttons.preview'), name: 'preview_button' %>
+    <%= f.button :button, t('helpers.buttons.preview'), id:'preview-button', name: 'preview_button' %>
   </div>
 
-  <% if @document.valid? %>
+
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
       <div class="modal-dialog modal-lg">
@@ -73,4 +55,4 @@
       </div>
     </div>
   <% end %>
-<% end %>
+

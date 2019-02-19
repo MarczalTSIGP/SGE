@@ -42,6 +42,12 @@ pt-BR:
       active: 'Ativar %{model}'
       disable: 'Desativar %{model}'
       destroy: 'Excluir %{model}'
+      title:
+        add_users: "Adicionar Responsáveis"
+    label:
+      document:
+        description_front: "Descrição (Frente)"
+        activity_verse: "Atividades (Verso)"
     buttons:
       log_in: 'Entrar'
       proceed: 'Prosseguir'
@@ -131,6 +137,9 @@ pt-BR:
       client_document:
         hours: "Horas"
         clients: "Nome"
+      users_document:
+        user: "Nome"
+        function: "Função"
       user:
         <<: *commons
         username: 'Usuário institucional'

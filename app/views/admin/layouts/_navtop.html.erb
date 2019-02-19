@@ -4,8 +4,19 @@
       <%= link_to admin_root_path, class: 'header-brand' do %>
         <%= image_tag 'sge-logo.png', class: 'header-brand-img', alt: "Sistema Gerenciador de Eventos" %>
       <% end %>
-
       <div class="d-flex order-lg-2 ml-auto">
+        <div class="nav-item d-none d-md-flex">
+
+          <div class="dropdown d-none d-md-flex">
+            <%= link_to admin_users_documents_subscriptions_path, class: 'nav-link icon' do %>
+              <i class="fe fe-bell"></i>
+              <% if User.signature(current_user) %>
+                <span class="nav-unread"></span>
+              <% end %>
+            <% end %>
+
+          </div>
+        </div>
 
         <div class="dropdown">
           <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
@@ -18,11 +29,11 @@
 
           <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
             <%= link_to edit_admin_user_path(current_user),
-              class: 'dropdown-item', method: :get do %>
+                        class: 'dropdown-item', method: :get do %>
               <i class="dropdown-icon fe fe-user"></i>Perfil
             <% end %>
             <%= link_to destroy_user_session_path, class: 'dropdown-item',
-              method: :delete do %>
+                        method: :delete do %>
               <i class="dropdown-icon  fe fe-log-out"></i>Sair
             <% end %>
           </div>
@@ -35,3 +46,4 @@
     </div> <!-- .d-flex -->
   </div>
 </div>
+

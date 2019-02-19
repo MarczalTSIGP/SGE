@@ -4,6 +4,8 @@ RSpec.describe 'Admin::Document', type: :feature do
   let(:model_name) { I18n.t('activerecord.models.document.one') }
   let(:admin) { create(:user, :admin) }
   let!(:user) { create(:user) }
+  let!(:user2) { create(:user) }
+
   let!(:client) { create_list(:client, 2).sample }
 
   before do
@@ -59,16 +61,17 @@ RSpec.describe 'Admin::Document', type: :feature do
       expect(page).to have_content("República Federativa do Brasil")
       expect(page).to have_content("Ministério da Educação")
       expect(page).to have_content("Universidade Tecnológica Federal do Paraná")
-      expect(page).to have_content(I18n.t("enums.kinds.#{document.kind}").upcase)
+      expect(page).to have_content(I18n.t("enums.kinds.#{document.kind}"))
       expect(page).to have_content(document.description)
       expect(page).to have_content(document.activity)
-      document.users.each { |user|
-        expect(page).to have_content(user.name)
+      document.users_documents.each { |user|
+        expect(page).to have_content(user.user.name)
+        expect(page).to have_content(user.function)
       }
     end
   end
 
-  describe '#create' do
+  describe '#create', js: true do
     before do
       visit new_admin_document_path
     end
@@ -79,11 +82,17 @@ RSpec.describe 'Admin::Document', type: :feature do
       it 'create recommendation' do
         attributes = attributes_for(:document)
         choose 'document_kind_certified'
-        fill_in 'document_description', with: attributes[:description]
-        fill_in 'document_activity', with: attributes[:activity]
-        select admin.name, from: 'document_user_ids'
-        attach_file 'document_participants', FileSpecHelper.csv.path
-        submit_form
+        function = Faker::Lorem.word
+        all('div[contenteditable]')[0].set(attributes[:description])
+        all('div[contenteditable]')[1].set(attributes[:activity])
+        find(:css, 'select', match: :first).select user.name
+        find(:css, 'div.document_users_documents_function input').set(function)
+
+        find('a[data-associations="users_documents"]').click
+
+        all('select').last.select user2.name
+        all('div.document_users_documents_function input').last.set(function)
+        click_button('Criar Documento')
 
         expect(page).to have_current_path(admin_documents_path)
         expect(page).to have_flash(:success, text: I18n.t('flash.actions.create.m',
@@ -92,82 +101,145 @@ RSpec.describe 'Admin::Document', type: :feature do
 
       context 'with invalid fields' do
         it 'show blank errors' do
-          submit_form
-
+          click_button('Criar Documento')
           expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-          expect(page).to have_content(I18n.t('errors.messages.blank'), count: 3)
+          expect(page).to have_content(I18n.t('errors.messages.blank'), count: 4)
         end
         it 'type is not included in the list' do
-          submit_form
+          click_button('Criar Documento')
           expect(page).to have_current_path(admin_documents_path)
           expect(page).to have_content I18n.t('errors.messages.inclusion'), count: 1
-        end
-
-        it 'preview certificate document' do
-          attributes = attributes_for(:document)
-          choose 'document_kind_certified'
-          fill_in 'document_description', with: attributes[:description]
-          fill_in 'document_activity', with: attributes[:activity]
-          select admin.name, from: 'document_user_ids'
-          attach_file 'document_participants', FileSpecHelper.csv.path
-          click_button I18n.t('helpers.buttons.preview')
-
-          expect(page).to have_content("República Federativa do Brasil")
-          expect(page).to have_content("Ministério da Educação")
-          expect(page).to have_content("Universidade Tecnológica Federal do Paraná")
-          expect(page).to have_content(I18n.t("enums.kinds.certified").upcase)
-          expect(page).to have_content(attributes[:description])
-          expect(page).to have_content(attributes[:activity])
-          expect(page).to have_content(admin.name)
-        end
-
-        it 'preview document declaration' do
-          attributes = attributes_for(:document)
-          choose 'document_kind_declaration'
-          fill_in 'document_description', with: attributes[:description]
-          fill_in 'document_activity', with: attributes[:activity]
-          select admin.name, from: 'document_user_ids'
-          attach_file 'document_participants', FileSpecHelper.csv.path
-          click_button I18n.t('helpers.buttons.preview')
-
-          expect(page).to have_content("República Federativa do Brasil")
-          expect(page).to have_content("Ministério da Educação")
-          expect(page).to have_content("Universidade Tecnológica Federal do Paraná")
-          expect(page).to have_content(I18n.t("enums.kinds.declaration").upcase)
-          expect(page).to have_content(attributes[:description])
-          expect(page).to have_content(attributes[:activity])
-          expect(page).to have_content(admin.name)
         end
       end
     end
   end
 
-  describe '#update' do
+  describe 'preview' do
+    context '#create', js: true do
+
+      before do
+        visit new_admin_document_path
+      end
+
+      it "should preview  document" do
+        attributes = attributes_for(:document)
+
+
+        function = Faker::Lorem.word
+        all('div[contenteditable]')[0].set(attributes[:description])
+        all('div[contenteditable]')[1].set(attributes[:activity])
+        find(:css, 'select', match: :first).select user.name
+        find(:css, 'div.document_users_documents_function input').set(function)
+
+        find('a[data-associations="users_documents"]').click
+
+        all('select').last.select user2.name
+        all('div.document_users_documents_function input').last.set(function)
+        click_button I18n.t('helpers.buttons.preview')
+        expect(page).to have_content("República Federativa do Brasil")
+        expect(page).to have_content("Ministério da Educação")
+        expect(page).to have_content("Universidade Tecnológica Federal do Paraná")
+        expect(page).to have_content(I18n.t("enums.kinds.certified").upcase, count: 1)
+        expect(page).to have_content(attributes[:description])
+        expect(page).to have_content(attributes[:activity])
+        expect(page).to have_content(user.name)
+        expect(page).to have_content(user2.name)
+        expect(page).to have_content(function.humanize, count: 2)
+
+      end
+
+      it 'should preview document certificate' do
+        choose 'document_kind_certified'
+        click_button I18n.t('helpers.buttons.preview')
+        expect(page).to have_content(I18n.t("enums.kinds.certified").upcase, count: 1)
+      end
+      it 'should preview document declaration' do
+        choose 'document_kind_declaration'
+        click_button I18n.t('helpers.buttons.preview')
+        expect(page).to have_content(I18n.t("enums.kinds.declaration").upcase, count: 1)
+      end
+    end
+
+    context '#update', js: true do
+      let!(:document) { create(:document) }
+      before do
+        visit edit_admin_document_path(document)
+      end
+
+      it "should preview document" do
+
+        expect(page).to have_content(document.description)
+        expect(page).to have_content(document.activity)
+
+        click_button I18n.t('helpers.buttons.preview')
+        expect(page).to have_content("República Federativa do Brasil")
+        expect(page).to have_content("Ministério da Educação")
+        expect(page).to have_content("Universidade Tecnológica Federal do Paraná")
+        expect(page).to have_content(I18n.t("enums.kinds.#{document.kind}.").upcase, count: 1)
+        expect(page).to have_content(document.description)
+        expect(page).to have_content(document.activity)
+
+        click_button I18n.t('helpers.buttons.close')
+
+        attributes = attributes_for(:document)
+        function = Faker::Lorem.word
+        choose 'document_kind_certified'
+        all('div[contenteditable]')[0].set(attributes[:description])
+        all('div[contenteditable]')[1].set(attributes[:activity])
+        all('div.selectize-input input').first.set user.name
+        all('div.document_users_documents_function input').last.set(function)
+
+        find('a[data-associations="users_documents"]').click
+
+        all('select').last.select user2.name
+        all('div.document_users_documents_function input').last.set(function)
+
+        click_button I18n.t('helpers.buttons.preview')
+        expect(page).to have_content("República Federativa do Brasil")
+        expect(page).to have_content("Ministério da Educação")
+        expect(page).to have_content("Universidade Tecnológica Federal do Paraná")
+        expect(page).to have_content(I18n.t("enums.kinds.certified.").upcase, count: 1)
+        expect(page).to have_content(attributes[:description])
+        expect(page).to have_content(attributes[:activity])
+        expect(page).to have_content(user.name)
+        expect(page).to have_content(user2.name)
+        expect(page).to have_content(function.humanize, count: 2)
+
+      end
+
+      it 'should preview  certificate' do
+        choose 'document_kind_certified'
+        click_button I18n.t('helpers.buttons.preview')
+        expect(page).to have_content(I18n.t("enums.kinds.certified.").upcase, count: 1)
+      end
+      it 'should preview declaration' do
+        choose 'document_kind_declaration'
+        click_button I18n.t('helpers.buttons.preview')
+        expect(page).to have_content(I18n.t("enums.kinds.declaration").upcase, count: 1)
+
+      end
+    end
+  end
+
+  describe '#update', js: true do
     let(:document) { create(:document) }
     before do
       visit edit_admin_document_path(document)
     end
 
-    context 'with fields filled' do
-      it 'with correct values' do
-        choose 'document_kind_certified'
-        expect(page).to have_field 'document_description', with: document.description
-        expect(page).to have_field 'document_activity', with: document.activity
-        expect(page).to have_select 'document_user_ids',
-                                    selected: document.users.map(&:name)
-      end
-    end
 
     context 'with valid fields' do
       it 'update document' do
         attributes = attributes_for(:document)
         choose 'document_kind_certified'
-        fill_in 'document_description', with: attributes[:description]
-        fill_in 'document_activity', with: attributes[:activity]
-        select admin.name, from: 'document_user_ids'
-        attach_file 'document_participants', FileSpecHelper.csv.path
-        submit_form
-
+        all('div[contenteditable]')[0].set(attributes[:description])
+        all('div[contenteditable]')[1].set(attributes[:activity])
+        fill_in 'document_users_documents_attributes_0_function', with: user2.name
+        fill_in 'document_users_documents_attributes_0_function', with: Faker::Lorem.word
+        find('a[data-associations="users_documents"]').click
+        all('select').last.select user.name
+        all('div.document_users_documents_function input').last.set(Faker::Lorem.word)
+        click_button('Atualizar Documento')
         expect(page).to have_current_path(admin_documents_path)
         expect(page).to have_flash(:success, text: I18n.t('flash.actions.update.m',
                                                           model: model_name))
@@ -175,13 +247,14 @@ RSpec.describe 'Admin::Document', type: :feature do
 
       context 'with invalid fields' do
         it 'show blank errors' do
-          fill_in 'document_description', with: ''
-          fill_in 'document_activity', with: ''
-
-          submit_form
+          all('div[contenteditable]')[0].set('').send_keys(:backspace)
+          all('div[contenteditable]')[1].set('').send_keys(:backspace)
+          find('a[partial="client_document_fields"]').click
+          find('a[data-associations="users_documents"]').click
+          click_button('Atualizar Documento')
 
           expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-          expect(page).to have_content(I18n.t('errors.messages.blank'), count: 2)
+          expect(page).to have_content(I18n.t('errors.messages.blank'), count: 4)
         end
       end
     end
@@ -189,7 +262,8 @@ RSpec.describe 'Admin::Document', type: :feature do
 
   describe '#destroy' do
     it 'document' do
-      d = create(:document, :without_subscription)
+      d = create(:document)
+
       visit admin_documents_path
       click_on_link(admin_document_path(d), method: :delete)
       expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.m',
@@ -198,7 +272,7 @@ RSpec.describe 'Admin::Document', type: :feature do
     end
 
     it 'document unless it is unsigned' do
-      dc = create(:document)
+      dc = create(:document, :subscription)
       visit admin_documents_path
       click_on_link(admin_document_path(dc), method: :delete)
       expect(page).to have_selector('div.alert.alert-warning',
@@ -206,5 +280,6 @@ RSpec.describe 'Admin::Document', type: :feature do
       expect(page).to have_content(dc.users.map(&:name).delete("[\]"))
     end
   end
+
 end
 

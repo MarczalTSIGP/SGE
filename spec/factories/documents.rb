@@ -4,18 +4,17 @@ FactoryBot.define do
     kind { Document.kinds.values.sample }
     description { Faker::Lorem.sentence(10) }
     activity { Faker::Lorem.sentence(10) }
-    participants { Faker::CSV.participants }
 
     after(:build) do |dc|
       dc.users << create(:user)
-      dc.users_documents.each { |ud| ud.subscription = true }
+      dc.users_documents.each { |ud| ud.function = Faker::Lorem.word }
     end
-    
 
-    trait :without_subscription do
+
+    trait :subscription do
       after(:build) do |dc|
         dc.users << create(:user)
-        dc.users_documents.each { |ud| ud.subscription = false }
+        dc.users_documents.each { |ud| ud.subscription = true, ud.function = Faker::Lorem.word }
       end
     end
   end

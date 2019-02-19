@@ -5,7 +5,8 @@ class User < ApplicationRecord
   include LoginAuthentication
   also_login_by :username
 
-  has_many :documents
+  has_many :users_documents, dependent: :destroy
+  has_many :documents, through: :users_documents
 
   devise :database_authenticatable, :rememberable, :trackable,
          :validatable, authentication_keys: [:login]
@@ -36,6 +37,9 @@ class User < ApplicationRecord
     end
   end
 
+  def self.signature(user)
+    user.users_documents.map { |d| d.subscription }.count(false) > 0
+  end
   private
 
   def email_required?

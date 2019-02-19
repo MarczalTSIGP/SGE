@@ -24,8 +24,8 @@
 //--------------------
 //= require lib/input_search
 //= require admin/preview_document
-//= require admin/nav_tab
 //= require admin/loads
+
 
 
 
