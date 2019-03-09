@@ -12,8 +12,10 @@ class Client < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, authentication_keys: [:login]
 
-  has_many :client_documents, dependent: :destroy
-  has_many :documents, through: :client_documents
+  has_many :clients_documents, dependent: :destroy
+  has_many :documents, through: :clients_documents
+
+
 
   validates :name, :cpf, presence: true
   validates :alternative_email, allow_blank: true, uniqueness: { case_sensitive: false }

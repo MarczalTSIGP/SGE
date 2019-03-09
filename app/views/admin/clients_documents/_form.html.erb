@@ -1,0 +1,41 @@
+<%= simple_form_for [:admin, @clients_documents.document, @clients_documents],
+                    html: { multipart: true } do |f| %>
+  <div class="form-row">
+    <div class="col-12">
+      <%= f.input :client_id, collection: @clients %>
+    </div>
+    <% participant_hours_fields = ParticipantsFieldsDecorator.new(@clients_documents.participant_hours_fields) %>
+    <%= f.simple_fields_for(participant_hours_fields) do |field| %>
+      <% participant_hours_fields.each do |key, value| %>
+        <div class=" form-group integer col-lg-1 col-sm-6">
+          <%= field.input key do %>
+
+            <%= field.input_field key,
+                                  class: ('form-control integer ' + field_invalid(value, @clients_documents)),
+                                  as: :integer            %>
+            <% if value.blank? %>
+              <%= f.error :participant_hours_fields, class: 'invalid-feedback' %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class='d-flex'>
+    <%= link_to t('helpers.links.all.m', model: t('activerecord.models.document.other')),
+                admin_documents_path, class: 'btn btn-secondary' %>
+    <% if !f.object.new_record? %>
+      <%= link_to new_admin_document_clients_document_path(@clients_documents.document),
+                  method: :get, class: 'icon',
+                  class: 'btn btn-secondary ml-5',
+                  title: t('helpers.links.title.megane_participants',
+                           model: t('activerecord.models.document.one')),
+                  data: { toggle: 'tooltip', placement: 'top' } do %>
+        voltar
+      <% end %>
+    <% end %>
+    <%= f.button :submit,
+                 value: t("helpers.buttons.client_document.#{f.object.new_record? ? 'create' : 'update'}"),
+                 class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>

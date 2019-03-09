@@ -48,6 +48,13 @@
         <td><%= t("enums.kinds.#{document.kind}") %></td>
         <td><%= document.created_at.strftime("%d-%m-%Y") %></td>
         <td>
+          <%= link_to new_admin_document_clients_document_path(document),
+                      method: :get, class: 'icon',
+                      title: t('helpers.links.title.megane_participants',
+                               model: t('activerecord.models.document.one')),
+                      data: { toggle: 'tooltip', placement: 'top' } do %>
+            <i class="fe fe-user"></i>
+          <% end %>
           <%= link_to admin_document_path(document),
                       method: :get, class: 'icon',
                       title: t('helpers.links.show.m',

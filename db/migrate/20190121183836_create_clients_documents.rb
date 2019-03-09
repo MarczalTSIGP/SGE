@@ -3,7 +3,7 @@ class CreateClientsDocuments < ActiveRecord::Migration[5.2]
     create_table :clients_documents do |t|
       t.references :document, foreign_key: true
       t.references :client, foreign_key: true
-      t.integer :hours
+      t.json 'participant_hours_fields'
       t.timestamps
     end
     add_index(:clients_documents, [:document_id, :client_id], unique: true)

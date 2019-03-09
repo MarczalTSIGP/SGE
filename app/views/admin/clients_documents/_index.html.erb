@@ -1,0 +1,44 @@
+<br>
+<br>
+<div class="table-responsive">
+  <table class="table table-data card-table  text-nowrap">
+    <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.document.client') %></th>
+      <th></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @clients_document_show.each do |client_document| %>
+      <tr>
+        <td>
+          <%= client_document.client.name %>
+        </td>
+        <td>
+          <%= client_document.participant_hours_fields%>
+        </td>
+
+        <td>
+          <%= link_to edit_admin_document_clients_document_path(client_document.document_id, client_document.id),
+                      method: :get, class: 'icon',
+                      title: t('helpers.links.edit',
+                               model: t('activerecord.models.clients_document.one')),
+                      data: { toggle: 'tooltip', placement: 'top' } do %>
+            <i class="fe fe-edit"></i>
+          <% end %>
+          <%= link_to admin_document_clients_document_path(client_document.document_id, client_document.id),
+                      method: :delete, class: 'icon',
+                      title: t('helpers.links.destroy',
+                               model: t('activerecord.models.clients_document.one')),
+                      data: { confirm: t('prompt.confirm'),
+                              toggle: 'tooltip',
+                              placement: 'top' } do %>
+            <i class="fe fe-trash-2"></i>
+          <% end %>
+
+          </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

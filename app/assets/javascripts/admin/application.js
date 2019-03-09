@@ -15,7 +15,6 @@
 
 // Vendors
 //--------------------
-//= require config/selectize
 // Config files
 //--------------------
 //= require config/namespace

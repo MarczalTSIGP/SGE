@@ -3,7 +3,7 @@ CPFButton = (context) ->
   button = ui.button(
     contents: '<i >CPF</i>'
     click: ->
-      context.invoke 'editor.insertText', '#{cpf}'
+      context.invoke 'editor.insertText', '{cpf}'
   )
   button.render()
 NameButton = (context) ->
@@ -11,19 +11,28 @@ NameButton = (context) ->
   button = ui.button(
     contents: '<i>Nome</i>'
     click: ->
-      context.invoke 'editor.insertText', '#{nome}'
+      context.invoke 'editor.insertText', '{nome}'
   )
   button.render()
+
+
 TimeActivityButton = (context) ->
-  counter = 0
   ui = $.summernote.ui
+  counter = 0
+  cc = new Array()
   button = ui.button(
     contents: '<i>Hora</i>'
     click: ->
-      counter++
-      context.invoke 'editor.insertText', '#{hora_' + counter + '}'
+      text = $('div.note-editable').text()
+      array = text.match(/{hora_[0-9]*}/g)
+      if array == null
+        counter++
+      else
+        counter = array.length + 1
+      context.invoke 'editor.insertText', '{hora_' + counter + '}'
   )
   button.render()
+
 TotalHoursButton = (context) ->
   counter = 0
   ui = $.summernote.ui
@@ -31,20 +40,10 @@ TotalHoursButton = (context) ->
     contents: '<i>Total de Horas</i>'
     click: ->
       counter++
-      context.invoke 'editor.insertText', '#{total_horas}'
+      context.invoke 'editor.insertText', '{total_horas}'
   )
   button.render()
 
-ActivityButton = (context) ->
-  counter = 0
-  ui = $.summernote.ui
-  button = ui.button(
-    contents: '<i>Atividade</i>'
-    click: ->
-      counter++
-      context.invoke 'editor.insertText', '#{atividade_' + counter + '}'
-  )
-  button.render()
 
 
 $(document).on 'turbolinks:load', ->
@@ -63,13 +62,12 @@ $(document).on 'turbolinks:load', ->
         ['view', ['codeview']],
         ['help', ['help']],
         ['person', ['cpf', 'name']],
-        ['activity', ['atividade', 'hora_atividade', 'total_horas']]
+        ['activity', ['hora_atividade', 'total_horas']]
       ]
       buttons:
         cpf: CPFButton
         name: NameButton
         hora_atividade: TimeActivityButton
-        atividade: ActivityButton
         total_horas: TotalHoursButton
 
 

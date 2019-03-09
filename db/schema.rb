@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2019_01_23_181352) do
   create_table "clients_documents", force: :cascade do |t|
     t.bigint "document_id"
     t.bigint "client_id"
-    t.integer "hours"
+    t.json "participant_hours_fields"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_clients_documents_on_client_id"

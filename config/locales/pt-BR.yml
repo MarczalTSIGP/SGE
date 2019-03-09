@@ -39,16 +39,22 @@ pt-BR:
       all:
         m: 'Todos %{model}'
         f: 'Todas %{model}'
+      menage: 'Gerenciar %{model}'
       active: 'Ativar %{model}'
       disable: 'Desativar %{model}'
       destroy: 'Excluir %{model}'
       title:
         add_users: "Adicionar Responsáveis"
+        megane_participants: "Gerenciar Participantes"
+        add_participants: "Adicionar Participantes"
     label:
       document:
         description_front: "Descrição (Frente)"
         activity_verse: "Atividades (Verso)"
     buttons:
+      client_document:
+        create: 'Adicionar Participante'
+        update: 'Atualizar Participante'
       log_in: 'Entrar'
       proceed: 'Prosseguir'
       change_my_password: 'Mudar minha senha'
@@ -101,6 +107,9 @@ pt-BR:
       client:
         one: 'Cliente'
         other: 'Clientes'
+      clients_document:
+        one: 'Participante'
+        other: 'Participante'
       document:
         one: 'Documento'
         other: 'Documentos'
@@ -120,6 +129,8 @@ pt-BR:
         password_confirmation: 'Confirmação de senha'
         ra: 'Registro Acadêmico'
         current_password: 'Senha Atual'
+      clients_document:
+        client_id: 'Nome'
       department:
         initials: 'Sigla'
         local: 'Local'

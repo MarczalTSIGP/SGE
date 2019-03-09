@@ -80,10 +80,7 @@ class Admin::DocumentsController < Admin::BaseController
                                      :participants,
                                      users_documents_attributes: [:id, :user_id,
                                                                   :function,
-                                                                  :_destroy],
-                                     client_documents_attributes: [:id, :client_id,
-                                                                   :hours,
-                                                                   :_destroy])
+                                                                  :_destroy])
   end
 
   def subscription?

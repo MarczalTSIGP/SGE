@@ -34,15 +34,14 @@ namespace :db do
                              password: '123456',
                              kind: Client.kinds.values.sample)
 
-      document = Document.create(description: Faker::Lorem.paragraphs,
-                                 activity: Faker::Lorem.paragraphs,
-                                 # participants: Faker::CSV.participants,
+      document = Document.create(description: Faker::Lorem.sentence,
+                                 activity: (Faker::Lorem.sentence + '{hora_1}'.to_s),
                                  kind: Document.kinds.values.sample)
 
 
-      # ClientDocument.create(document_id: document.id,
-      #                       client_id: client.id,
-      #                       hours: Faker::Number.between(1, 10))
+      ClientsDocument.create(document_id: document.id,
+                             client_id: client.id,
+                             participant_hours_fields: ActiveSupport::JSON.decode("{\"hora_1\":\"1\"}"))
 
       UsersDocument.create(document_id: document.id,
                            user_id: user.id,
