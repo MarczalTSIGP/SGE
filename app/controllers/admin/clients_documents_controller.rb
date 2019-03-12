@@ -1,6 +1,10 @@
 class Admin::ClientsDocumentsController < Admin::BaseController
-  before_action :load_clients, only: [:new, :create, :edit]
-  before_action :load_clients_index, only: [:new, :create, :edit, :update]
+  before_action :load_clients, only: [:index, :new, :create, :edit]
+  before_action :load_clients_index, only: [:index, :new, :create, :edit, :update]
+
+  def index
+    new
+  end
 
   def new
     document = Document.find(params[:document_id])

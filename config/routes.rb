@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     namespace :admin do
       root to: 'home#index'
       resources :documents, constraints: { id: /[0-9]+/ }, concerns: :paginatable do
-        resources :clients_documents, except: [:show, :index]
+        resources :clients_documents, except: [:show]
       end
       get 'documents/subscriptions',
           to: 'documents#subscriptions',
