@@ -10,9 +10,6 @@ RSpec.describe Document, type: :model do
     context 'with associations' do
       it { is_expected.to have_many(:users_documents) }
       it { is_expected.to have_many(:users).through(:users_documents) }
-
-      it { is_expected.to have_many(:clients_documents) }
-      it { is_expected.to have_many(:clients).through(:clients_documents) }
     end
   end
 end

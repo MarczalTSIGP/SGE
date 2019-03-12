@@ -192,7 +192,7 @@ RSpec.describe 'Admin::Document', type: :feature do
       it 'show blank errors' do
         all('div[contenteditable]')[0].set('').send_keys(:backspace)
         all('div[contenteditable]')[1].set('').send_keys(:backspace)
-        find('a[partial="client_document_fields"]').click
+        find('a[partial="users_document_fields"]').click
         find('a[data-associations="users_documents"]').click
         click_button('Atualizar Documento')
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))

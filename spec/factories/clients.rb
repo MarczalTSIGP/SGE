@@ -2,7 +2,7 @@ require './lib/faker/cpf'
 
 FactoryBot.define do
   factory :client, class: Client do
-    name { 'nome' }
+    name { Faker::Name.unique.name      }
     cpf { Faker::CPF.numeric }
     sequence(:email) { |n| "participante#{n}@participante.com" }
     sequence(:alternative_email) { |n| "alternative#{n}@gmail.com" }
