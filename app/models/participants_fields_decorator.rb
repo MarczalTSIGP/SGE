@@ -18,10 +18,6 @@ class ParticipantsFieldsDecorator
     end
   end
 
-  def respond_to_missing?
-    super
-  end
-
   def attribute?(attr)
     @object.key? attr
   end
