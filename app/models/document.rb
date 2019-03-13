@@ -22,7 +22,6 @@ class Document < ApplicationRecord
     end
   end
 
-
   def self.human_kinds
     hash = {}
     kinds.keys.each { |key| hash[I18n.t("enums.kinds.#{key}")] = key }

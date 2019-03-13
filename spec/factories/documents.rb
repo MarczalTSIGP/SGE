@@ -2,7 +2,7 @@ require './lib/faker/csv'
 FactoryBot.define do
   factory :document do
     kind { Document.kinds.values.sample }
-    description { Faker::Lorem.sentence(10) + "{hora_" + Faker::Number.number(10) + "}" }
+    description { Faker::Lorem.sentence(10) + '{hora_' + Faker::Number.number(10) + '}' }
     activity { Faker::Lorem.sentence(10) }
 
     after(:build) do |dc|
@@ -20,9 +20,9 @@ FactoryBot.define do
     trait :participant do
       after(:build) do |dc|
         dc.clients << create(:client)
-        dc.clients_documents.each { |cd|
-          cd.participant_hours_fields = ActiveSupport::JSON.decode("{\"hora_1\":\"1\"}")
-        }
+        dc.clients_documents.each do |cd|
+          cd.participant_hours_fields = JSON.parse('{"hora_1":  "1"}')
+        end
       end
     end
   end

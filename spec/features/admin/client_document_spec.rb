@@ -4,7 +4,7 @@ RSpec.describe 'Admin::ClientDocument', type: :feature do
   let(:model_name) { I18n.t('activerecord.models.clients_document.one') }
   let(:admin) { create(:user, :admin) }
   let!(:client) { create(:client) }
-  # let!(:user2) { create(:user) }
+
   before do
     login_as(admin, scope: :user)
   end
@@ -22,8 +22,6 @@ RSpec.describe 'Admin::ClientDocument', type: :feature do
         expect(page).to have_content(cd.participant_hours_fields)
       end
     end
-
-
   end
 
   describe '#create' do
@@ -43,6 +41,7 @@ RSpec.describe 'Admin::ClientDocument', type: :feature do
                                                           model: model_name))
       end
     end
+
     context 'with invalid fields' do
       it 'show blank errors' do
         submit_form
@@ -61,13 +60,11 @@ RSpec.describe 'Admin::ClientDocument', type: :feature do
         expect(page).to have_content(I18n.t('errors.messages.taken'))
       end
     end
-
   end
 
   describe '#update' do
     let!(:document_p) { create(:document, :participant) }
     let!(:client2) { create(:client) }
-
 
     before do
       visit edit_admin_document_clients_document_path(document_p, document_p.clients_documents.ids)
@@ -81,7 +78,7 @@ RSpec.describe 'Admin::ClientDocument', type: :feature do
         expect(page).to have_flash(:success, text: I18n.t('flash.actions.update.m',
                                                           model: model_name))
         expect(page).to have_content(client2.name)
-        expect(page).to have_content({ "hora_1" => "11" })
+        expect(page).to have_content('hora_1' => '11')
       end
     end
 
@@ -105,18 +102,18 @@ RSpec.describe 'Admin::ClientDocument', type: :feature do
         expect(page).to have_content(I18n.t('errors.messages.taken'))
       end
     end
-
   end
 
   describe '#destroy' do
     let!(:document_p) { create(:document, :participant) }
+
     it 'oarticipante' do
       visit new_admin_document_clients_document_path(document_p)
       click_on_link(admin_document_clients_document_path(document_p,
-                                                         document_p.clients_documents.ids), method: :delete)
+                                                         document_p.clients_documents.ids),
+                    method: :delete)
       expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.m',
                                                         model: model_name))
-
     end
   end
 end

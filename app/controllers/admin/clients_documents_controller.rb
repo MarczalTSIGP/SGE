@@ -9,7 +9,7 @@ class Admin::ClientsDocumentsController < Admin::BaseController
   def new
     document = Document.find(params[:document_id])
     @clients_documents = document.clients_documents.build
-    @clients_documents.participant_hours_fields = ClientsDocument.hash_participants(params[:document_id])
+    @clients_documents.participant_hours_fields = ClientsDocument.hash_fields(params[:document_id])
   end
 
   def create
@@ -36,7 +36,6 @@ class Admin::ClientsDocumentsController < Admin::BaseController
     if @clients_documents.update(clients_document_params)
       flash[:success] = t('flash.actions.update.m',
                           model: t('activerecord.models.clients_document.one'))
-
       redirect_to new_admin_document_clients_document_path(params[:document_id])
     else
       flash.now[:error] = t('flash.actions.errors')
@@ -50,14 +49,11 @@ class Admin::ClientsDocumentsController < Admin::BaseController
     if client_document.destroy
       flash[:success] = I18n.t('flash.actions.destroy.m',
                                model: t('activerecord.models.clients_document.one'))
-    else
-      flash.now[:error] = t('flash.actions.errors')
     end
     redirect_to new_admin_document_clients_document_path(params[:document_id])
   end
 
   private
-
 
   def clients_document_params
     params.require(:clients_document).permit(:id, :client_id, :document_id,
@@ -69,6 +65,7 @@ class Admin::ClientsDocumentsController < Admin::BaseController
   end
 
   def load_clients_index
-    @clients_document_show = ClientsDocument.where(document_id: params[:document_id]).order(created_at: :desc)
+    @clients_document_show = ClientsDocument.where(document_id: params[:document_id])
+                                            .order(created_at: :desc)
   end
 end

@@ -14,11 +14,15 @@ class ParticipantsFieldsDecorator
     if @object.key? method
       @object[method]
     elsif @object.respond_to? method
-      @object.send(method, *args, &block)
+      @object.send(method, *args, &block) || super
     end
   end
 
-  def has_attribute? attr
+  def respond_to_missing?
+    super
+  end
+
+  def attribute?(attr)
     @object.key? attr
   end
 end
