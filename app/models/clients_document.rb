@@ -22,7 +22,7 @@ class ClientsDocument < ApplicationRecord
   private
 
   def json_input_field
-    participant_hours_fields.each do |_index, value|
+    participant_hours_fields.each_value do |value|
       if value.blank?
         errors.add(:participant_hours_fields, 'Hora ' + I18n.t('errors.messages.blank'))
         break
