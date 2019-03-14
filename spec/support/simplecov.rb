@@ -1,10 +1,10 @@
-if ENV['RAILS_ENV'] == 'test'
+unless ENV['RAILS_ENV'] != 'test'
   require 'simplecov'
   require 'simplecov-console'
   SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
-    SimpleCov::Formatter::HTMLFormatter,
-    SimpleCov::Formatter::Console,
-  ])
+                                                                   SimpleCov::Formatter::Console,
+                                                                   SimpleCov::Formatter::HTMLFormatter
+                                                                 ])
   SimpleCov.start 'rails' do
     add_filter 'app/channels/application_cable'
     add_filter 'app/jobs/application_job.rb'

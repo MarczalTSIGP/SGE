@@ -10,12 +10,21 @@ class ParticipantsFieldsDecorator
   end
 
   # Delegates to the wrapped object
+  # @param [Object] method
+  # @param [Object] args
+  # @param [Object] block
   def method_missing(method, *args, &block)
     if @object.key? method
       @object[method]
     elsif @object.respond_to? method
-      @object.send(method, *args, &block) || super
+      @object.send(method, *args, &block)
+    else
+      super
     end
+  end
+
+  def respond_to_missing?(method, *args, &block)
+    super
   end
 
   def attribute?(attr)

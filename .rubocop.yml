@@ -46,6 +46,7 @@ Metrics/LineLength:
     - 'config/environments/production.rb'
     - 'config/initializers/backtrace_silencers.rb'
     - 'config/initializers/content_security_policy.rb'
+    - 'spec/support/simplecov.rb'
 
 Bundler/OrderedGems:
   Enabled: false
