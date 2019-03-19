@@ -29,6 +29,7 @@ group :development, :test do
   gem 'geckodriver-helper'
   gem 'rspec-rails', '~> 3.7'
   gem 'faker'
+  gem 'selenium-webdriver'
 end
 
 group :development do
@@ -47,9 +48,7 @@ end
 
 group :test do
   gem 'capybara', '>= 2.15', '< 4.0'
-  gem 'chromedriver-helper'
   gem 'database_cleaner'
-  gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'simplecov', require: false
   gem 'simplecov-console', require: false
