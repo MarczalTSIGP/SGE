@@ -199,17 +199,19 @@ RSpec.describe 'Admin::Document', type: :feature do
         click_button('Atualizar Documento')
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
         expect(page).to have_content(I18n.t('errors.messages.blank'), count: 4)
-       end
+      end
     end
   end
 
   describe '#destroy' do
+    let!(:d) { create(:document) }
+    let!(:dc) { create(:document, :subscription) }
+
     before do
       visit admin_documents_path
     end
 
     it 'document' do
-      d = create(:document)
       click_on_link(admin_document_path(d), method: :delete)
       expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.m',
                                                         model: model_name))
@@ -217,7 +219,6 @@ RSpec.describe 'Admin::Document', type: :feature do
     end
 
     it 'document unless it is unsigned' do
-      dc = create(:document, :subscription)
       click_on_link(admin_document_path(dc), method: :delete)
       expect(page).to have_selector('div.alert.alert-warning',
                                     text: 'Não é possível remover documento com assinatura!')

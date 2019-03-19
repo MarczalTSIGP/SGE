@@ -5,7 +5,7 @@
 # end
 Capybara.register_driver :firefox_headless do |app|
   options = ::Selenium::WebDriver::Firefox::Options.new
-  # options.args << '--headless'
+  options.args << '--headless'
 
   Capybara::Selenium::Driver.new(app, browser: :firefox, options: options)
 end
