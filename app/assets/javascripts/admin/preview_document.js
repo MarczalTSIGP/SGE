@@ -14,13 +14,12 @@ $(document).on('turbolinks:load', function () {
         var select = new Array;
         var input = new Array;
         var html = "";
-        var classes = "class='text-center text-capitalize'";
         $("select option:selected").each(function (option) {
-            select[option] = "<h4 " + classes + ">" + $(this).text() + "</h4>"
+            select[option] = myFunction($(this).text(), "h4")
         });
 
         $('input[name*="[function]"]').each(function (val) {
-            input[val] = "<h6 " + classes + ">" + $(this).val() + "</h6>"
+            input[val] = myFunction($(this).val(), "h6")
         });
 
         for (i = 0; i < input.length; i++) {
@@ -30,6 +29,12 @@ $(document).on('turbolinks:load', function () {
         $('#document_users').html(html);
         $('#myModal').modal('show');
     });
+
+
+    function myFunction(val, tag) {
+        return "<" + tag + " class='text-center text-capitalize'>" + val + "</" + tag + ">"
+    }
+
     if ($("select option:selected").length == 0) {
         $('a[data-associations="users_documents"]').trigger('click');
     }
