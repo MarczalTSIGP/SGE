@@ -190,22 +190,26 @@ RSpec.describe 'Admin::Document', type: :feature do
 
     context 'with invalid field' do
       it 'show blank errors' do
-        all('div[contenteditable]')[0].set('').send_keys(:backspace)
-        all('div[contenteditable]')[1].set('').send_keys(:backspace)
+        all('div[contenteditable]')[0].set('').send_keys(:enter)
+        all('div[contenteditable]')[0].send_keys(:backspace).send_keys(:backspace)
+        all('div[contenteditable]')[1].set('').send_keys(:enter)
+        all('div[contenteditable]')[1].send_keys(:backspace).send_keys(:backspace)
         find('a[partial="users_document_fields"]').click
-        find('a[data-associations="users_documents"]').click
+        find('a[data-association="users_document"]').click
         click_button('Atualizar Documento')
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
         expect(page).to have_content(I18n.t('errors.messages.blank'), count: 4)
-      end
+       end
     end
   end
 
   describe '#destroy' do
+    before do
+      visit admin_documents_path
+    end
+
     it 'document' do
       d = create(:document)
-
-      visit admin_documents_path
       click_on_link(admin_document_path(d), method: :delete)
       expect(page).to have_flash(:success, text: I18n.t('flash.actions.destroy.m',
                                                         model: model_name))
@@ -214,7 +218,6 @@ RSpec.describe 'Admin::Document', type: :feature do
 
     it 'document unless it is unsigned' do
       dc = create(:document, :subscription)
-      visit admin_documents_path
       click_on_link(admin_document_path(dc), method: :delete)
       expect(page).to have_selector('div.alert.alert-warning',
                                     text: 'Não é possível remover documento com assinatura!')

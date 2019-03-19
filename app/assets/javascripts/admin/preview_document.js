@@ -14,12 +14,13 @@ $(document).on('turbolinks:load', function () {
         var select = new Array;
         var input = new Array;
         var html = "";
+        var classes = "class='text-center text-capitalize'";
         $("select option:selected").each(function (option) {
-            select[option] = "<h4 class='text-center text-capitalize'>" + $(this).text() + "</h4>"
+            select[option] = "<h4 " + classes + ">" + $(this).text() + "</h4>"
         });
 
         $('input[name*="[function]"]').each(function (val) {
-            input[val] = "<h6 class='text-center text-capitalize'>" + $(this).val() + "</h6>"
+            input[val] = "<h6 " + classes + ">" + $(this).val() + "</h6>"
         });
 
         for (i = 0; i < input.length; i++) {

@@ -115,6 +115,8 @@ GEM
     fuubar (2.3.2)
       rspec-core (~> 3.0)
       ruby-progressbar (~> 1.4)
+    geckodriver-helper (0.23.0)
+      archive-zip (~> 0.7)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     guard (2.14.2)
@@ -350,6 +352,7 @@ DEPENDENCIES
   factory_bot_rails
   faker
   fuubar
+  geckodriver-helper
   guard-rspec
   jquery-rails
   jquery-ui-rails (~> 6.0.1)
