@@ -39,6 +39,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
+
   gem 'brakeman', require: false
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false
@@ -46,6 +47,7 @@ end
 
 group :test do
   gem 'capybara', '>= 2.15', '< 4.0'
+  gem 'chromedriver-helper'
   gem 'database_cleaner'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 3.1'
