@@ -4,6 +4,7 @@ Rails:
   Enabled: true
 
 AllCops:
+
   TargetRubyVersion: 2.4
   # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
   # to ignore them, so only the ones explicitly set in this file are enabled.
@@ -11,6 +12,7 @@ AllCops:
   Exclude:
     - '*/templates//'
     - '*/vendor//'
+    - 'vendor/bundle/**/*'
     - 'actionpack/lib/action_dispatch/journey/parser.rb'
     - 'railties/test/fixtures/tmp/*/'
     - 'db/schema.rb'
