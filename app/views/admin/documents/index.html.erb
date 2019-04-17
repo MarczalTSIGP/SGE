@@ -26,12 +26,16 @@
 </div>
 
 <div class="table-responsive">
-  <table class="table table-data card-table table-vcenter text-nowrap">
+  <table class="table table-data card-table table-center text-nowrap">
     <thead>
     <tr>
+      <th><%= t('activerecord.attributes.document.title') %></th>
       <th><%= t('activerecord.attributes.document.users') %></th>
+      <th><%= t('activerecord.attributes.document.subscription') %></th>
+      <th><%= t('activerecord.attributes.document.request_signature') %></th>
       <th><%= t('activerecord.attributes.document.kind') %></th>
       <th><%= t('activerecord.attributes.document.date') %></th>
+
       <th></th>
     </tr>
     </thead>
@@ -39,15 +43,29 @@
     <tbody>
     <% @documents.each do |document| %>
       <tr>
+        <td><%= document.title %></td>
         <td>
           <% document.users.each do |user| %>
             <%= user.name %>
             <br>
           <% end %>
         </td>
+        <td>
+          <% document.users_documents.each do |user| %>
+            <%= t("helpers.boolean.document.#{user.subscription }") %>
+            <br>
+          <% end %>
+        </td>
+        <td><%=t("helpers.boolean.document.#{document.request_signature}")%></td>
         <td><%= t("enums.kinds.#{document.kind}") %></td>
         <td><%= document.created_at.strftime("%d-%m-%Y") %></td>
         <td>
+          <%= link_to admin_put_documents_request_signature_path(document),
+                      method: :put, class: 'icon',
+                      title: t('helpers.links.title.request_signature'),
+                      data: { toggle: 'tooltip', placement: 'top' } do %>
+            <i class="fe fe-edit-3"></i>
+          <% end %>
           <%= link_to new_admin_document_clients_document_path(document),
                       method: :get, class: 'icon',
                       title: t('helpers.links.title.megane_participants',

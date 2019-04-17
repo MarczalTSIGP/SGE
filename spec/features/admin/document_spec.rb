@@ -20,6 +20,7 @@ RSpec.describe 'Admin::Document', type: :feature do
 
     it 'show all documents with options' do
       Document.all.each do |document|
+        expect(page).to have_content(document.title)
         expect(page).to have_content(I18n.t("enums.kinds.#{document.kind}"))
         expect(page).to have_content(document.created_at.strftime('%d-%m-%Y'))
         expect(page).to have_content(document.users.each(&:name).delete("[\]"))
@@ -73,13 +74,14 @@ RSpec.describe 'Admin::Document', type: :feature do
     context 'with valid fields' do
       it 'create recommendation' do
         choose 'document_kind_certified'
-        function = Faker::Lorem.word
+        fill_in 'document_title', with: attributes[:title]
         all('div[contenteditable]')[0].set(attributes[:description])
         all('div[contenteditable]')[1].set(attributes[:activity])
         find(:css, 'select', match: :first).select user.name
-        find(:css, 'div.document_users_documents_function input').set(function)
+        find(:css, 'div.document_users_documents_function input').set(Faker::Lorem.word)
         click_button('Criar Documento')
         expect(page).to have_current_path(admin_documents_path)
+
         expect(page).to have_flash(:success, text: I18n.t('flash.actions.create.m',
                                                           model: model_name))
       end
@@ -89,7 +91,7 @@ RSpec.describe 'Admin::Document', type: :feature do
       it 'show blank errors' do
         click_button('Criar Documento')
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect(page).to have_content(I18n.t('errors.messages.blank'), count: 4)
+        expect(page).to have_content(I18n.t('errors.messages.blank'), count: 5)
       end
       it 'type is not included in the list' do
         click_button('Criar Documento')
@@ -168,6 +170,7 @@ RSpec.describe 'Admin::Document', type: :feature do
 
   describe '#update', js: true do
     let(:document) { create(:document) }
+    let(:attributes) { build(:document) }
 
     before do
       visit edit_admin_document_path(document)
@@ -175,8 +178,8 @@ RSpec.describe 'Admin::Document', type: :feature do
 
     context 'with valid fields' do
       it 'update' do
-        attributes = attributes_for(:document)
         choose 'document_kind_certified'
+        fill_in 'document_title', with: attributes[:title]
         all('div[contenteditable]')[0].set(attributes[:description])
         all('div[contenteditable]')[1].set(attributes[:activity])
         fill_in 'document_users_documents_attributes_0_function', with: user2.name
@@ -190,6 +193,7 @@ RSpec.describe 'Admin::Document', type: :feature do
 
     context 'with invalid field' do
       it 'show blank errors' do
+        fill_in 'document_title', with: ''
         all('div[contenteditable]')[0].set('').send_keys(:enter)
         all('div[contenteditable]')[0].send_keys(:backspace).send_keys(:backspace)
         all('div[contenteditable]')[1].set('').send_keys(:enter)
@@ -198,7 +202,7 @@ RSpec.describe 'Admin::Document', type: :feature do
         find('a[data-association="users_document"]').click
         click_button('Atualizar Documento')
         expect(page).to have_flash(:danger, text: I18n.t('flash.actions.errors'))
-        expect(page).to have_content(I18n.t('errors.messages.blank'), count: 4)
+        expect(page).to have_content(I18n.t('errors.messages.blank'), count: 5)
       end
     end
   end

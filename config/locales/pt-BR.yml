@@ -1,4 +1,6 @@
 pt-BR:
+  true: 'Sim'
+  false: 'Não'
   flash:
     actions:
       update:
@@ -17,10 +19,24 @@ pt-BR:
         m: '%{model} desativado com sucesso!'
         f: '%{model} desativada com sucesso!'
       errors: 'Existem dados incorretos!'
+      request_signature:
+        t: 'Solicitação de assinatura realizada com sucesso'
+        f: 'Documento já possui solicitação'
+        update: 'Não pode alterar, após solicitar assinatura'
+        signature: "Não possui permissão para solicitar assinatura"
+        destroy: 'Não é possível remover documento que possui solicitação de assinatura!'
       search:
         empty:
           m: 'Nenhum %{model} encontrado!'
           f: 'Nenhum %{model} encontrado!'
+      sign:
+        invalid:
+          m: '%{model} não assinado, Invalido Login ou senha!'
+        valid:
+          m: '%{model} assinado com sucessp!'
+        empty:
+          m: 'Nenhum %{model} encontrado, para assinar!'
+          f: 'Nenhum %{model} encontrado!, para assinar'
   prompt:
     confirm: 'Tem certeza?'
   helpers:
@@ -28,6 +44,9 @@ pt-BR:
       user:
         'true': 'Ativo'
         'false': 'Desativo'
+      document:
+        'true': 'Sim'
+        'false': 'Não'
     links:
       new:
         m: 'Novo %{model}'
@@ -43,10 +62,12 @@ pt-BR:
       active: 'Ativar %{model}'
       disable: 'Desativar %{model}'
       destroy: 'Excluir %{model}'
+      subscription: 'Assinar %{model}'
       title:
-        add_users: "Adicionar Responsáveis"
-        megane_participants: "Gerenciar Participantes"
-        add_participants: "Adicionar Participantes"
+        add_users: 'Adicionar Responsáveis'
+        megane_participants: 'Gerenciar Participantes'
+        add_participants: 'Adicionar Participantes'
+        request_signature: 'Solicitar Assinatura'
     label:
       document:
         description_front: "Descrição (Frente)"
@@ -105,11 +126,11 @@ pt-BR:
         one: 'Usuário'
         other: 'Usuários'
       client:
-        one: 'Cliente'
-        other: 'Clientes'
+        one: 'Participante'
+        other: 'Participantes'
       clients_document:
         one: 'Participante'
-        other: 'Participante'
+        other: 'Participantes'
       document:
         one: 'Documento'
         other: 'Documentos'
@@ -145,6 +166,9 @@ pt-BR:
         users: "Responsáveis"
         user_ids: "Responsáveis"
         date: 'Data'
+        subscription: "Assinado"
+        title: 'Título'
+        request_signature: 'Solicitar Assinatura'
       client_document:
         hours: "Horas"
         clients: "Nome"

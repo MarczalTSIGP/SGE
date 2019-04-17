@@ -36,7 +36,8 @@ namespace :db do
 
       document = Document.create(description: Faker::Lorem.sentence,
                                  activity: (Faker::Lorem.sentence + '{hora_1}'.to_s),
-                                 kind: Document.kinds.values.sample)
+                                 kind: Document.kinds.values.sample,
+                                 title: Faker::Name.unique.first_name)
 
 
       ClientsDocument.create(document_id: document.id,

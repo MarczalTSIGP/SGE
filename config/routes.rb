@@ -18,7 +18,12 @@ Rails.application.routes.draw do
       get 'documents/subscriptions',
           to: 'documents#subscriptions',
           as: 'users_documents_subscriptions'
-      put 'documents/sign/:id', to: 'documents#sign', as: 'users_documents_sign'
+      get 'documents/:id/sign/', to: 'documents#sign', as: 'user_documents_sign'
+      post 'documents/:id/sign', to: 'documents#auth', as: 'post_user_documents_sign'
+      put 'documents/request_signature/:id',
+          to: 'documents#request_signature',
+          as: 'put_documents_request_signature'
+
       get 'documents/search/(:term)/(page/:page)',
           to: 'documents#index',
           as: 'documents_search',

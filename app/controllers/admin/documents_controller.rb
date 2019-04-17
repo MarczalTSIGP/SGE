@@ -1,12 +1,11 @@
 class Admin::DocumentsController < Admin::BaseController
-  before_action :set_document, only: [:show, :edit, :update, :destroy]
+  before_action :set_document, only: [:show, :edit, :update, :destroy, :request_signature, :sign, :auth]
   before_action :load_clients, only: [:new, :create, :edit, :update]
   before_action :load_users, only: [:new, :create, :edit, :update]
 
   def index
     @documents = Document.page(params[:page]).per(10).search(params[:term])
     return unless @documents.empty?
-
     flash.now[:notice] = t('flash.actions.search.empty.m',
                            model: t('activerecord.models.document.one'))
   end
@@ -29,7 +28,12 @@ class Admin::DocumentsController < Admin::BaseController
 
   def show; end
 
-  def edit; end
+  def edit
+    if @document.request_signature?
+      flash[:alert] = t('flash.actions.request_signature.update')
+      redirect_to admin_documents_path
+    end
+  end
 
   def update
     if @document.update(document_params)
@@ -43,22 +47,59 @@ class Admin::DocumentsController < Admin::BaseController
   end
 
   def destroy
-    if subscription?
-      flash[:alert] = 'Não é possível remover documento com assinatura!'
+    if @document.request_signature?
+      flash[:alert] = t('flash.actions.request_signature.destroy')
     elsif @document.destroy
-      flash[:success] = I18n.t('flash.actions.destroy.m',
-                               model: t('activerecord.models.document.one'))
+      flash[:success] = t('flash.actions.destroy.m',
+                          model: t('activerecord.models.document.one'))
     end
     redirect_to admin_documents_path
   end
 
   def subscriptions
-    @user_documents = UsersDocument.where(user_id: current_user, subscription: false)
+    @user_documents = UsersDocument.joins(:document).where(user_id: current_user,
+                                                           subscription: false,
+                                                           documents:
+                                                               { request_signature: true })
+    if @user_documents.empty?
+      flash[:success] = I18n.t('flash.actions.sign.empty.m',
+                               model: t('activerecord.models.document.one'))
+    end
   end
 
-  def sign
-    redirect_to admin_users_documents_subscriptions_path
+  def auth
+    if current_user == User.auth(params[:document][:login], params[:document][:password])
+      @user = UsersDocument.find_by(document_id: params[:id], user_id: current_user)
+      @user.subscription = true
+      @user.save
+      flash[:success] = I18n.t('flash.actions.sign.valid.m', model: t('activerecord.models.document.one'))
+      redirect_to admin_users_documents_subscriptions_path
+    else
+      flash[:alert] = I18n.t('flash.actions.sign.invalid.m',
+                             model: t('activerecord.models.document.one'))
+      render :sign
+    end
   end
+
+  def sign; end
+
+  def request_signature
+    @document.users_documents.each do |ud|
+      if ud.user_id == current_user.id
+        if @document.request_signature?
+          flash[:alert] = I18n.t('flash.actions.request_signature.f')
+        else
+          @document.request_signature = true
+          @document.save
+          flash[:success] = I18n.t('flash.actions.request_signature.t')
+        end
+      else
+        flash[:alert] = I18n.t('flash.actions.request_signature.signature')
+      end
+      redirect_to admin_documents_path
+    end
+  end
+
 
   private
 
@@ -75,17 +116,12 @@ class Admin::DocumentsController < Admin::BaseController
   end
 
   def document_params
-    params.require(:document).permit(:description,
+    params.require(:document).permit(:login, :description,
                                      :kind, :activity,
                                      :participants,
+                                     :title,
                                      users_documents_attributes: [:id, :user_id,
                                                                   :function,
                                                                   :_destroy])
-  end
-
-  def subscription?
-    @document.users_documents.each do |ud|
-      return ud.subscription? == true
-    end
   end
 end

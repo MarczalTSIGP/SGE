@@ -1,6 +1,7 @@
 require './lib/faker/csv'
 FactoryBot.define do
   factory :document do
+    title { Faker::Nation.unique.nationality }
     kind { Document.kinds.values.sample }
     description { Faker::Lorem.sentence(10) + '{hora_' + Faker::Number.number(10) + '}' }
     activity { Faker::Lorem.sentence(10) }

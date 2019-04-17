@@ -8,8 +8,13 @@ class Admin::ClientsDocumentsController < Admin::BaseController
 
   def new
     document = Document.find(params[:document_id])
-    @clients_documents = document.clients_documents.build
-    @clients_documents.participant_hours_fields = ClientsDocument.hash_fields(params[:document_id])
+    if document.request_signature?
+      flash[:alert] = t('flash.actions.request_signature.update')
+      redirect_to admin_documents_path
+    else
+      @clients_documents = document.clients_documents.build
+      @clients_documents.participant_hours_fields = ClientsDocument.hash_fields(params[:document_id])
+    end
   end
 
   def create

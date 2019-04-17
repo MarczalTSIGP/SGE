@@ -3,6 +3,7 @@
   <%= f.input :kind, as: :radio_buttons, collection: Document.human_kinds,
               item_wrapper_class: 'inline custom-control custom-radio custom-control-inline' %>
 
+  <%= f.input :title %>
   <%= f.input :description, as: :summernote, label: t("helpers.label.document.description_front") %>
   <%= f.input :activity, as: :summernote, label: t("helpers.label.document.activity_verse") %>
 
