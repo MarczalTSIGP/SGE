@@ -31,9 +31,9 @@ pt-BR:
           f: 'Nenhum %{model} encontrado!'
       sign:
         invalid:
-          m: '%{model} não assinado, Invalido Login ou senha!'
+          m: 'Documento não assinado, Invalido Login ou senha!'
         valid:
-          m: '%{model} assinado com sucessp!'
+          m: 'Documento assinado com sucesso!'
         empty:
           m: 'Nenhum %{model} encontrado, para assinar!'
           f: 'Nenhum %{model} encontrado!, para assinar'

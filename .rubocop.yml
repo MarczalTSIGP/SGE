@@ -63,6 +63,7 @@ Metrics/AbcSize:
     - 'lib/faker/cpf.rb'
     - 'app/models/concerns/login_authentication.rb'
     - 'app/controllers/admin/clients_documents_controller.rb'
+    - 'app/controllers/admin/documents_controller.rb'
 
 Style/MixinUsage:
   Exclude:

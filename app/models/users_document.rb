@@ -6,4 +6,9 @@ class UsersDocument < ApplicationRecord
 
   validates :user, uniqueness: { scope: :document }
   validates :function, :user_id, presence: true
+
+  def self.toggle_subscription(user)
+    user.subscription = true
+    user.save
+  end
 end

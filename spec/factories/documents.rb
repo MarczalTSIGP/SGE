@@ -11,6 +11,10 @@ FactoryBot.define do
       dc.users_documents.each { |ud| ud.function = Faker::Lorem.word }
     end
 
+    trait :request_signature do
+      request_signature { true }
+    end
+
     trait :subscription do
       after(:build) do |dc|
         dc.users << create(:user)

@@ -1,8 +1,6 @@
 class Document < ApplicationRecord
   attr_accessor :login, :password
 
-  def login; end
-
   enum kind: { certified: 'certified', declaration: 'declaration' }, _prefix: :kind
 
   has_many :users_documents, dependent: :destroy
@@ -13,14 +11,16 @@ class Document < ApplicationRecord
 
   accepts_nested_attributes_for :users_documents, :users, allow_destroy: true
 
-  validates :description,:title, presence: true
-  validates :title, uniqueness:  true
+  validates :description, :title, presence: true
+  validates :title, uniqueness: true
   validates :activity, presence: true
   validates :kind, inclusion: { in: Document.kinds.values }
 
   def self.search(search)
     if search
-      where('unaccent(description) ILIKE unaccent(?) OR unaccent(activity) ILIKE unaccent(?) OR unaccent(title) ILIKE unaccent(?) ',
+      where('unaccent(description) ILIKE unaccent(?)' \
+                'OR unaccent(activity) ILIKE unaccent(?)' \
+                'OR unaccent(title) ILIKE unaccent(?) ',
             "%#{search}%", "%#{search}%", "%#{search}%").order('title ASC')
     else
       order(created_at: :DESC)
@@ -32,5 +32,4 @@ class Document < ApplicationRecord
     kinds.each_key { |key| hash[I18n.t("enums.kinds.#{key}")] = key }
     hash
   end
-
- end
+end

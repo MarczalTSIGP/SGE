@@ -38,18 +38,13 @@ class User < ApplicationRecord
   end
 
   def self.signature(user)
-    user.documents.map(&:request_signature).count(true).positive? and
-        user.users_documents.map(&:subscription).count(false).positive?
+    user.documents.map(&:request_signature).count(true).positive? &&
+      user.users_documents.map(&:subscription).count(false).positive?
   end
 
   def self.auth(username, password)
-    user = User.find_for_authentication(:username => username)
-    if user.nil?
-      return false
-    else
-      user.valid_password?(password) ? user : nil
-    end
-
+    user = User.find_for_authentication(username: username)
+    user if user.present? && user.valid_password?(password)
   end
 
   private

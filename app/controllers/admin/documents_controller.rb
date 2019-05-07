@@ -1,11 +1,13 @@
 class Admin::DocumentsController < Admin::BaseController
-  before_action :set_document, only: [:show, :edit, :update, :destroy, :request_signature, :sign, :auth]
+  before_action :set_document, only: [:show, :edit, :update,
+                                      :destroy, :request_signature, :sign, :auth]
   before_action :load_clients, only: [:new, :create, :edit, :update]
   before_action :load_users, only: [:new, :create, :edit, :update]
 
   def index
     @documents = Document.page(params[:page]).per(10).search(params[:term])
     return unless @documents.empty?
+
     flash.now[:notice] = t('flash.actions.search.empty.m',
                            model: t('activerecord.models.document.one'))
   end
@@ -29,10 +31,9 @@ class Admin::DocumentsController < Admin::BaseController
   def show; end
 
   def edit
-    if @document.request_signature?
-      flash[:alert] = t('flash.actions.request_signature.update')
-      redirect_to admin_documents_path
-    end
+    return unless @document.request_signature?
+
+    flash[:alert] = t('flash.actions.request_signature.update')
   end
 
   def update
@@ -61,22 +62,20 @@ class Admin::DocumentsController < Admin::BaseController
                                                            subscription: false,
                                                            documents:
                                                                { request_signature: true })
-    if @user_documents.empty?
-      flash[:success] = I18n.t('flash.actions.sign.empty.m',
-                               model: t('activerecord.models.document.one'))
-    end
+    return unless @user_documents.empty?
+
+    flash[:notice] = t('flash.actions.sign.empty.m', model: t('activerecord.models.document.one'))
   end
 
   def auth
-    if current_user == User.auth(params[:document][:login], params[:document][:password])
-      @user = UsersDocument.find_by(document_id: params[:id], user_id: current_user)
-      @user.subscription = true
-      @user.save
-      flash[:success] = I18n.t('flash.actions.sign.valid.m', model: t('activerecord.models.document.one'))
+    @user = User.auth(params[:document][:login], params[:document][:password])
+    if current_user == @user
+      @user_documents = UsersDocument.find_by(document_id: params[:id], user_id: @user)
+      UsersDocument.toggle_subscription(@user_documents)
+      flash[:success] = t('flash.actions.sign.valid.m')
       redirect_to admin_users_documents_subscriptions_path
     else
-      flash[:alert] = I18n.t('flash.actions.sign.invalid.m',
-                             model: t('activerecord.models.document.one'))
+      flash[:alert] = I18n.t('flash.actions.sign.invalid.m')
       render :sign
     end
   end
@@ -84,22 +83,17 @@ class Admin::DocumentsController < Admin::BaseController
   def sign; end
 
   def request_signature
-    @document.users_documents.each do |ud|
-      if ud.user_id == current_user.id
-        if @document.request_signature?
-          flash[:alert] = I18n.t('flash.actions.request_signature.f')
-        else
-          @document.request_signature = true
-          @document.save
-          flash[:success] = I18n.t('flash.actions.request_signature.t')
-        end
-      else
-        flash[:alert] = I18n.t('flash.actions.request_signature.signature')
-      end
-      redirect_to admin_documents_path
+    if @document.request_signature?
+      flash[:alert] = I18n.t('flash.actions.request_signature.f')
+    elsif @document.user_ids.include?(current_user.id)
+      @document.request_signature = true
+      @document.save
+      flash[:success] = I18n.t('flash.actions.request_signature.t')
+    else
+      flash[:alert] = I18n.t('flash.actions.request_signature.signature')
     end
+    redirect_to admin_documents_path
   end
-
 
   private
 
