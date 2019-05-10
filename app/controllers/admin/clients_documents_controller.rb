@@ -14,8 +14,7 @@ class Admin::ClientsDocumentsController < Admin::BaseController
     else
       @clients_documents = document.clients_documents.build
       @clients_documents.participant_hours_fields = ClientsDocument.hash_fields(params[
-                                                                                    :document_id
-                                                                                ])
+                                                                                    :document_id])
     end
   end
 
