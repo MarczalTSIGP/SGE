@@ -71,9 +71,8 @@ pt-BR:
         ignore: 'Se você não solicitou isso, ignore este e-mail.'
         info: 'Sua senha não mudará até que você acesse o link acima e crie uma nova senha.'
         change: 'Estamos entrando em contato para notificá-lo de que sua senha foi alterada.'
-
   enums:
-    type:
+    kinds:
       server: 'Servidor'
       external: 'Externo'
       academic: 'Acadêmico'

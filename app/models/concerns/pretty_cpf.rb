@@ -18,7 +18,7 @@ module PrettyCPF
     end
 
     def cpf=(cpf)
-      stripped = cpf.gsub(/[\.-]/, '')
+      stripped = cpf&.gsub(/[\.-]/, '')
       super(stripped)
     end
   end
