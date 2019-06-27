@@ -1,0 +1,23 @@
+pt-BR:
+  flash:
+    actions:
+      update:
+        m: '%{model} atualizado com sucesso!'
+        f: '%{model} atualizada com sucesso!'
+      create:
+        m: '%{model} criado com sucesso!'
+        f: '%{model} criada com sucesso!'
+      destroy:
+        m: '%{model} removido com sucesso!'
+        f: '%{model} removida com sucesso!'
+      active:
+        m: '%{model} ativado com sucesso!'
+        f: '%{model} ativado com sucesso!'
+      disable:
+        m: '%{model} desativado com sucesso!'
+        f: '%{model} desativada com sucesso!'
+      errors: 'Existem dados incorretos!'
+      search:
+          empty:
+            m: 'Nenhum %{model} encontrado!'
+            f: 'Nenhum %{model} encontrado!'
