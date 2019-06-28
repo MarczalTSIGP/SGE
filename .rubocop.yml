@@ -99,6 +99,10 @@ Metrics/BlockLength:
 Naming/VariableNumber:
   EnforcedStyle: non_integer
 
+Rails/LexicallyScopedActionFilter:
+  Exclude:
+    - 'app/controllers/admin/devise/sessions_controller.rb'
+
 RSpec/MultipleExpectations:
   Max: 2
   Exclude:
@@ -110,3 +114,5 @@ RSpec/ExampleLength:
 RSpec/AnyInstance:
   Exclude:
     - 'spec/support/devise_routing.rb'
+
+

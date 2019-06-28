@@ -12,8 +12,11 @@ require 'support/factory_bot'
 require 'support/shoulda'
 require 'support/database_cleaner'
 require 'support/devise_routing'
+
 require 'support/helpers/form'
 require 'support/helpers/page'
+require 'support/helpers/flash_message'
+
 require 'support/matchers/have_contents'
 require 'support/matchers/have_flash'
 
@@ -33,9 +36,7 @@ RSpec.configure do |config|
 
   config.include Helpers::Form, type: :feature
   config.include Helpers::Page, type: :feature
-
-  config.filter_run focus: true
-  config.run_all_when_everything_filtered = true
+  config.include Helpers::FlashMessage, type: :feature
 
   config.include DeviseRoutingHelpers, type: :routing
 

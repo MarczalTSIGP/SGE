@@ -3,6 +3,8 @@ pt-BR:
     system:
       home:
         title: Sistema Gerenciador de Certificados e Declarações da UTFPR-GP
+      session:
+        title: Sistema Gerenciador de Certificados e Declarações da UTFPR-GP
       admin:
         singular: Administrador
         plural:  Administradores

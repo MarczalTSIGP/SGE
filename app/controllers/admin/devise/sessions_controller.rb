@@ -1,7 +1,7 @@
-class Admin::Users::SessionsController < Devise::SessionsController
+class Admin::Devise::SessionsController < Devise::SessionsController
   prepend_before_action :require_no_authentication, only: [:cancel]
 
-  layout 'admin/users/sessions/layouts/application'
+  layout 'layouts/devise/session'
 
   def create
     super do |resource|

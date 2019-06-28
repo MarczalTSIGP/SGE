@@ -37,10 +37,10 @@ pt-BR:
     failure:
       already_authenticated: Você já está autenticado.
       inactive: A sua conta ainda não foi ativada.
-      invalid: Invalido %{authentication_keys} ou senha.
+      invalid: '%{authentication_keys} e/ou senha inválidos.'
       last_attempt: Você tem mais uma única tentativa antes de sua conta ser bloqueada.
       locked: A sua conta está bloqueada.
-      not_found_in_database: Invalido %{authentication_keys} ou senha.
+      not_found_in_database: '%{authentication_keys} e/ou senha inválidos.'
       timeout: A sua sessão expirou, por favor, faça login novamente para continuar.
       unauthenticated: Para continuar, faça login ou registre-se.
       unconfirmed: Antes de continuar, confirme a sua conta.
@@ -114,6 +114,13 @@ pt-BR:
         sign_in: Login
       signed_in: Login efetuado com sucesso.
       signed_out: Logout efetuado com sucesso.
+      sign_in: Login
+      sign_out: Sair
+      sign_up: Cadastrar-se"
+      profile: Meu Perfil
+      edit_profile: Editar perfil
+      sign_in_with: Entrar com
+      register: Cadastrar
     shared:
       links:
         back: Voltar

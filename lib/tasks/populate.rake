@@ -19,7 +19,7 @@ namespace :db do
 			bol = [true, false]
 			cpf = Faker::CPF.numeric
 			User.create!(name: Faker::Name.name,
-									 email: email,
+									laemail: email,
 									 username: email.split('@')[0],
 									 registration_number: rn,
 									 cpf: cpf,

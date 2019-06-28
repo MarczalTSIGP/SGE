@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   #========================================
   # Admin area to user
   #========================================
-  devise_for :users, controllers: { sessions: 'admin/users/sessions' }
+  devise_for :users, controllers: { sessions: 'admin/devise/sessions' }
   authenticate :user do
     namespace :admin do
       root to: 'home#index'
