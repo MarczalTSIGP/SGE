@@ -37,6 +37,7 @@ pt-BR:
         instruction: Alguém fez o pedido para redefinir sua senha, e você pode fazer isso clicando no link abaixo.
         instruction_2: Se você não fez este pedido, por favor ignore este e-mail.
         instruction_3: Sua senha não será alterada até que você acesse o link acima e crie uma nova.
+        goodbye: Atenciosamente, <br> Equipe SGE.
         subject: Instruções de redefinição de senha
       unlock_instructions:
         action: Desbloquear minha conta
@@ -157,5 +158,3 @@ pt-BR:
         unconfirmed_email: E-mail não confirmado
         unlock_token: Token de desbloqueio
         updated_at: Atualizado em
-    models:
-      user: Usuário

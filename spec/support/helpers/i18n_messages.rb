@@ -1,76 +1,86 @@
 module Helpers
   module I18nMessages
-    def errors_message
+    # Flash messages
+    #--------------------
+    def flash_errors_msg
       I18n.t('flash.actions.errors')
     end
 
-    def blank_error_message
+    def flash_not_authorized_msg
+      I18n.t('flash.not_authorized')
+    end
+
+    # SimpleForm messages
+    #--------------------
+    def sf_blank_error_msg
       I18n.t('errors.messages.blank')
     end
 
-    def required_error_message
+    def sf_required_error_msg
       I18n.t('errors.messages.required')
     end
 
-    def invalid_error_message
+    def sf_invalid_error_msg
       I18n.t('errors.messages.invalid')
     end
 
-    def default_error_message
+    def sf_default_error_msg
       I18n.t('simple_form.error_notification.default_message')
     end
 
-    def confirm_password_error_message
+    def sf_confirmation_pwd_error_msg
       I18n.t('errors.messages.confirmation',
              attribute: I18n.t('activerecord.attributes.user.password'))
     end
 
-    def minimum_password_length
+    def sf_minimum_pwd_length
       I18n.t('errors.messages.too_short', count: 6)
     end
 
-    def profile_image_error_message
+    def sf_image_error_msg
       I18n.t('errors.messages.extension_whitelist_error', extension: '"pdf"',
                                                           allowed_types: 'jpg, jpeg, gif, png')
     end
 
-    def not_found_message
+    def sf_not_found_msg
       I18n.t('errors.messages.not_found')
     end
 
-    def signed_in_message
+    # Devise messages
+    #--------------------
+    def devise_signed_in_msg
       I18n.t('devise.sessions.signed_in')
     end
 
-    def signed_out_message
+    def devise_signed_out_msg
       I18n.t('devise.sessions.signed_out')
     end
 
-    def already_signed_out_message
+    def devise_already_signed_out_msg
       I18n.t('devise.sessions.already_signed_out')
     end
 
-    def invalid_sign_in_message(authentication_keys = 'Login')
-      I18n.t('devise.failure.invalid', authentication_keys: authentication_keys)
+    def devise_password_updated_msg
+      I18n.t('devise.passwords.updated')
     end
 
-    def registrations_updated_message
+    def devise_registrations_updated_msg
       I18n.t('devise.registrations.updated')
     end
 
-    def signed_up_message
+    def devise_signed_up_msg
       I18n.t('devise.registrations.signed_up')
     end
 
-    def unauthenticated_message
+    def devise_unauthenticated_msg
       I18n.t('devise.failure.unauthenticated')
     end
 
-    def not_authorized_message
-      I18n.t('flash.not_authorized')
+    def devise_invalid_sign_in_msg(authentication_keys = 'Login')
+      I18n.t('devise.failure.invalid', authentication_keys: authentication_keys)
     end
 
-    def user_locked_message
+    def devise_user_locked_msg
       I18n.t('devise.failure.locked')
     end
   end

@@ -15,7 +15,7 @@ RSpec.describe 'Participants::Devise::Sessions', type: :feature do
         submit_form
 
         expect(page).to have_current_path(participants_root_path)
-        expect(page).to have_flash(:info, text: signed_in_message)
+        expect(page).to have_flash(:info, text: devise_signed_in_msg)
       end
 
       it 'login by email' do
@@ -24,7 +24,7 @@ RSpec.describe 'Participants::Devise::Sessions', type: :feature do
         submit_form
 
         expect(page).to have_current_path(participants_root_path)
-        expect(page).to have_flash(:info, text: signed_in_message)
+        expect(page).to have_flash(:info, text: devise_signed_in_msg)
       end
     end
 
@@ -35,7 +35,7 @@ RSpec.describe 'Participants::Devise::Sessions', type: :feature do
         submit_form
 
         expect(page).to have_current_path(new_client_session_path)
-        expect(page).to have_flash(:warning, text: invalid_sign_in_message)
+        expect(page).to have_flash(:warning, text: devise_invalid_sign_in_msg)
       end
 
       it 'not login by email' do
@@ -44,7 +44,7 @@ RSpec.describe 'Participants::Devise::Sessions', type: :feature do
         submit_form
 
         expect(page).to have_current_path(new_client_session_path)
-        expect(page).to have_flash(:warning, text: invalid_sign_in_message)
+        expect(page).to have_flash(:warning, text: devise_invalid_sign_in_msg)
       end
     end
   end

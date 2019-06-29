@@ -31,6 +31,7 @@ pt-BR:
         password_confirmation: 'Confirmação de senha'
         ra: 'Registro Acadêmico'
         current_password: 'Senha Atual'
+        reset_password_token: 'Token para alteração de senha'
       department:
         initials: 'Sigla'
         local: 'Local'

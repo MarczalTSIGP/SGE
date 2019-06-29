@@ -15,7 +15,7 @@ require 'support/devise_routing'
 
 require 'support/helpers/form'
 require 'support/helpers/page'
-require 'support/helpers/flash_message'
+require 'support/helpers/i18n_messages'
 
 require 'support/matchers/have_contents'
 require 'support/matchers/have_flash'
@@ -37,7 +37,7 @@ RSpec.configure do |config|
 
   config.include Helpers::Form, type: :feature
   config.include Helpers::Page, type: :feature
-  config.include Helpers::FlashMessage, type: :feature
+  config.include Helpers::I18nMessages, type: :feature
 
   config.include DeviseRoutingHelpers, type: :routing
 

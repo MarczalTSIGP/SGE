@@ -12,14 +12,14 @@ describe 'Participants::Registrations::create', type: :feature do
     it 'show errors' do
       submit_form
 
-      expect(page).to have_message(blank_error_message, in: 'div.client_name')
-      expect(page).to have_message(blank_error_message, in: 'div.client_cpf')
-      expect(page).to have_message(invalid_error_message, in: 'div.client_cpf')
-      expect(page).to have_message(blank_error_message, in: 'div.client_email')
-      expect(page).to have_message(blank_error_message, in: 'div.client_kind')
-      expect(page).to have_message(blank_error_message, in: 'div.client_password')
+      expect(page).to have_message(sf_blank_error_msg, in: 'div.client_name')
+      expect(page).to have_message(sf_blank_error_msg, in: 'div.client_cpf')
+      expect(page).to have_message(sf_invalid_error_msg, in: 'div.client_cpf')
+      expect(page).to have_message(sf_blank_error_msg, in: 'div.client_email')
+      expect(page).to have_message(sf_blank_error_msg, in: 'div.client_kind')
+      expect(page).to have_message(sf_blank_error_msg, in: 'div.client_password')
 
-      expect(page).to have_flash('danger', text: errors_message)
+      expect(page).to have_flash('danger', text: flash_errors_msg)
     end
 
     it 'show errors for email and alternative email' do
@@ -27,10 +27,10 @@ describe 'Participants::Registrations::create', type: :feature do
       fill_in 'client_alternative_email', with: '@a'
       click_button
 
-      expect(page).to have_message(invalid_error_message, in: 'div.client_email')
-      expect(page).to have_message(invalid_error_message, in: 'div.client_alternative_email')
+      expect(page).to have_message(sf_invalid_error_msg, in: 'div.client_email')
+      expect(page).to have_message(sf_invalid_error_msg, in: 'div.client_alternative_email')
 
-      expect(page).to have_flash('danger', text: errors_message)
+      expect(page).to have_flash('danger', text: flash_errors_msg)
     end
 
     it 'show errors for password confirmation' do
@@ -38,11 +38,11 @@ describe 'Participants::Registrations::create', type: :feature do
       fill_in 'client_password_confirmation', with: '123'
       submit_form
 
-      expect(page).to have_message(minimum_password_length, in: 'div.client_password')
-      expect(page).to have_message(confirm_password_error_message,
+      expect(page).to have_message(sf_minimum_pwd_length, in: 'div.client_password')
+      expect(page).to have_message(sf_confirmation_pwd_error_msg,
                                    in: 'div.client_password_confirmation')
 
-      expect(page).to have_flash('danger', text: errors_message)
+      expect(page).to have_flash('danger', text: flash_errors_msg)
     end
   end
 
@@ -58,7 +58,7 @@ describe 'Participants::Registrations::create', type: :feature do
       submit_form
 
       expect(page).to have_current_path(participants_root_path)
-      expect(page).to have_flash(:info, text: signed_up_message)
+      expect(page).to have_flash(:info, text: devise_signed_up_msg)
     end
   end
 end

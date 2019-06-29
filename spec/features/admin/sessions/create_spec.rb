@@ -17,7 +17,7 @@ RSpec.describe 'Admin::Devise::UsersSessions', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admin_root_path)
-        expect(page).to have_flash(:info, text: signed_in_message)
+        expect(page).to have_flash(:info, text: devise_signed_in_msg)
       end
 
       it 'login by email' do
@@ -27,7 +27,7 @@ RSpec.describe 'Admin::Devise::UsersSessions', type: :feature do
         submit_form
 
         expect(page).to have_current_path(admin_root_path)
-        expect(page).to have_flash(:info, text: signed_in_message)
+        expect(page).to have_flash(:info, text: devise_signed_in_msg)
       end
     end
 
@@ -38,7 +38,7 @@ RSpec.describe 'Admin::Devise::UsersSessions', type: :feature do
         submit_form
 
         expect(page).to have_current_path(new_user_session_path)
-        expect(page).to have_flash(:warning, text: invalid_sign_in_message)
+        expect(page).to have_flash(:warning, text: devise_invalid_sign_in_msg)
       end
 
       it 'not login by email' do
@@ -47,7 +47,7 @@ RSpec.describe 'Admin::Devise::UsersSessions', type: :feature do
         submit_form
 
         expect(page).to have_current_path(new_user_session_path)
-        expect(page).to have_flash(:warning, text: invalid_sign_in_message)
+        expect(page).to have_flash(:warning, text: devise_invalid_sign_in_msg)
       end
     end
 
@@ -58,7 +58,7 @@ RSpec.describe 'Admin::Devise::UsersSessions', type: :feature do
         submit_form
 
         expect(page).to have_current_path(new_user_session_path)
-        expect(page).to have_flash(:info, text: user_locked_message)
+        expect(page).to have_flash(:info, text: devise_user_locked_msg)
       end
     end
   end
