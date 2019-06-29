@@ -1,0 +1,34 @@
+pt-BR:
+  views:
+    app:
+      title: Sistema Gerenciador de Certificados e Declarações da UTFPR-GP
+    boolean:
+      user:
+        'true': Ativo
+        'false': Desativo
+    home:
+      admin:
+        singular: Administrador
+        plural:  Administradores
+        access: Acessar área administrativa
+      client:
+        singular: Usuário
+        plural:  Usuários
+        access: Acessar área do usuário
+      server:
+        singular: Servidor
+        plural: Servidores
+        access: Acessar área do servidor
+    links:
+      new:
+        m: 'Novo %{model}'
+        f: 'Nova %{model}'
+      show:
+         m: 'Visualizar %{model}'
+         f: 'Visualizar %{model}'
+      all:
+        m: 'Todos %{model}'
+        f: 'Todas %{model}'
+      edit: 'Editar %{model}'
+      active: 'Ativar %{model}'
+      disable: 'Desativar %{model}'

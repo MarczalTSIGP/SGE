@@ -19,6 +19,7 @@ require 'support/helpers/flash_message'
 
 require 'support/matchers/have_contents'
 require 'support/matchers/have_flash'
+require 'support/matchers/have_message'
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.

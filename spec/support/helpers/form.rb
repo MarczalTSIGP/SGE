@@ -20,5 +20,9 @@ module Helpers
       attributes.keys.each { |k| attributes["#{model}_#{k}".to_sym] = attributes.delete(k) }
       attributes
     end
+
+    def choose_radio_button(value, options = {})
+      find("div.#{options[:from]} label.custom-radio", text: value).click
+    end
   end
 end

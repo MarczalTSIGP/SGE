@@ -5,7 +5,7 @@ RSpec.describe 'Admin::Devise::UsersSessions', type: :feature do
   let!(:user_inactive) { create(:user, :inactive) }
 
   describe '#create' do
-    before do
+    before(:each) do
       visit new_user_session_path
     end
 

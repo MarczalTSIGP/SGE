@@ -115,4 +115,5 @@ RSpec/AnyInstance:
   Exclude:
     - 'spec/support/devise_routing.rb'
 
-
+RSpec/HookArgument:
+  EnforcedStyle: each

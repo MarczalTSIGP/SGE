@@ -4,7 +4,7 @@ RSpec.describe 'Participants::Client::ClientsRegistrations', type: :feature do
   describe '#create' do
     let(:client) { create(:client) }
 
-    before do
+    before(:each) do
       visit new_client_registration_path
     end
 
@@ -83,7 +83,7 @@ RSpec.describe 'Participants::Client::ClientsRegistrations', type: :feature do
     let!(:client2) { create(:client) }
     let(:client3) { build(:client) }
 
-    before do
+    before(:each) do
       login_as(client, scope: :client)
       visit edit_client_registration_path(client)
     end

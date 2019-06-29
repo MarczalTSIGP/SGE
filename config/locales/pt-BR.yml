@@ -1,29 +1,4 @@
 pt-BR:
-  devise:
-    login:
-      title: 'Faça login na sua conta'
-    registration:
-      title: 'Criar Conta'
-      password_character_length: 'caracteres no mínimo'
-      edit: 'Editar Perfil'
-      current_password: 'Precisamos da sua senha atual para confirmar suas alterações'
-    links:
-      login: 'Entrar'
-      registration: 'Criar Conta'
-      forgot_your_password: 'Esqueceu sua senha?'
-    passwords:
-      new:
-        title: 'Esqueceu sua senha?'
-      edit:
-        title: 'Mude sua senha'
-    mailer:
-      hello: 'Olá'
-      reset_password:
-        header: 'Alguém solicitou um link para alterar sua senha. Você pode fazer isso através do link abaixo.'
-        link: 'Trocar minha senha'
-        ignore: 'Se você não solicitou isso, ignore este e-mail.'
-        info: 'Sua senha não mudará até que você acesse o link acima e crie uma nova senha.'
-        change: 'Estamos entrando em contato para notificá-lo de que sua senha foi alterada.'
   enums:
     kinds:
       server: 'Servidor'

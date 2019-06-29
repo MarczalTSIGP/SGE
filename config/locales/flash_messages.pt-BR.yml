@@ -16,8 +16,4 @@ pt-BR:
       disable:
         m: '%{model} desativado com sucesso!'
         f: '%{model} desativada com sucesso!'
-      errors: 'Existem dados incorretos!'
-      search:
-          empty:
-            m: 'Nenhum %{model} encontrado!'
-            f: 'Nenhum %{model} encontrado!'
+      errors: 'Alguns erros foram encontrados, por favor verifique:'

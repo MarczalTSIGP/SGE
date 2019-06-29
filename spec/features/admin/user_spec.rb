@@ -5,12 +5,12 @@ RSpec.describe 'Admin::User', type: :feature do
   let(:model_name) { I18n.t('activerecord.models.user.one') }
   let(:model_plural_name) { I18n.t('activerecord.models.user.other') }
 
-  before do
+  before(:each) do
     login_as(admin, scope: :user)
   end
 
   describe '#create' do
-    before do
+    before(:each) do
       visit new_admin_user_path
     end
 
@@ -70,7 +70,7 @@ RSpec.describe 'Admin::User', type: :feature do
   describe '#update' do
     let(:user) { create(:user) }
 
-    before do
+    before(:each) do
       visit edit_admin_user_path(user)
     end
 
@@ -145,7 +145,7 @@ RSpec.describe 'Admin::User', type: :feature do
     let!(:user) { create(:user) }
     let!(:user_inactive) { create(:user, :inactive) }
 
-    before do
+    before(:each) do
       visit admin_users_path
     end
 
@@ -198,7 +198,7 @@ RSpec.describe 'Admin::User', type: :feature do
   describe '#show' do
     let!(:user) { create(:user) }
 
-    before do
+    before(:each) do
       visit admin_user_path(user)
     end
 

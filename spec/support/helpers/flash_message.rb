@@ -21,7 +21,12 @@ module Helpers
     end
 
     def confirm_password_error_message
-      I18n.t('devise.registrations.edit.we_need_your_current_password_to_confirm_your_changes')
+      I18n.t('errors.messages.confirmation',
+             attribute: I18n.t('activerecord.attributes.user.password'))
+    end
+
+    def minimum_password_length
+      I18n.t('errors.messages.too_short', count: 6)
     end
 
     def profile_image_error_message
@@ -43,6 +48,10 @@ module Helpers
 
     def registrations_updated_message
       I18n.t('devise.registrations.updated')
+    end
+
+    def signed_up_message
+      I18n.t('devise.registrations.signed_up')
     end
 
     def unauthenticated_message
