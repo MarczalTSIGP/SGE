@@ -54,6 +54,8 @@ Metrics/MethodLength:
   Exclude:
     - 'db/migrate/20180815183425_add_columns_to_users.rb'
     - 'lib/faker/cpf.rb'
+    - 'lib/tasks/db/populate/*'
+    - 'lib/populate/*'
 
 Metrics/AbcSize:
   Exclude:
