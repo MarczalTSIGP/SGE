@@ -2,16 +2,17 @@ pt-BR:
   helpers:
     page_entries_info:
       more_pages:
-        display_entries: Exibindo %{entry_name} <b>%{first}&nbsp;-&nbsp;%{last}</b> de um total de <b>%{total}</b>
+        display_entries: 'Mostrando %{first}&nbsp;-&nbsp;%{last} de %{total} %{entry_name}'
       one_page:
         display_entries:
-          one: Exibindo <b>1</b> %{entry_name}
-          other: Exibindo <b>%{count}</b> %{entry_name}
-          zero: Nenhum %{entry_name} encontrado
+          zero: '0 %{entry_name} encontrado'
+          one: 'Total de <b>1</b> %{entry_name} encontrado'
+          other: 'Total de <b> %{count}</b> %{entry_name} encontrados'
   views:
     pagination:
-      first: "&laquo; Primeiro"
-      last: "Último &raquo;"
-      next: Próximo &rsaquo;
+      first: "&laquo;"
+      last: "&raquo;"
       previous: "&lsaquo; Anterior"
+      next: "Seguinte &rsaquo;"
       truncate: "&hellip;"
+

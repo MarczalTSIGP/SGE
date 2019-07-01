@@ -1,4 +1,4 @@
-module Admin::Users::RegistrationsHelper
+module Admin::UsersHelper
   def link_to_active_disable(user)
     if user.active?
       link(admin_user_disable_path(user), 'disable', 'user-lock')

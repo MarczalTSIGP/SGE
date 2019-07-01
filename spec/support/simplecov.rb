@@ -15,5 +15,6 @@ if ENV['RAILS_ENV'] == 'test'
     add_filter 'app/controllers/application_controller.rb'
     add_filter 'app/controllers/participants/clients/passwords_controller.rb'
     add_filter 'app/validator'
+    add_filter 'lib/populate'
   end
 end

@@ -3,6 +3,10 @@
 
 <%= render 'shared/search_and_new', search_path: admin_users_search_path, new_path: new_admin_user_path, new_link: 'users.new' %>
 
+<div class="text-right mt-2 mb-1">
+  <%= page_entries_info @users %>
+</div>
+
 <div class="table-responsive">
   <table class="table table-data card-table table-vcenter">
     <thead>

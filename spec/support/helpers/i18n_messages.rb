@@ -10,6 +10,10 @@ module Helpers
       I18n.t('flash.not_authorized')
     end
 
+    def flash_msg(key)
+      I18n.t("flash.actions.#{key}", resource_name: resource_name)
+    end
+
     # SimpleForm messages
     #--------------------
     def sf_blank_error_msg
@@ -82,6 +86,23 @@ module Helpers
 
     def devise_user_locked_msg
       I18n.t('devise.failure.locked')
+    end
+
+    # Devise kaminari
+    #--------------------
+    def pagination_total_entries(options)
+      I18n.t('helpers.page_entries_info.one_page.display_entries.other',
+             count: options[:count], entry_name: resource_name_plural)
+    end
+
+    def pagination_one_entry
+      I18n.t('helpers.page_entries_info.one_page.display_entries.one',
+             entry_name: resource_name)
+    end
+
+    def pagination_zero_entries
+      I18n.t('helpers.page_entries_info.one_page.display_entries.zero',
+             entry_name: resource_name_plural)
     end
   end
 end

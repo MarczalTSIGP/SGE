@@ -1,6 +1,7 @@
 database: &database
   db.username: postgres
   db.password: postgres
+  db.host: localhost
 
 mailer: &mailer
   mailer.from: 'sge-tsi-gp@utfpr.edu.br'

@@ -3,7 +3,7 @@ default: &default
   encoding: utf8
   username: <%= ENV['db.username'] %>
   password: <%= ENV['db.password'] %>
-  host: localhost
+  host:  <%= ENV['db.host'] %>
 
 development:
   <<: *default

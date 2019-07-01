@@ -2,18 +2,18 @@ pt-BR:
   flash:
     actions:
       update:
-        m: '%{model} atualizado com sucesso!'
-        f: '%{model} atualizada com sucesso!'
+        m: '%{resource_name} atualizado com sucesso!'
+        f: '%{resource_name} atualizada com sucesso!'
       create:
-        m: '%{model} criado com sucesso!'
-        f: '%{model} criada com sucesso!'
+        m: '%{resource_name} criado com sucesso!'
+        f: '%{resource_name} criada com sucesso!'
       destroy:
-        m: '%{model} removido com sucesso!'
-        f: '%{model} removida com sucesso!'
+        m: '%{resource_name} removido com sucesso!'
+        f: '%{resource_name} removida com sucesso!'
       active:
-        m: '%{model} ativado com sucesso!'
-        f: '%{model} ativado com sucesso!'
+        m: '%{resource_name} ativado com sucesso!'
+        f: '%{resource_name} ativado com sucesso!'
       disable:
-        m: '%{model} desativado com sucesso!'
-        f: '%{model} desativada com sucesso!'
+        m: '%{resource_name} desativado com sucesso!'
+        f: '%{resource_name} desativada com sucesso!'
       errors: 'Alguns erros foram encontrados, por favor verifique:'
