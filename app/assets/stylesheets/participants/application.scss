@@ -1,7 +1,8 @@
 /*************************************************************
 * Gems
 **************************************************************/
-
+@import 'font-awesome-sprockets';
+@import 'font-awesome';
 
 /*************************************************************
 * Vendors stylesheets
@@ -11,17 +12,17 @@
 /*************************************************************
 * Configurations
 **************************************************************/
-@import "config/tabler";
+@import 'config/tabler';
 
 
 /*************************************************************
 * Customizations
 **************************************************************/
-@import "customizations/table_bootstrap";
-@import "customizations/input_search";
-@import "customizations/form_bootstrap";
-@import "customizations/devise";
+@import 'customizations/bootstrap';
+
 
 /*************************************************************
 * Apps stylesheets
 **************************************************************/
+@import 'shared/sidebar';
+

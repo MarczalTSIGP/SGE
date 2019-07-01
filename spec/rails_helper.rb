@@ -12,10 +12,15 @@ require 'support/factory_bot'
 require 'support/shoulda'
 require 'support/database_cleaner'
 require 'support/devise_routing'
+require 'support/capybara'
+
 require 'support/helpers/form'
 require 'support/helpers/page'
+require 'support/helpers/i18n_messages'
+
 require 'support/matchers/have_contents'
 require 'support/matchers/have_flash'
+require 'support/matchers/have_message'
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -33,9 +38,7 @@ RSpec.configure do |config|
 
   config.include Helpers::Form, type: :feature
   config.include Helpers::Page, type: :feature
-
-  config.filter_run focus: true
-  config.run_all_when_everything_filtered = true
+  config.include Helpers::I18nMessages, type: :feature
 
   config.include DeviseRoutingHelpers, type: :routing
 

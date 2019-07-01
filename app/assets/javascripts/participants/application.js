@@ -15,12 +15,9 @@
 // Config files
 //--------------------
 //= require config/namespace
+//= require config/tooltips
+//= require config/sidebar_menu_collapse
 
 
 // App files
 //--------------------
-//= require participants/loads
-//= require participants/client
-
-
-

@@ -1,8 +1,4 @@
-<% provide(:head_title, t('helpers.submit.create',
-                          model: t('activerecord.models.user.one'))) %>
-
-<% provide(:page_title, t('helpers.submit.create',
-                          model: t('activerecord.models.user.one'))) %>
-
+<% provide(:head_title, t('views.pages.create', resource: t('views.names.server.singular'))) %>
+<% provide(:page_title, t('views.pages.create', resource: t('views.names.server.singular'))) %>
 
 <%= render 'form' %>

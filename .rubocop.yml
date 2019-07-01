@@ -54,6 +54,8 @@ Metrics/MethodLength:
   Exclude:
     - 'db/migrate/20180815183425_add_columns_to_users.rb'
     - 'lib/faker/cpf.rb'
+    - 'lib/tasks/db/populate/*'
+    - 'lib/populate/*'
 
 Metrics/AbcSize:
   Exclude:
@@ -95,9 +97,14 @@ Metrics/BlockLength:
     - 'spec/**/*'
     - 'lib/tasks/populate.rake'
     - 'config/routes.rb'
+    - 'config/environments/development.rb'
 
 Naming/VariableNumber:
   EnforcedStyle: non_integer
+
+Rails/LexicallyScopedActionFilter:
+  Exclude:
+    - 'app/controllers/admin/devise/sessions_controller.rb'
 
 RSpec/MultipleExpectations:
   Max: 2
@@ -105,8 +112,11 @@ RSpec/MultipleExpectations:
     - 'spec/features/**/*'
 
 RSpec/ExampleLength:
-  Max: 10
+  Max: 20
 
 RSpec/AnyInstance:
   Exclude:
     - 'spec/support/devise_routing.rb'
+
+RSpec/HookArgument:
+  EnforcedStyle: each

@@ -1,0 +1,19 @@
+pt-BR:
+  flash:
+    actions:
+      update:
+        m: '%{resource_name} atualizado com sucesso!'
+        f: '%{resource_name} atualizada com sucesso!'
+      create:
+        m: '%{resource_name} criado com sucesso!'
+        f: '%{resource_name} criada com sucesso!'
+      destroy:
+        m: '%{resource_name} removido com sucesso!'
+        f: '%{resource_name} removida com sucesso!'
+      active:
+        m: '%{resource_name} ativado com sucesso!'
+        f: '%{resource_name} ativado com sucesso!'
+      disable:
+        m: '%{resource_name} desativado com sucesso!'
+        f: '%{resource_name} desativada com sucesso!'
+      errors: 'Alguns erros foram encontrados, por favor verifique:'

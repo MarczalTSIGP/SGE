@@ -1,79 +1,6 @@
 pt-BR:
-  flash:
-    actions:
-      update:
-        m: '%{model} atualizado com sucesso!'
-        f: '%{model} atualizada com sucesso!'
-      create:
-        m: '%{model} criado com sucesso!'
-        f: '%{model} criada com sucesso!'
-      destroy:
-        m: '%{model} removido com sucesso!'
-        f: '%{model} removida com sucesso!'
-      active:
-        m: '%{model} ativado com sucesso!'
-        f: '%{model} ativado com sucesso!'
-      disable:
-        m: '%{model} desativado com sucesso!'
-        f: '%{model} desativada com sucesso!'
-      errors: 'Existem dados incorretos!'
-      search:
-          empty:
-            m: 'Nenhum %{model} encontrado!'
-            f: 'Nenhum %{model} encontrado!'
-  helpers:
-    boolean:
-      user:
-        'true': 'Ativo'
-        'false': 'Desativo'
-    links:
-      new:
-        m: 'Novo %{model}'
-        f: 'Nova %{model}'
-      edit: 'Editar %{model}'
-      show:
-         m: 'Visualizar %{model}'
-         f: 'Visualizar %{model}'
-      all:
-        m: 'Todos %{model}'
-        f: 'Todas %{model}'
-      active: 'Ativar %{model}'
-      disable: 'Desativar %{model}'
-    buttons:
-      log_in: 'Entrar'
-      proceed: 'Prosseguir'
-      change_my_password: 'Mudar minha senha'
-      commit: 'Entrar'
-      register: 'Cadastrar'
-      update: 'Atualizar'
-  devise:
-    login:
-      title: 'Faça login na sua conta'
-    registration:
-      title: 'Criar Conta'
-      password_character_length: 'caracteres no mínimo'
-      edit: 'Editar Perfil'
-      current_password: 'Precisamos da sua senha atual para confirmar suas alterações'
-    links:
-      login: 'Entrar'
-      registration: 'Criar Conta'
-      forgot_your_password: 'Esqueceu sua senha?'
-    passwords:
-      new:
-        title: 'Esqueceu sua senha?'
-      edit:
-        title: 'Mude sua senha'
-    mailer:
-      hello: 'Olá'
-      reset_password:
-        header: 'Alguém solicitou um link para alterar sua senha. Você pode fazer isso através do link abaixo.'
-        link: 'Trocar minha senha'
-        ignore: 'Se você não solicitou isso, ignore este e-mail.'
-        info: 'Sua senha não mudará até que você acesse o link acima e crie uma nova senha.'
-        change: 'Estamos entrando em contato para notificá-lo de que sua senha foi alterada.'
-
   enums:
-    type:
+    kinds:
       server: 'Servidor'
       external: 'Externo'
       academic: 'Acadêmico'
@@ -104,6 +31,7 @@ pt-BR:
         password_confirmation: 'Confirmação de senha'
         ra: 'Registro Acadêmico'
         current_password: 'Senha Atual'
+        reset_password_token: 'Token para alteração de senha'
       department:
         initials: 'Sigla'
         local: 'Local'
@@ -119,3 +47,4 @@ pt-BR:
         password: 'Senha'
         password_confirmation: 'Confirmação de senha'
         remember_me: 'Lembre-me'
+        admin: 'Administrador'

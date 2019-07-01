@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   #========================================
   # Admin area to user
   #========================================
-  devise_for :users, controllers: { sessions: 'admin/users/sessions' }
+  devise_for :users, controllers: { sessions: 'admin/devise/sessions' }
   authenticate :user do
     namespace :admin do
       root to: 'home#index'
@@ -21,6 +21,16 @@ Rails.application.routes.draw do
       put 'users/disable/:id', to: 'users#disable', as: 'user_disable'
       put 'users/active/:id', to: 'users#active', as: 'user_active'
     end
+  end
+
+  as :user do
+    get '/admin/edit',
+        to: 'admin/devise/registrations#edit',
+        as: 'edit_user_registration'
+
+    put '/admin',
+        to: 'admin/devise/registrations#update',
+        as: 'user_registration'
   end
   #========================================
 

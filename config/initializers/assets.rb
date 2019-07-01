@@ -14,3 +14,6 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Rails.application.config.assets.precompile += %w( admin.js admin.css )
 
 Rails.application.config.assets.paths << Rails.root.join('vendor', 'assets', 'fonts')
+
+Rails.application.config.assets.precompile += %w[devise/session.scss participants/application.scss]
+Rails.application.config.assets.precompile += %w[devise/session.js participants/application.js]

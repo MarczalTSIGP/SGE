@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+    <title>
+      <%= full_title(yield(:head_title)) %>
+    </title>
+
+    <%= stylesheet_link_tag    'devise/session', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'devise/session',  'data-turbolinks-track': 'reload' %>
+
+    <%= favicon_link_tag %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body id="<%= controller_name %>-<%= action_name %>" >
+
+    <div id="app" class="page">
+      <div class="page-single">
+        <div class="container-fluid">
+
+          <div class="row">
+            <div class="col col-login mx-auto">
+
+              <div class="text-center mb-3">
+                <div class="text-center">
+                  <%= image_tag('sge_icon.png', alt: 'logo-sge', class: 'session-img mb-1') %>
+                </div>
+
+                <span class="small text-muted"> <%= t('views.app.title') %> </span>
+              </div>
+
+              <div class="card card-body p-6">
+                <%= render 'shared/flash_messages'%>
+
+                <div class="card-title">
+                  <h4 class="text-center">
+                    <%= yield :title %>
+                  </h4>
+                </div>
+
+                <%= yield %>
+
+              </div> <!-- .card -->
+            </div>
+          </div> <!-- .row -->
+        </div> <!-- .container -->
+
+      </div>
+    </div>
+  </body>
+</html>
