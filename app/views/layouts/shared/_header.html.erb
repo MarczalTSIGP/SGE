@@ -24,10 +24,10 @@
 
           <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
             <%= link_to send("edit_#{current_user.class.name.underscore.downcase}_registration_path"), class: 'dropdown-item' do %>
-              <i class="dropdown-icon fe fe-user"></i> <%= t('sessions.profile') %>
+              <i class="dropdown-icon fe fe-user"></i> <%= t('devise.sessions.profile') %>
             <% end %>
 	    <%= link_to send("destroy_#{current_user.class.name.underscore.downcase}_session_path"), method: :delete, class: 'dropdown-item' do %>
-              <i class="dropdown-icon fe fe-log-out"></i> <%= t('sessions.sign_out') %>
+              <i class="dropdown-icon fe fe-log-out"></i> <%= t('devise.sessions.sign_out') %>
             <% end %>
           </div>
         </div>
