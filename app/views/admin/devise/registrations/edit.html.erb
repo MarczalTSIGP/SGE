@@ -2,7 +2,7 @@
 <% provide(:page_title, t('devise.registrations.edit.profile')) %>
 
 <%= simple_form_for(resource, as: resource_name,
-                    url: registration_path(resource_name),
+                    url: user_registration_path,
                     html: { method: :put, multipart: true }) do |f| %>
 
   <%= f.error_notification %>
@@ -12,45 +12,44 @@
 
     <div class="row">
       <div class="col-sm-6">
-        <%= f.input :name %>
+        <%= f.input :name, autofocus: true %>
       </div>
       <div class="col-sm-6">
-        <%= f.input :cpf %>
+        <%= f.input :cpf, readonly: true %>
       </div>
     </div>
 
     <div class="row">
       <div class="col-sm-6">
-        <%= f.input :email %>
+        <%= f.input :email, readonly: true %>
       </div>
       <div class="col-sm-6">
         <%= f.input :alternative_email %>
       </div>
     </div>
+  </fieldset>
 
-    <%= f.input :kind, as: :radio_buttons_tabler, collection: Client.human_kinds %>
+  <fieldset class="form-fieldset">
+    <legend class="w-auto"><%= t('views.fieldset.institutional') %></legend>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :registration_number %>
+      </div>
+    </div>
   </fieldset>
 
   <fieldset class="form-fieldset">
     <legend class="w-auto"><%= t('views.fieldset.passwords') %></legend>
     <div class="row">
       <div class="col-sm-6">
-        <%= f.input :password,
-            hint: ("#{@minimum_password_length}  #{t('devise.passwords.character_length')}" if @minimum_password_length) %>
-      </div>
-      <div class="col-sm-6">
-        <%= f.input :password_confirmation %>
+        <%= f.input :current_password,
+              hint: t('devise.registrations.edit.we_need_your_current_password_to_confirm_your_changes') %>
       </div>
     </div>
-
-    <%= f.input :current_password,
-        hint: t('devise.registrations.edit.we_need_your_current_password_to_confirm_your_changes') %>
-
   </fieldset>
 
   <div class="d-flex">
-    <%= link_to t('views.links.back'), :participants_root, class: 'btn btn-secondary' %>
+    <%= link_to t('views.links.back'), :admin_root, class: 'btn btn-secondary' %>
     <%= f.button :submit, t('devise.registrations.edit.update'), class: 'btn-primary ml-auto' %>
   </div>
 <% end %>
-

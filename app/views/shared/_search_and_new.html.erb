@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-sm-12 col-lg-8 mb-2">
+
+    <div class="input-group mb-3">
+      <div class="input-group">
+        <%= text_field_tag :search, params[:term],
+                           data: { url: search_path },
+                           class: 'form-control enter-to-submit-search',
+                           placeholder: t('views.search.placeholder') %>
+        <span class="input-group-append">
+          <button class="btn btn-outline-info" type="button"><i class="fe fe-search"></i></button>
+        </span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-sm-12 col-lg-4">
+    <%= link_to new_path, class: "btn btn-outline-primary btn-block" do %>
+      <%= icon('fas', 'plus', class: 'mr-2') %><%= t("views.links.#{new_link}") %>
+    <% end %>
+  </div>
+</div>

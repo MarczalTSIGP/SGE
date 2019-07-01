@@ -22,6 +22,16 @@ Rails.application.routes.draw do
       put 'users/active/:id', to: 'users#active', as: 'user_active'
     end
   end
+
+  as :user do
+    get '/admin/edit',
+        to: 'admin/devise/registrations#edit',
+        as: 'edit_user_registration'
+
+    put '/admin',
+        to: 'admin/devise/registrations#update',
+        as: 'user_registration'
+  end
   #========================================
 
   #========================================

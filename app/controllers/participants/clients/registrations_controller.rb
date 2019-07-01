@@ -29,15 +29,17 @@ class Participants::Clients::RegistrationsController < Devise::RegistrationsCont
     participants_root_path
   end
 
+  def after_update_path_for(*)
+    edit_client_registration_path
+  end
+
   def attributes
-    [:name, :ra, :cpf, :alternative_email, :email, :password,
-     :password_confirmation,
-     :remember_me,
-     :kind]
+    [:name, :cpf, :alternative_email, :email, :password,
+     :password_confirmation, :kind]
   end
 
   def choose_layout
-    return 'participants/layouts/application' if client_signed_in?
+    return 'layouts/participants/application' if client_signed_in?
 
     'layouts/devise/sign_up'
   end

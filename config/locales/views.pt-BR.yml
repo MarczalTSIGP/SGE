@@ -3,32 +3,54 @@ pt-BR:
     app:
       title: Sistema Gerenciador de Certificados e Declarações da UTFPR-GP
     boolean:
+      'true': Sim
+      'false': Não
       user:
         'true': Ativo
         'false': Desativo
-    home:
+    names:
       admin:
         singular: Administrador
         plural:  Administradores
-        access: Acessar área administrativa
       client:
         singular: Usuário
         plural:  Usuários
-        access: Acessar área do usuário
       server:
         singular: Servidor
         plural: Servidores
+    home:
+      admin:
+        access: Acessar área administrativa
+      client:
+        access: Acessar área do usuário
+      server:
         access: Acessar área do servidor
+    fieldset:
+      personal_data: Dados Pessoais
+      institutional: Dados Institucionais
+      passwords: Senha
+    sidebar:
+      titles:
+        admin: Administrar
+      home: Página Inicial
+      server: Servidores
+    pages:
+      show: 'Visualizar %{resource}'
+      edit: 'Editar %{resource}'
+      create: 'Criar %{resource}'
     links:
-      new:
-        m: 'Novo %{model}'
-        f: 'Nova %{model}'
-      show:
-         m: 'Visualizar %{model}'
-         f: 'Visualizar %{model}'
-      all:
-        m: 'Todos %{model}'
-        f: 'Todas %{model}'
-      edit: 'Editar %{model}'
-      active: 'Ativar %{model}'
-      disable: 'Desativar %{model}'
+      active: Ativar
+      disable: Desativar
+      edit: Editar
+      show: Visualizar
+      destroy: Remover
+      back: Voltar
+      status:
+        active: 'Ativar'
+        disable: 'Desativar'
+      users:
+        new: 'Novo Servidor'
+    search:
+      placeholder: 'Procurar...'
+    prompt:
+      confirm: Tem certeza?
