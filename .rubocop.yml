@@ -97,6 +97,7 @@ Metrics/BlockLength:
     - 'spec/**/*'
     - 'lib/tasks/populate.rake'
     - 'config/routes.rb'
+    - 'config/environments/development.rb'
 
 Naming/VariableNumber:
   EnforcedStyle: non_integer
