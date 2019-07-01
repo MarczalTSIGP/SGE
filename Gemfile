@@ -44,10 +44,10 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '>= 3.19', '< 4.0'
-  gem 'chromedriver-helper'
+  gem 'capybara', '>= 3.19.1'
+  gem 'webdrivers', '~> 4.0'
+
   gem 'database_cleaner'
-  gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 4.0'
   gem 'simplecov', require: false
   gem 'simplecov-console', require: false

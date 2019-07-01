@@ -21,6 +21,7 @@ development:
 test:
   <<: *database
   <<: *mailer
+  browser.headless: 'true'
 
 production:
   <<: *database

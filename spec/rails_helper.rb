@@ -12,6 +12,7 @@ require 'support/factory_bot'
 require 'support/shoulda'
 require 'support/database_cleaner'
 require 'support/devise_routing'
+require 'support/capybara'
 
 require 'support/helpers/form'
 require 'support/helpers/page'

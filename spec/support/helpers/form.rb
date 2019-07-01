@@ -1,6 +1,6 @@
 module Helpers
   module Form
-    def submit_form(submit = '//input[type=submit]')
+    def submit_form(submit = 'input[name="commit"]')
       find(submit).click
     end
 
