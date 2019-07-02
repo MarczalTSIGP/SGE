@@ -9,6 +9,9 @@ RSpec.describe User, type: :model do
       it { is_expected.to validate_uniqueness_of(:registration_number).case_insensitive }
       it { is_expected.to validate_uniqueness_of(:cpf).case_insensitive }
       it { is_expected.to validate_uniqueness_of(:username).case_insensitive }
+
+      it { is_expected.to allow_value('email@addresse.foo').for(:alternative_email) }
+      it { is_expected.not_to allow_value('foo').for(:alternative_email) }
     end
 
     context 'when username' do
@@ -69,48 +72,110 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'search' do
+  describe '.search' do
     let(:user) { create(:user) }
 
-    it 'returns users by name' do
-      u = User.search(user.name)
-      expect(user.name).to eq(u[0].name)
+    context 'without params' do
+      it 'returns users by name' do
+        users = User.search(nil)
+        expect(users).to include(user)
+      end
     end
 
-    it 'returns users by email' do
-      u = User.search(user.email)
-      expect(user.email).to eq(u[0].email)
-    end
+    context 'with attributes' do
+      it 'returns users by name' do
+        users = User.search(user.name)
+        expect(user.name).to eq(users.first.name)
+      end
 
-    it 'returns users by alternative email' do
-      u = User.search(user.alternative_email)
-      expect(user.alternative_email).to eq(u[0].alternative_email)
+      it 'returns users by email' do
+        users = User.search(user.email)
+        expect(user.email).to eq(users.first.email)
+      end
+
+      it 'returns users by alternative email' do
+        users = User.search(user.alternative_email)
+        expect(user.alternative_email).to eq(users.first.alternative_email)
+      end
     end
 
     context 'with accents' do
       it 'in attribute' do
         user = create(:user, name: 'Alícia')
-        u = User.search('Alicia')
-        expect(user.name).to eq(u[0].name)
+        users = User.search('Alicia')
+        expect(user.name).to eq(users.first.name)
       end
+
       it 'in search term' do
         user = create(:user, name: 'Alicia')
-        u = User.search('Alícia')
-        expect(user.name).to eq(u[0].name)
+        users = User.search('Alícia')
+        expect(user.name).to eq(users.first.name)
       end
     end
 
     context 'with ignoring case sensitive' do
       it 'in attribute' do
         user = create(:user, name: 'Ana')
-        u = User.search('an')
-        expect(user.name).to eq(u[0].name)
+        users = User.search('an')
+        expect(user.name).to eq(users.first.name)
       end
+
       it 'in search term' do
         user = create(:user, name: 'ana')
-        u = User.search('AN')
-        expect(user.name).to eq(u[0].name)
+        users = User.search('AN')
+        expect(user.name).to eq(users.first.name)
       end
+    end
+  end
+
+  describe '.find_and_validate_for_authentication' do
+    let(:user) { create(:user) }
+
+    it 'authenticate by username' do
+      u = User.find_for_database_authentication(login: user.username)
+      expect(u.valid_password?('123456')).to be true
+    end
+
+    it 'authenticate by email' do
+      u = User.find_for_database_authentication(login: user.email)
+      expect(u.valid_password?('123456')).to be true
+    end
+  end
+
+  describe '#login' do
+    let(:user) { build(:user) }
+
+    it 'return login' do
+      user.login = 'login'
+      expect(user.login).to eql('login')
+    end
+
+    it 'return username' do
+      user.login = nil
+      user.username = 'admin'
+      expect(user.login).to eql('admin')
+    end
+
+    it 'return email' do
+      u = User.new email: 'admin@utfpr.edu.br'
+      expect(u.login).to eql('admin@utfpr.edu.br')
+    end
+  end
+
+  describe '#cpf' do
+    let(:user) { build(:user, cpf: '11598829084') }
+
+    it 'cpf' do
+      expect(user.cpf).to eql('11598829084')
+    end
+
+    it 'pretty cpf' do
+      expect(user.cpf.pretty).to eql('115.988.290-84')
+    end
+
+    it 'receiving a formatted cpf' do
+      user.cpf = '115.988.290-84'
+      expect(user.cpf).to eql('11598829084')
     end
   end
 end

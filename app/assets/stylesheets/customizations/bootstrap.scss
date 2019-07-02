@@ -1,0 +1,29 @@
+body.has-fixed-top {
+  margin-top: 80px;
+}
+
+.form-group-invalid .input-group + .invalid-feedback {
+  display: block;
+}
+
+.form-control-label {
+  @extend .form-label;
+}
+
+.table.table-data tbody tr td:last-child {
+  text-align: right;
+}
+
+.input-icon .form-control.header-search {
+    padding-left: 0.75rem;
+}
+
+fieldset {
+  background: unset !important;
+}
+
+fieldset > legend {
+  padding: 0 5px;
+  font-size: 1rem;
+  font-weight: bold;
+}

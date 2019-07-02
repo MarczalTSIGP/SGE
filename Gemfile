@@ -18,6 +18,8 @@ gem 'sass-rails', '~> 5.0'
 gem 'simple_form'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
+gem 'font-awesome-sass'
+gem 'active_link_to'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -39,14 +41,15 @@ group :development do
   gem 'brakeman', require: false
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false
+  gem 'bullet'
 end
 
 group :test do
-  gem 'capybara', '>= 2.15', '< 4.0'
-  gem 'chromedriver-helper'
+  gem 'capybara', '>= 3.19.1'
+  gem 'webdrivers', '~> 4.0'
+
   gem 'database_cleaner'
-  gem 'selenium-webdriver'
-  gem 'shoulda-matchers', '~> 3.1'
+  gem 'shoulda-matchers', '~> 4.0'
   gem 'simplecov', require: false
   gem 'simplecov-console', require: false
 end

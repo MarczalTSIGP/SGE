@@ -1,0 +1,17 @@
+<tr>
+  <td><%= user.name %></td>
+  <td><%= user.email %></td>
+  <td><%= t("views.boolean.#{user.active}") %></td>
+  <td><%= t("views.boolean.#{user.admin}") %></td>
+  <td>
+    <%= link_to admin_user_path(user) do %>
+        <%= icon('fas', 'search', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.show')) %>
+    <% end %>
+
+    <%= link_to edit_admin_user_path(user) do %>
+       <%= icon('fas', 'edit', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.edit')) %>
+    <% end %>
+
+    <%= link_to_active_disable(user) %>
+  </td>
+</tr>

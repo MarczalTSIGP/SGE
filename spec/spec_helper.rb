@@ -8,4 +8,7 @@ RSpec.configure do |config|
   end
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
+
+  # filter_run is short-form alias for filter_run_including
+  config.filter_run_when_matching :focus
 end

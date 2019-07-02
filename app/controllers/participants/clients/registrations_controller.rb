@@ -25,20 +25,22 @@ class Participants::Clients::RegistrationsController < Devise::RegistrationsCont
     devise_parameter_sanitizer.permit(:account_update, keys: attributes)
   end
 
-  def after_update_path_for(resource)
-    participants_root_path(resource)
+  def after_sign_up_path_for(_resource)
+    participants_root_path
+  end
+
+  def after_update_path_for(*)
+    edit_client_registration_path
   end
 
   def attributes
-    [:name, :ra, :cpf, :alternative_email, :email, :password,
-     :password_confirmation,
-     :remember_me,
-     :kind]
+    [:name, :cpf, :alternative_email, :email, :password,
+     :password_confirmation, :kind]
   end
 
   def choose_layout
-    return 'participants/layouts/application' if client_signed_in?
+    return 'layouts/participants/application' if client_signed_in?
 
-    'participants/clients/layouts/application'
+    'layouts/devise/sign_up'
   end
 end

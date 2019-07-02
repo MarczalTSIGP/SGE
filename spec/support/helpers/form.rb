@@ -1,6 +1,6 @@
 module Helpers
   module Form
-    def submit_form(submit = '//input[type=submit]')
+    def submit_form(submit = 'input[name="commit"]')
       find(submit).click
     end
 
@@ -19,6 +19,10 @@ module Helpers
       attributes = attributes_for(model)
       attributes.keys.each { |k| attributes["#{model}_#{k}".to_sym] = attributes.delete(k) }
       attributes
+    end
+
+    def choose_radio_button(value, options = {})
+      find("div.#{options[:from]} label.custom-radio", text: value).click
     end
   end
 end

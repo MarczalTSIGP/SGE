@@ -1,45 +1,56 @@
-<%= provide(:page_title, t('devise.registration.edit')) %>
+<% provide(:head_title, t('devise.registrations.edit.profile')) %>
+<% provide(:page_title, t('devise.registrations.edit.profile')) %>
 
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<%= simple_form_for(resource, as: resource_name,
+                    url: registration_path(resource_name),
+                    html: { method: :put, multipart: true }) do |f| %>
+
   <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :name,
-                required: true,
-                autofocus: true,
-                label_html: { class: 'form-label' } %>
-    <%= f.input :cpf,
-                required: true,
-                autofocus: true,
-                label_html: { class: 'form-label' } %>
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                label_html: { class: 'form-label' } %>
-    <%= f.input :alternative_email,
-                required: true,
-                autofocus: true,
-                label_html: { class: 'form-label' } %>
-    <%= f.input :kind, as: :radio_buttons, collection: Client.human_kinds,
-                item_wrapper_class: 'inline custom-control custom-radio custom-control-inline' %>
-    <%= f.input :password,
-                required: true,
-                hint: ("#{@minimum_password_length}  #{t('devise.registration.password_character_length')}" if @minimum_password_length),
-                label_html: { class: 'form-label' } %>
-    <%= f.input :password_confirmation,
-                required: true,
-                label_html: { class: 'form-label' } %>
-    <%= f.input :current_password,
-                hint: t('devise.registration.current_password'),
-                required: true,
-                label_html: { class: 'form-label' } %>
-  </div>
+  <fieldset class="form-fieldset">
+    <legend class="w-auto"><%= t('views.fieldset.personal_data') %></legend>
 
-  <div class='text-right'>
-    <%= f.button :submit, t('helpers.buttons.update'), class: 'btn btn-primary' %>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :name %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.input :cpf %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :email %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.input :alternative_email %>
+      </div>
+    </div>
+
+    <%= f.input :kind, as: :radio_buttons_tabler, collection: Client.human_kinds %>
+  </fieldset>
+
+  <fieldset class="form-fieldset">
+    <legend class="w-auto"><%= t('views.fieldset.passwords') %></legend>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :password,
+            hint: ("#{@minimum_password_length}  #{t('devise.passwords.character_length')}" if @minimum_password_length) %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.input :password_confirmation %>
+      </div>
+    </div>
+
+    <%= f.input :current_password,
+        hint: t('devise.registrations.edit.we_need_your_current_password_to_confirm_your_changes') %>
+
+  </fieldset>
+
+  <div class="d-flex">
+    <%= link_to t('views.links.back'), :participants_root, class: 'btn btn-secondary' %>
+    <%= f.button :submit, t('devise.registrations.edit.update'), class: 'btn-primary ml-auto' %>
   </div>
 <% end %>
 
-<p class="mt-5"> <%= link_to "Desativar minha conta", registration_path(resource_name), data: { confirm: "Você tem certeza?" }, method: :delete %></p>
-
-<%= link_to "Voltar", :back %>

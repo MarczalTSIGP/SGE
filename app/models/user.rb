@@ -1,28 +1,22 @@
 class User < ApplicationRecord
-  attr_writer :login
-
   include PrettyCPF
   include LoginAuthentication
+
   also_login_by :username
 
   devise :database_authenticatable, :rememberable, :trackable,
          :validatable, authentication_keys: [:login]
-
-  after_validation :username_errors_message
-  before_create :set_default_password # we will use ldap not password! this is necessary until that
 
   validates :name, :cpf, :registration_number, presence: true
   validates :registration_number, :username, :cpf, uniqueness: { case_sensitive: false }
   validates :alternative_email, allow_blank: true, format: { with: Devise.email_regexp }
   validates :cpf, cpf: true
 
+  after_validation :username_errors_message
+
   def username=(username)
     super
     self.email = (username + '@utfpr.edu.br')
-  end
-
-  def login
-    @login || username || email
   end
 
   def self.search(search)
@@ -36,20 +30,8 @@ class User < ApplicationRecord
 
   private
 
-  def email_required?
-    false
-  end
-
-  def email_changed?
-    false
-  end
-
   def password_required?
     false
-  end
-
-  def set_default_password
-    self.password = '123456'
   end
 
   def username_errors_message

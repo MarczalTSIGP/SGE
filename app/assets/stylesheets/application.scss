@@ -1,7 +1,8 @@
 /*************************************************************
 * Gems
 **************************************************************/
-
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 /*************************************************************
 * Vendors stylesheets
@@ -17,9 +18,8 @@
 /*************************************************************
 * Customizations
 **************************************************************/
-@import "customizations/table_bootstrap";
-@import "customizations/input_search";
-@import "customizations/form_bootstrap";
+@import "customizations/bootstrap";
+
 
 /*************************************************************
 * Apps stylesheets
