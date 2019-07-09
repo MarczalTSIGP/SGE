@@ -19,6 +19,7 @@
 //--------------------
 //= require config/namespace
 //= require config/tooltips
+//= require config/jmask
 
 
 // Lib files
