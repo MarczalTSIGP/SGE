@@ -1,0 +1,28 @@
+<% provide(:head_title, t('views.names.departmment.plural')) %>
+<% provide(:page_title, t('views.names.departmment.plural')) %>
+
+<%= render 'shared/search_and_new', search_path: admin_departments_search_path, new_path: new_admin_department_path, new_link: 'department.new' %>
+
+<div class="text-right mt-2 mb-1">
+  <%= page_entries_info @departments %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-data card-table table-vcenter">
+    <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.department.initials') %></th>
+      <th><%= t('activerecord.attributes.department.local') %></th>
+      <th><%= t('activerecord.attributes.department.email') %></th>
+      <th><%= t('activerecord.attributes.department.phone') %></th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <%= render @departments %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @departments %>

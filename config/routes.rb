@@ -20,6 +20,16 @@ Rails.application.routes.draw do
 
       put 'users/disable/:id', to: 'users#disable', as: 'user_disable'
       put 'users/active/:id', to: 'users#active', as: 'user_active'
+
+      resources :departments do
+        get '/members' => 'departments#members'
+        post '/members' => 'departments#add_member'
+        delete '/members/:user_id' => 'departments#remove_member', as: 'remove_member'
+      end
+      get 'departments/search/(:term)/(page/:page)',
+          to: 'departments#index',
+          as: 'departments_search',
+          constraints: { term: %r{[^/]+} }
     end
   end
 
