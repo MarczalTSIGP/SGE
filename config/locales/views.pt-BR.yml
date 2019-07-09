@@ -15,6 +15,12 @@ pt-BR:
       client:
         singular: Usuário
         plural:  Usuários
+      departmment:
+        singular: Departamento
+        plural: Departamentos
+      member:
+        singular: Membro
+        plural: Membros
       server:
         singular: Servidor
         plural: Servidores
@@ -28,16 +34,22 @@ pt-BR:
     fieldset:
       personal_data: Dados Pessoais
       institutional: Dados Institucionais
+      department: Dados Departamentais
+      members:
+        add: "Adicionar membros ao departamento"
+        member: "Membros"
       passwords: Senha
     sidebar:
       titles:
         admin: Administrar
+      departments: Departamentos
       home: Página Inicial
       server: Servidores
     pages:
       show: 'Visualizar %{resource}'
       edit: 'Editar %{resource}'
       create: 'Criar %{resource}'
+      manager: 'Gerenciar %{resource}'
     links:
       active: Ativar
       disable: Desativar
@@ -45,6 +57,9 @@ pt-BR:
       show: Visualizar
       destroy: Remover
       back: Voltar
+      department:
+        new: 'Novo Departamento'
+        member: 'Gerenciar Membros'
       status:
         active: 'Ativar'
         disable: 'Desativar'
