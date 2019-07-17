@@ -28,6 +28,14 @@ module Helpers
       I18n.t('errors.messages.invalid')
     end
 
+    def sf_length_minimum(lenght)
+      I18n.t('errors.messages.too_short', count: lenght)
+    end
+
+    def sf_length_maximum(lenght)
+      I18n.t('errors.messages.too_long', count: lenght)
+    end
+
     def sf_default_error_msg
       I18n.t('simple_form.error_notification.default_message')
     end
@@ -42,8 +50,9 @@ module Helpers
     end
 
     def sf_image_error_msg
-      I18n.t('errors.messages.extension_whitelist_error', extension: '"pdf"',
-                                                          allowed_types: 'jpg, jpeg, gif, png')
+      I18n.t('errors.messages.extension_whitelist_error',
+             extension: '"pdf"',
+             allowed_types: 'jpg, jpeg, gif, png')
     end
 
     def sf_not_found_msg

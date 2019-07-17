@@ -24,5 +24,10 @@ module Helpers
     def choose_radio_button(value, options = {})
       find("div.#{options[:from]} label.custom-radio", text: value).click
     end
+
+    def selectize(name, options = {})
+      find("\##{options[:from]}").click
+      find('div.selectize-dropdown-content .option', text: name).click
+    end
   end
 end
