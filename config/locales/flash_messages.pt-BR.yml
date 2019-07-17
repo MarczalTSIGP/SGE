@@ -17,3 +17,6 @@ pt-BR:
         m: '%{resource_name} desativado com sucesso!'
         f: '%{resource_name} desativada com sucesso!'
       errors: 'Alguns erros foram encontrados, por favor verifique:'
+      add:
+        m: '%{resource_name} adicionado com sucesso!'
+        f: '%{resource_name} adicionada com sucesso!'

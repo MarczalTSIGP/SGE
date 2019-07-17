@@ -34,22 +34,25 @@
 </div>
 <fieldset class="form-fieldset">
   <legend class="w-auto"><%= t('views.fieldset.members.member') %></legend>
-  <div class="row">
-    <div class="col">
-      <% @members.each do |member| %>
-        <div class="col tag mt-1">
-        <span class="col-6">
-          <%= member.name %>
-        </span>
-          <span class="col-5 tag-addon tag-info">
-          <%= member.role_by(@department).name %>
-        </span>
-          <%= link_to admin_department_remove_member_path(@department, member),
-                      method: :delete, class: 'col-1 tag-addon' do %>
-            <i class="fe fe-x"></i>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  </div>
+  <table class="table table-data card-table table-vcenter">
+    <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.department.member.user') %></th>
+      <th><%= t('activerecord.attributes.department.member.role') %></th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @members.each do |member| %>
+      <td><%= member.name %></td>
+      <th><%= member.role_by(@department).name %></th>
+      <td>
+        <%= link_to admin_department_remove_member_path(@department, member), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
+          <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
+        <% end %>
+      </td>
+    <% end %>
+    </tbody>
+  </table>
+
 </fieldset>

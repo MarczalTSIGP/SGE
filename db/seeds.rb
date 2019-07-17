@@ -7,8 +7,8 @@ User.create_with(name: 'Administrador',
                  support: true).find_or_create_by(email: 'admin@utfpr.edu.br')
 
 roles = [
-    ["Chefe de Departamento", :manager],
-    ["Membro do Departamento", :member]
+  ['Chefe de Departamento', :manager],
+  ['Membro do Departamento', :member]
 ]
 
 roles.each do |name, identifier|

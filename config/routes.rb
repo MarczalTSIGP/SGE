@@ -21,7 +21,7 @@ Rails.application.routes.draw do
       put 'users/disable/:id', to: 'users#disable', as: 'user_disable'
       put 'users/active/:id', to: 'users#active', as: 'user_active'
 
-      resources :departments do
+      resources :departments, constraints: { id: /[0-9]+/ }, concerns: :paginatable do
         get '/members' => 'departments#members'
         post '/members' => 'departments#add_member'
         delete '/members/:user_id' => 'departments#remove_member', as: 'remove_member'

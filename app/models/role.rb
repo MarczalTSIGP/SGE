@@ -1,22 +1,23 @@
 class Role < ApplicationRecord
-  has_many :department_users
+  has_many :department_users, dependent: :destroy
 
   def self.manager
-    find_by_identifier(:manager)
+    find_by(:manager)
   end
 
   def self.event_coordinator
-    find_by_identifier(:event_coordinator)
+    find_by(:event_coordinator)
   end
 
   def self.module_coordinator
-    find_by_identifier(:module_coordinator)
+    find_by(:module_coordinator)
   end
 
   def self.where_roles(id)
-    du = DepartmentUser.where(department_id: id, role_id: 1)
+    role = Role.first
+    du = DepartmentUser.where(department_id: id, role_id: role.id)
     if du.present?
-      where("id > 1")
+      where.not(id: role.id)
     else
       all
     end

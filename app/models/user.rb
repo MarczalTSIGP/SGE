@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   after_validation :username_errors_message
 
-  has_many :department_users
+  has_many :department_users, dependent: :destroy
   has_many :departments, through: :department_users
 
   def username=(username)
