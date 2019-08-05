@@ -17,6 +17,7 @@ RSpec.describe Department, type: :model do
       it { is_expected.to allow_value('email').for(:email) }
       it { is_expected.not_to allow_value('foo@hotmail.com').for(:email) }
       it { is_expected.to validate_uniqueness_of(:initials).case_insensitive }
+      it { is_expected.to validate_uniqueness_of(:email) }
     end
 
     describe 'converting to uppercase' do
@@ -36,11 +37,6 @@ RSpec.describe Department, type: :model do
     context 'when email' do
       let(:department) { build(:department) }
 
-      it 'used in email' do
-        department.email = 'abc'
-        expect(department.email).to eql('abc@utfpr.edu.br')
-      end
-
       it 'is invalid and used in email' do
         department.email = 'a a'
         department.valid?
@@ -51,6 +47,8 @@ RSpec.describe Department, type: :model do
 
   describe 'associations' do
     it { is_expected.to have_many(:users).through(:department_users) }
+    it { is_expected.to have_many(:roles).through(:department_users) }
+    it { is_expected.to have_many(:departments).through(:department_users) }
     it { is_expected.to have_many(:department_users) }
   end
 
@@ -102,6 +100,14 @@ RSpec.describe Department, type: :model do
         departments = Department.search('DEPAR')
         expect(department.name).to eq(departments.first.name)
       end
+    end
+  end
+
+  describe '#name_with_initials' do
+    it 'returns department by name with initials' do
+      department = create(:department, name: 'departamento de materiais e patrimonio')
+      name_initials = department.name_with_initials
+      expect("#{department.name} - #{department.initials}").to eq(name_initials)
     end
   end
 end

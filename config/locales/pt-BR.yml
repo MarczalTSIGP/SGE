@@ -15,6 +15,9 @@ pt-BR:
       client:
           one: 'Cliente'
           other: 'Clientes'
+      department_users:
+          one: 'Membro'
+          other: 'Membros'
     attributes:
       attribute_commons: &commons
         name: 'Nome'

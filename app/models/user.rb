@@ -2,6 +2,8 @@ class User < ApplicationRecord
   include PrettyCPF
   include LoginAuthentication
 
+  scope :activated, -> { where(active: true) }
+
   also_login_by :username
 
   devise :database_authenticatable, :rememberable, :trackable,
@@ -31,7 +33,7 @@ class User < ApplicationRecord
     end
   end
 
-  def role_by(department)
+  def role_for(department)
     department_users.find_by(department: department).try(:role)
   end
 

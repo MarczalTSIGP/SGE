@@ -41,7 +41,7 @@ describe 'Admin::Departments::create', type: :feature do
       expect(page).to have_message(sf_blank_error_msg, in: 'div.department_name')
       expect(page).to have_message(sf_blank_error_msg, in: 'div.department_initials')
       expect(page).to have_message(sf_blank_error_msg, in: 'div.department_phone')
-      expect(page).to have_message(sf_invalid_error_msg, in: 'div.department_email')
+      expect(page).to have_message(sf_blank_error_msg, in: 'div.department_email')
       expect(page).to have_message(sf_blank_error_msg, in: 'div.department_local')
     end
 

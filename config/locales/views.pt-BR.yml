@@ -59,7 +59,9 @@ pt-BR:
       back: Voltar
       department:
         new: 'Novo Departamento'
-        member: 'Gerenciar Membros'
+        members: 'Gerenciar Membros'
+        member:
+          add: 'Adicionar Membro'
       status:
         active: 'Ativar'
         disable: 'Desativar'

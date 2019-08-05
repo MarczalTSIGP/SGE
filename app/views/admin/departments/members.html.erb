@@ -1,19 +1,19 @@
-<% provide(:head_title, t('views.pages.manager', resource: t('views.names.member.plural'))) %>
-<% provide(:page_title, t('views.pages.manager', resource: t('views.names.member.plural'))) %>
+<% provide(:head_title, t('views.pages.manager', resource: t('views.names.member.plural', resource: @dept.initials))) %>
+<% provide(:page_title, t('views.pages.manager', resource: t('views.names.member.plural', resource: @dept.initials))) %>
 
 <div class="form-group">
-  <%= simple_form_for(:member, url: admin_department_members_path(@department),
+  <%= simple_form_for(:member, url: admin_department_members_path(@dept),
                       method: :post) do |f| %>
     <fieldset class="form-fieldset">
-      <legend class="w-auto"><%= t('views.fieldset.members.add') %> <%= @department.initials %></legend>
-
+      <legend class="w-auto"><%= t('views.fieldset.members.add') %></legend>
       <div class="row gutters-xs">
         <div class="col">
           <%= f.input :user,
-                      collection: @no_members,
                       class: 'form-control custom-select',
+                      collection: @no_members,
                       label: t("activerecord.attributes.department.member.user") %>
         </div>
+
         <div class="col">
           <%= f.input :role,
                       collection: @roles,
@@ -22,16 +22,17 @@
         </div>
 
         <span class="col-auto mt-4 pt-3">
-      <%= button_tag(type: 'submit', class: 'btn btn-primary',
-                     'data-toggle': "tooltip", 'data-placement': "bottom",
-                     'title': "Adicionar Membro") do %>
-        <i class="fe fe-user-plus"></i>
-        <% end %>
+          <%= button_tag type: 'submit', class: 'btn btn-primary',
+                         'title': t('views.links.department.member.add'),
+                         data: { toggle: 'tooltip', placement: 'bottom' } do %>
+            <i class="fe fe-user-plus"></i>
+          <% end %>
       </span>
       </div>
     </fieldset>
   <% end %>
 </div>
+
 <fieldset class="form-fieldset">
   <legend class="w-auto"><%= t('views.fieldset.members.member') %></legend>
   <table class="table table-data card-table table-vcenter">
@@ -42,17 +43,19 @@
       <th></th>
     </tr>
     </thead>
+
     <tbody>
     <% @members.each do |member| %>
-      <td><%= member.name %></td>
-      <th><%= member.role_by(@department).name %></th>
-      <td>
-        <%= link_to admin_department_remove_member_path(@department, member), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
-          <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
-        <% end %>
-      </td>
+      <tr>
+        <td><%= member.name %></td>
+        <td><%= member.role_for(@dept).name %></td>
+        <td>
+          <%= link_to admin_department_remove_member_path(@dept, member), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
+            <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
+          <% end %>
+        </td>
+      </tr>
     <% end %>
     </tbody>
   </table>
-
 </fieldset>
