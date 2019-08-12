@@ -1,7 +1,7 @@
 namespace :db do
 	desc 'Erase and Fill database'
 	task populate: :environment do
-		populate_tasks = %w[users clients]
+		populate_tasks = %w[users clients roles departments members]
 
 		puts 'DB seeds...'
 		Rake::Task['db:seed'].invoke

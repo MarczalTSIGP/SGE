@@ -11,7 +11,12 @@
     </span>
     <%= t('views.sidebar.home') %>
   <% end %>
-
+  <%= active_link_to(admin_departments_path, active: :inclusive, class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-2">
+      <%= icon('fas', 'building') %>
+    </span>
+    <%= t('views.sidebar.departments') %>
+  <% end %>
   <%= active_link_to(admin_users_path, active: :inclusive, class: 'list-group-item list-group-item-action') do %>
     <span class="icon mr-2">
       <%= icon('fas', 'users') %>

@@ -15,6 +15,9 @@ pt-BR:
       client:
           one: 'Cliente'
           other: 'Clientes'
+      department_users:
+          one: 'Membro'
+          other: 'Membros'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
@@ -33,10 +36,17 @@ pt-BR:
         current_password: 'Senha Atual'
         reset_password_token: 'Token para alteração de senha'
       department:
+        <<: *commons
         initials: 'Sigla'
         local: 'Local'
         email: 'Email do Departamento'
         responsible: 'Responsável pelo Departamento'
+        phone: 'Telefone'
+        description: "Descrição"
+        name: "Nome"
+        member:
+          user: "Membro"
+          role: "Função"
       user:
         <<: *commons
         username: 'Usuário institucional'

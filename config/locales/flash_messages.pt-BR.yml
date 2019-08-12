@@ -16,4 +16,7 @@ pt-BR:
       disable:
         m: '%{resource_name} desativado com sucesso!'
         f: '%{resource_name} desativada com sucesso!'
+      add:
+        m: '%{resource_name} adicionado com sucesso!'
+        f: '%{resource_name} adicionada com sucesso!'
       errors: 'Alguns erros foram encontrados, por favor verifique:'

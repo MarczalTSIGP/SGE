@@ -19,6 +19,8 @@
 //--------------------
 //= require config/namespace
 //= require config/tooltips
+//= require config/jmask
+//= require config/tabler.selectize.min
 
 
 // Lib files

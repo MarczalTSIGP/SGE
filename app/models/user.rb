@@ -2,6 +2,8 @@ class User < ApplicationRecord
   include PrettyCPF
   include LoginAuthentication
 
+  scope :activated, -> { where(active: true) }
+
   also_login_by :username
 
   devise :database_authenticatable, :rememberable, :trackable,
@@ -13,6 +15,9 @@ class User < ApplicationRecord
   validates :cpf, cpf: true
 
   after_validation :username_errors_message
+
+  has_many :department_users, dependent: :destroy
+  has_many :departments, through: :department_users
 
   def username=(username)
     super
@@ -26,6 +31,14 @@ class User < ApplicationRecord
     else
       where(support: false).order('name ASC')
     end
+  end
+
+  def role_for(department)
+    department_users.find_by(department: department).try(:role)
+  end
+
+  def self.not_in(department)
+    User.where.not(id: department.users)
   end
 
   private
