@@ -20,27 +20,27 @@ class Admin::DepartmentsController < Admin::BaseController
   def create
     @department = Department.new(department_params)
     if @department.save
-      flash[:success] = flash_message('create.m', 'department')
+      success_create_message
       redirect_to admin_departments_path
     else
-      flash.now[:error] = flash_message('errors', 'department')
+      error_message
       render :new
     end
   end
 
   def update
     if @department.update(department_params)
-      flash[:success] = flash_message('update.m', 'department')
+      success_update_message
       redirect_to admin_departments_path
     else
-      flash.now[:error] = flash_message('errors', 'department')
+      error_message
       render :edit
     end
   end
 
   def destroy
     @department.destroy
-    flash[:success] = flash_message('destroy.m', 'department')
+    success_destroy_message
     redirect_to admin_departments_path
   end
 
@@ -52,25 +52,22 @@ class Admin::DepartmentsController < Admin::BaseController
 
   def add_member
     if @member.save
-      flash[:success] = flash_message('add.m', 'department_users')
+      success_add_member_message(:department_users)
     else
-      flash[:error] = flash_message('errors', 'department_users')
+      error_add_member_message
     end
+
     redirect_to admin_department_members_path(@member.department_id)
   end
 
   def remove_member
     member = @dept.department_users.find_by(user_id: params[:user_id])
-    flash[:success] = flash_message('destroy.m', 'department_users') if member.destroy
+    success_remove_member_message(:department_users) if member.destroy
 
     redirect_to admin_department_members_path(@dept)
   end
 
   private
-
-  def flash_message(to, name)
-    t("flash.actions.#{to}", resource_name: t("activerecord.models.#{name}.one"))
-  end
 
   def set_department
     @department = Department.find(params[:id])

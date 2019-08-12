@@ -14,11 +14,10 @@ class Admin::UsersController < Admin::BaseController
   def create
     @user = User.new(users_params)
     if @user.save
-      flash[:success] = flash_message('create.m')
-
+      success_create_message
       redirect_to admin_users_path
     else
-      flash.now[:error] = flash_message('errors')
+      error_message
       render :new
     end
   end
@@ -27,25 +26,24 @@ class Admin::UsersController < Admin::BaseController
 
   def update
     if @user.update(users_params)
-      flash[:success] = flash_message('update.m')
-
+      success_update_message
       redirect_to admin_users_path
     else
-      flash.now[:error] = flash_message('errors')
+      error_message
       render :edit
     end
   end
 
   def disable
     @user.update(active: false)
-    flash[:success] = flash_message('disable.m')
+    flash_message(:disable)
 
     redirect_to admin_users_path
   end
 
   def active
     @user.update(active: true)
-    flash[:success] = flash_message('active.m')
+    flash_message(:active)
 
     redirect_to admin_users_path
   end
@@ -53,7 +51,7 @@ class Admin::UsersController < Admin::BaseController
   private
 
   def flash_message(to)
-    t("flash.actions.#{to}", resource_name: t('activerecord.models.user.one'))
+    flash[:success] = t("flash.actions.#{to}.m", resource_name: t('activerecord.models.user.one'))
   end
 
   def set_user
