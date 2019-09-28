@@ -1,11 +1,14 @@
 <tr>
-  <th><%= department.initials %></th>
+  <td><%= department.initials %></td>
   <td><%= department.local %></td>
   <td><%= department.email_domain %></td>
   <td><%= department.phone %></td>
   <td>
     <%= link_to admin_department_members_path(department) do %>
       <%= icon('fas', 'plus', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.department.members')) %>
+    <% end %>
+    <%= link_to admin_department_divisions_path(department) do %>
+      <%= icon('fas', 'divide', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.department.divisions')) %>
     <% end %>
     <%= link_to admin_department_path(department) do %>
       <%= icon('fas', 'search', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.show')) %>

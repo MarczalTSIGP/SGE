@@ -31,7 +31,7 @@ describe 'Admins::Users::search', type: :feature do
     end
 
     it 'search an user using common name' do
-      visit admin_users_search_path(users.first.name)
+      visit admin_users_search_path('nome')
 
       expect(page.html).to include(pagination_total_entries(count: 4))
 

@@ -8,7 +8,7 @@ class Admin::DepartmentsController < Admin::BaseController
   end
 
   def show
-    @members = @department.users.activated.order('department_users.role_id', :name)
+    @members = @department.users.order('department_users.role_id', :name)
   end
 
   def new
@@ -47,7 +47,7 @@ class Admin::DepartmentsController < Admin::BaseController
   def members
     @members = @dept.users.order('department_users.role_id', :name)
     @no_members = User.not_in(@dept).order(name: :asc)
-    @roles = Role.where_roles(params[:department_id])
+    @roles = Role.where_roles(params[:department_id], false)
   end
 
   def add_member
@@ -56,14 +56,12 @@ class Admin::DepartmentsController < Admin::BaseController
     else
       error_add_member_message
     end
-
     redirect_to admin_department_members_path(@member.department_id)
   end
 
   def remove_member
     member = @dept.department_users.find_by(user_id: params[:user_id])
     success_remove_member_message(:department_users) if member.destroy
-
     redirect_to admin_department_members_path(@dept)
   end
 

@@ -18,6 +18,8 @@ class User < ApplicationRecord
 
   has_many :department_users, dependent: :destroy
   has_many :departments, through: :department_users
+  has_many :division_users, dependent: :destroy
+  has_many :divisions, through: :division_users
 
   def username=(username)
     super
@@ -33,8 +35,12 @@ class User < ApplicationRecord
     end
   end
 
-  def role_for(department)
+  def role_for_department(department)
     department_users.find_by(department: department).try(:role)
+  end
+
+  def role_for_division(division)
+    division_users.find_by(division: division).try(:role)
   end
 
   def self.not_in(department)

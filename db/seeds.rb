@@ -7,10 +7,12 @@ User.create_with(name: 'Administrador',
                  support: true).find_or_create_by(email: 'admin@utfpr.edu.br')
 
 roles = [
-  ['Chefe de Departamento', :manager],
-  ['Membro do Departamento', :member]
+  ['Chefe de Departamento', :manager, true],
+  ['Membro do Departamento', :member_department, true],
+  ['Responsavel da Divisão', :responsible, false],
+  ['Membro da Divisão', :member_division, false]
 ]
 
-roles.each do |name, identifier|
-  Role.find_or_create_by!(name: name, identifier: identifier)
+roles.each do |name, identifier, department|
+  Role.find_or_create_by!(name: name, identifier: identifier, department: department)
 end

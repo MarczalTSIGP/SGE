@@ -13,14 +13,29 @@ class Role < ApplicationRecord
   #   find_by(:module_coordinator)
   # end
 
-  def self.where_roles(id)
-    # role = Role.find_by(identifier: 'manager')
-    role = Role.first
-    du = DepartmentUser.find_by(department_id: id, role_id: role.id)
-    if du.present?
-      where.not(id: role.id)
+  def self.where_roles(id, department)
+    manager = Role.find_by(identifier: 'manager')
+    responsible = Role.find_by(identifier: 'responsible')
+    if manager_present?(id, manager) && !department
+      where.not(id: manager.id, department: department)
+    elsif responsible_present?(id, responsible) && department
+      where.not(id: responsible.id, department: department)
     else
-      all
+      where(department: !department)
+    end
+  end
+
+  class << self
+    private
+
+    def manager_present?(id, role)
+      du = DepartmentUser.find_by(department_id: id, role_id: role.id)
+      du.present?
+    end
+
+    def responsible_present?(id, role)
+      du = DivisionUser.find_by(division_id: id, role_id: role.id)
+      du.present?
     end
   end
 end

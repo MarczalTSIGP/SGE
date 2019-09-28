@@ -11,7 +11,7 @@ class Department < ApplicationRecord
             uniqueness: true,
             length: { maximum: 255 },
             format: { with: VALID_EMAIL_REGEX }
-
+  has_many :divisions, foreign_key: 'department_id'
   has_many :department_users, dependent: :destroy
   has_many :departments, through: :department_users
   has_many :users, through: :department_users

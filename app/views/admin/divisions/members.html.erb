@@ -2,10 +2,10 @@
 <% provide(:page_title, t('views.pages.manager', resource: t('views.names.member.plural', resource: @dept.initials))) %>
 
 <div class="form-group">
-  <%= simple_form_for(:member, url: admin_department_members_path(@dept),
+  <%= simple_form_for(:member, url: admin_department_division_members_path(@dept),
                       method: :post) do |f| %>
     <fieldset class="form-fieldset">
-      <legend class="w-auto"><%= t('views.fieldset.members.add_dept') %></legend>
+      <legend class="w-auto"><%= t('views.fieldset.members.add_div') %></legend>
       <div class="row gutters-xs">
         <div class="col">
           <%= f.input :user,
@@ -48,9 +48,9 @@
     <% @members.each do |member| %>
       <tr>
         <td><%= member.name %></td>
-        <td><%= member.role_for_department(@dept).name %></td>
+        <td><%= member.role_for_division(@div).name %></td>
         <td>
-          <%= link_to admin_department_remove_member_path(@dept, member), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
+          <%= link_to admin_department_division_remove_member_path(@dept, @div, member), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
             <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
           <% end %>
         </td>

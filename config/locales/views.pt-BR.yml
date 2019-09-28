@@ -18,6 +18,9 @@ pt-BR:
       departmment:
         singular: Departamento
         plural: Departamentos
+      division:
+        singular: 'Divisão'
+        plural: "Divisões"
       member:
         singular: Membro
         plural: Membros
@@ -36,7 +39,8 @@ pt-BR:
       institutional: Dados Institucionais
       department: Dados Departamentais
       members:
-        add: "Adicionar membros ao departamento"
+        add_dept: "Adicionar membros ao departamento"
+        add_div: "Adicionar membros a divisão"
         member: "Membros"
       passwords: Senha
     sidebar:
@@ -59,9 +63,12 @@ pt-BR:
       back: Voltar
       department:
         new: 'Novo Departamento'
+        divisions: 'Gerenciar Divisões'
         members: 'Gerenciar Membros'
         member:
           add: 'Adicionar Membro'
+      division:
+        new: 'Nova Divisão'
       status:
         active: 'Ativar'
         disable: 'Desativar'

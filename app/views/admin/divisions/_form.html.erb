@@ -1,0 +1,10 @@
+<%= simple_form_for [:admin, @division.department, @division] do |f| %>
+  <%= f.input :name %>
+  <%= f.input :description %>
+  <%= f.input :kind, as: :radio_buttons_tabler, collection: Division.human_kinds %>
+
+  <div class='d-flex'>
+    <%= link_to t('views.links.back'), admin_department_divisions_path(@division.department), class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>
