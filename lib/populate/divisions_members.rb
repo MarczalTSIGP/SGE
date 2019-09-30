@@ -1,8 +1,8 @@
 module Populate
   class DivisionsMembers
     def initialize
-      @departments = Department.all
-      @roles = Role.all
+      @divisions = Division.all
+      @roles = Role.where(identifier: %w[responsible member_division])
     end
 
     def populate
@@ -13,18 +13,13 @@ module Populate
 
     def insert_members
       15.times do |i|
-        users = @departments[i].users
-        division = @departments[i].divisions
-        add_member(division.first, users.first.id, @roles.find_by(identifier: 'responsible').id)
-        add_member(division.first, users.last.id,
-                   @roles.find_by(identifier: 'member_division').id)
+        users = @divisions[i].department.users
+        DivisionUser.create!(
+          division_id: @divisions[i].id,
+          user_id: users[0].id,
+          role_id: @roles[0].id
+        )
       end
-    end
-
-    def add_member(division, user_id, role_id)
-      member = division.division_users.create(user_id: user_id,
-                                             role_id: role_id)
-      member.save
     end
   end
 end
