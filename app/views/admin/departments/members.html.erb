@@ -1,8 +1,8 @@
-<% provide(:head_title, t('views.pages.manager', resource: t('views.names.member.plural', resource: @dept.initials))) %>
-<% provide(:page_title, t('views.pages.manager', resource: t('views.names.member.plural', resource: @dept.initials))) %>
+<% provide(:head_title, t('views.pages.manager', resource: t('views.names.member.plural', resource: @department.initials))) %>
+<% provide(:page_title, t('views.pages.manager', resource: t('views.names.member.plural', resource: @department.initials))) %>
 
 <div class="form-group">
-  <%= simple_form_for(:member, url: admin_department_members_path(@dept),
+  <%= simple_form_for(:member, url: admin_department_members_path(@department),
                       method: :post) do |f| %>
     <fieldset class="form-fieldset">
       <legend class="w-auto"><%= t('views.fieldset.members.add_dept') %></legend>
@@ -48,9 +48,9 @@
     <% @members.each do |member| %>
       <tr>
         <td><%= member.name %></td>
-        <td><%= member.role_for_department(@dept).name %></td>
+        <td><%= member.role_for_department(@department).name %></td>
         <td>
-          <%= link_to admin_department_remove_member_path(@dept, member), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
+          <%= link_to admin_department_remove_member_path(@department, member), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
             <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
           <% end %>
         </td>
