@@ -1,14 +1,11 @@
 class Admin::DivisionsController < Admin::BaseController
-  before_action :set_division, only: [:show, :edit, :update, :destroy]
-  # before_action :set_department_member, only: [:members, :add_member, :remove_member]
-  before_action :set_division_member, only: [:members, :add_member, :remove_member]
-  before_action :set_member, only: [:add_member]
   before_action :set_department
+  before_action :set_division, except: [:index, :new, :create]
+  before_action :set_member, only: [:add_member]
 
   def index
-    @divisions = Division.where(department_id: params[:department_id])
-                         .page(params[:page])
-                         .search(params[:term])
+    @divisions = @dept.divisions.page(params[:page])
+                      .search(params[:term])
   end
 
   def show
@@ -16,13 +13,12 @@ class Admin::DivisionsController < Admin::BaseController
   end
 
   def new
-    department = Department.find(params[:department_id])
-    @division = department.divisions.build
+    @division = @dept.divisions.build
   end
 
   def create
-    department = Department.find(params[:department_id])
-    @division = department.divisions.create(division_params)
+    @division = @dept.divisions.create(division_params)
+
     if @division.save
       success_create_message
       redirect_to admin_department_divisions_path
@@ -51,8 +47,8 @@ class Admin::DivisionsController < Admin::BaseController
   end
 
   def members
-    @members = @div.users.order(:name)
-    @no_members = Division.not_in_user(@dept, @div).order(:name)
+    @members = @division.users.order(:name)
+    @no_members = Division.not_in_user(@dept, @division).order(:name)
     @roles = Role.where_roles(params[:division_id], true)
   end
 
@@ -62,14 +58,14 @@ class Admin::DivisionsController < Admin::BaseController
     else
       error_add_member_message
     end
-    redirect_to admin_department_division_members_path(params[:department_id], @div)
+    redirect_to admin_department_division_members_path(params[:department_id], @division)
   end
 
   def remove_member
-    member = @div.division_users.find_by(user_id: params[:user_id])
+    member = @division.division_users.find_by(user_id: params[:user_id])
     success_remove_member_message(:division_users) if member.destroy
 
-    redirect_to admin_department_division_members_path(params[:department_id], @div)
+    redirect_to admin_department_division_members_path(params[:department_id], @division)
   end
 
   private
@@ -79,20 +75,16 @@ class Admin::DivisionsController < Admin::BaseController
   end
 
   def set_division
-    @division = Division.find(params[:id])
+    id = params[:division_id] || params[:id]
+    @division = @dept.divisions.find(id)
   end
 
   def set_department
     @dept = Department.find_by(id: params[:department_id])
   end
 
-  def set_division_member
-    @div = Division.find_by(id: params[:division_id])
-  end
-
   def set_member
-    div = Division.find_by(id: params[:division_id])
-    @member = div.division_users.build(user_id: params[:member][:user],
-                                       role_id: params[:member][:role])
+    @member = @division.division_users.build(user_id: params[:member][:user],
+                                             role_id: params[:member][:role])
   end
 end

@@ -1,5 +1,5 @@
-<% provide(:head_title, t('views.pages.division.manager.text', id: @div.id, dept: @dept.initials)) %>
-<% provide(:page_title, raw(t('views.pages.division.manager.html', id: @div.id, dept: @dept.initials))) %>
+<% provide(:head_title, t('views.pages.division.manager.text', id: @division.id, dept: @dept.initials)) %>
+<% provide(:page_title, raw(t('views.pages.division.manager.html', id: @division.id, dept: @dept.initials))) %>
 
 <div class="form-group">
   <%= simple_form_for(:member, url: admin_department_division_members_path(@dept),
@@ -48,9 +48,9 @@
     <% @members.each do |member| %>
       <tr>
         <td><%= member.name %></td>
-        <td><%= member.role_for_division(@div).name %></td>
+        <td><%= member.role_for_division(@division).name %></td>
         <td>
-          <%= link_to admin_department_division_remove_member_path(@dept, @div, member), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
+          <%= link_to admin_department_division_remove_member_path(@dept, @division, member), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
             <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
           <% end %>
         </td>
