@@ -88,4 +88,20 @@ RSpec.describe Division, type: :model do
       expect(c.errors.messages[:kind]).to include(I18n.t('errors.messages.blank'))
     end
   end
+
+  describe 'members' do
+    let(:division) { create(:division) }
+
+    it 'not add a member to division twice' do
+      member = create(:user)
+      role = create(:role, :member_division)
+      du = DivisionUser.new(user_id: member.id, role_id: role.id)
+
+      division.division_users << du
+      expect(division.users.count).to eq(1)
+
+      division.division_users << du
+      expect(division.users.count).to eq(1)
+    end
+  end
 end

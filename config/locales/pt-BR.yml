@@ -55,10 +55,18 @@ pt-BR:
         member:
           user: "Membro"
           role: "Função"
+      department_user:
+        user: Membro
+        user_id: Membro
+        role: Função
       division:
         <<: *commons
         resposable_id: 'Responsavel'
         kind: 'Módulo'
+      division_user:
+        user: Membro
+        user_id: Membro
+        role: Função
       user:
         <<: *commons
         username: 'Usuário institucional'

@@ -51,7 +51,7 @@ class Admin::DepartmentsController < Admin::BaseController
     if @member.save
       success_add_member_message(:department_users)
     else
-      error_add_member_message
+      flash[:error] = @member.errors.full_messages.to_sentence
     end
     redirect_to admin_department_members_path(@member.department_id)
   end
@@ -84,10 +84,6 @@ class Admin::DepartmentsController < Admin::BaseController
   end
 
   def params_keys
-    if params[:id].presence
-      params[:id]
-    else
-      params[:department_id]
-    end
+    params[:id] || params[:department_id]
   end
 end

@@ -21,10 +21,6 @@ module FlashMessage
     add_remove(:success, :add, model_name)
   end
 
-  def error_add_member_message
-    flash[:error] = I18n.t('flash.actions.errors')
-  end
-
   def success_remove_member_message(model_name)
     add_remove(:success, :destroy, model_name)
   end

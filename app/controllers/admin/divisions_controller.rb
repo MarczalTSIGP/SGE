@@ -56,7 +56,7 @@ class Admin::DivisionsController < Admin::BaseController
     if @member.save
       success_add_member_message(:department_users)
     else
-      error_add_member_message
+      flash[:error] = @member.errors.full_messages.to_sentence
     end
     redirect_to admin_department_division_members_path(params[:department_id], @division)
   end

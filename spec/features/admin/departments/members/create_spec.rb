@@ -51,16 +51,21 @@ describe 'Admin::Departments::Members::create', type: :feature do
       find('[name=button]').click
 
       expect(page).to have_current_path admin_department_members_path(department)
-      expect(page).to have_flash(:danger, text: flash_errors_msg)
+
+      member = 'activerecord.attributes.department_user.user'
+      role = 'activerecord.attributes.department_user.role'
+      expect(page).to have_flash(:danger, text: required_error_msg_for(member))
+      expect(page).to have_flash(:danger, text: required_error_msg_for(role))
     end
 
     it 'filled blank role show errors' do
       find(:css, 'select[id="member_user"]', match: :first).select users.last.name
 
       find('[name=button]').click
-
       expect(page).to have_current_path admin_department_members_path(department)
-      expect(page).to have_flash(:danger, text: flash_errors_msg)
+
+      role = 'activerecord.attributes.department_user.role'
+      expect(page).to have_flash(:danger, text: required_error_msg_for(role))
     end
 
     it 'filled blank user show errors' do
@@ -69,7 +74,9 @@ describe 'Admin::Departments::Members::create', type: :feature do
       find('[name=button]').click
 
       expect(page).to have_current_path admin_department_members_path(department)
-      expect(page).to have_flash(:danger, text: flash_errors_msg)
+
+      member = 'activerecord.attributes.department_user.user'
+      expect(page).to have_flash(:danger, text: required_error_msg_for(member))
     end
   end
 
