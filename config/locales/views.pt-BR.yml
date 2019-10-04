@@ -18,6 +18,9 @@ pt-BR:
       departmment:
         singular: Departamento
         plural: Departamentos
+      division:
+        singular: Divisão
+        plural: Divisões
       member:
         singular: Membro
         plural: Membros
@@ -36,8 +39,9 @@ pt-BR:
       institutional: Dados Institucionais
       department: Dados Departamentais
       members:
-        add: "Adicionar membros ao departamento"
-        member: "Membros"
+        add_dept: Adicionar membros ao departamento
+        add_div: Adicionar membros a divisão
+        member: Membros
       passwords: Senha
     sidebar:
       titles:
@@ -49,7 +53,26 @@ pt-BR:
       show: 'Visualizar %{resource}'
       edit: 'Editar %{resource}'
       create: 'Criar %{resource}'
-      manager: 'Gerenciar %{resource}'
+      department:
+        manager:
+          text: 'Gerenciar Membros do Departamento %{dept}'
+          html: 'Gerenciar Membros do Departamento <b><i>%{dept}</i></b>'
+      division:
+        new:
+          text: 'Nova Divisão para o Departamento %{dept}'
+          html: 'Nova Divisão para o Departamento <b><i>%{dept}</i></b>'
+        index:
+          text: 'Divisões do Departamento %{dept}'
+          html: 'Divisões do Departamento <b><i>%{dept}</i></b>'
+        edit:
+          text: 'Editar Divisão #%{id} do Departamento %{dept}'
+          html: 'Editar Divisão <i>#%{id}</i> do Departamento <b><i>%{dept}</i></b>'
+        show:
+          text: 'Visualizar Divisão #%{id} do Departamento %{dept}'
+          html: 'Visualizar Divisão <i>#%{id}</i> do Departamento <b><i>%{dept}</i></b>'
+        manager:
+          text: 'Gerenciar Membros da Divisão #%{id} do Departamento %{dept}'
+          html: 'Gerenciar Membros da Divisão <i>#%{id}</i> do Departamento <b><i>%{dept}</i></b>'
     links:
       active: Ativar
       disable: Desativar
@@ -58,16 +81,19 @@ pt-BR:
       destroy: Remover
       back: Voltar
       department:
-        new: 'Novo Departamento'
-        members: 'Gerenciar Membros'
+        new: Novo Departamento
+        divisions: Gerenciar Divisões
+        members: Gerenciar Membros
         member:
-          add: 'Adicionar Membro'
+          add: Adicionar Membro
+      division:
+        new: Nova Divisão
       status:
-        active: 'Ativar'
-        disable: 'Desativar'
+        active: Ativar
+        disable: Desativar
       users:
-        new: 'Novo Servidor'
+        new: Novo Servidor
     search:
-      placeholder: 'Procurar...'
+      placeholder: Procurar...
     prompt:
       confirm: Tem certeza?

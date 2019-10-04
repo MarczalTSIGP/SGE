@@ -110,4 +110,20 @@ RSpec.describe Department, type: :model do
       expect("#{department.name} - #{department.initials}").to eq(name_initials)
     end
   end
+
+  describe 'members' do
+    let(:department) { create(:department) }
+
+    it 'not add a member to a department twice' do
+      member = create(:user)
+      role = create(:role, :member_department)
+      du = DepartmentUser.new(user_id: member.id, role_id: role.id)
+
+      department.department_users << du
+      expect(department.users.count).to eq(1)
+
+      department.department_users << du
+      expect(department.users.count).to eq(1)
+    end
+  end
 end

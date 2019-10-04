@@ -2,7 +2,7 @@ require './lib/faker/cpf'
 
 FactoryBot.define do
   factory :user, class: User do
-    name { 'nome' }
+    sequence(:name) { |n| "nome#{n}" }
     cpf { Faker::CPF.numeric }
     sequence(:username) { |n| "username#{n}" }
     sequence(:registration_number) { |n| "123456#{n}" }

@@ -1,5 +1,5 @@
 module Populate
-  class Members
+  class DepartmentsMembers
     def initialize
       @users = User.activated
       @departments = Department.all
@@ -16,7 +16,7 @@ module Populate
       15.times do |i|
         add_member(@departments[i], @users[i].id, @roles.find_by(identifier: 'manager').id)
         add_member(@departments[i], @users[@users.length - 1].id,
-                   @roles.find_by(identifier: 'member').id)
+                   @roles.find_by(identifier: 'member_department').id)
       end
     end
 

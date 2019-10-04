@@ -1,0 +1,4 @@
+<% provide(:head_title, t('views.pages.division.new.text', dept: @dept.name)) %>
+<% provide(:page_title, raw(t('views.pages.division.new.html', dept: @dept.name))) %>
+
+<%= render 'admin/divisions/form' %>

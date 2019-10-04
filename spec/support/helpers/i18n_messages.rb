@@ -14,6 +14,14 @@ module Helpers
       I18n.t("flash.actions.#{key}", resource_name: resource_name)
     end
 
+    # Model messages
+    #--------------------
+    def required_error_msg_for(key)
+      t = I18n.t(key)
+      msg = I18n.t('errors.messages.required')
+      "#{t} #{msg}"
+    end
+
     # SimpleForm messages
     #--------------------
     def sf_blank_error_msg

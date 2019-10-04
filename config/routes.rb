@@ -25,7 +25,17 @@ Rails.application.routes.draw do
         get '/members' => 'departments#members'
         post '/members' => 'departments#add_member'
         delete '/members/:user_id' => 'departments#remove_member', as: 'remove_member'
+        resources :divisions do
+          get '/members' => 'divisions#members'
+          post '/members' => 'divisions#add_member'
+          delete '/members/:user_id' => 'divisions#remove_member', as: 'remove_member'
+        end
+        get 'divisions/search/(:term)/(page/:page)',
+            to: 'divisions#index',
+            as: 'divisions_search',
+            constraints: { term: %r{[^/]+} }
       end
+
       get 'departments/search/(:term)/(page/:page)',
           to: 'departments#index',
           as: 'departments_search',

@@ -1,15 +1,13 @@
 class Admin::DepartmentsController < Admin::BaseController
-  before_action :set_department, only: [:show, :edit, :update, :destroy]
-  before_action :set_department_member, only: [:members, :remove_member]
-  before_action :set_member, only: [:add_member]
+  before_action :set_department, only: [:show, :edit, :update, :destroy, :members, :remove_member]
+  before_action :set_member_add, only: [:add_member]
+  before_action :set_member, only: [:show, :members]
 
   def index
     @departments = Department.page(params[:page]).search(params[:term])
   end
 
-  def show
-    @members = @department.users.activated.order('department_users.role_id', :name)
-  end
+  def show; end
 
   def new
     @department = Department.new
@@ -45,45 +43,47 @@ class Admin::DepartmentsController < Admin::BaseController
   end
 
   def members
-    @members = @dept.users.order('department_users.role_id', :name)
-    @no_members = User.not_in(@dept).order(name: :asc)
-    @roles = Role.where_roles(params[:department_id])
+    @no_members = User.not_in(@department).order(name: :asc)
+    @roles = Role.where_roles(params_keys, false)
   end
 
   def add_member
     if @member.save
       success_add_member_message(:department_users)
     else
-      error_add_member_message
+      flash[:error] = @member.errors.full_messages.to_sentence
     end
-
     redirect_to admin_department_members_path(@member.department_id)
   end
 
   def remove_member
-    member = @dept.department_users.find_by(user_id: params[:user_id])
+    member = @department.department_users.find_by(user_id: params[:user_id])
     success_remove_member_message(:department_users) if member.destroy
-
-    redirect_to admin_department_members_path(@dept)
+    redirect_to admin_department_members_path(@department)
   end
 
   private
 
   def set_department
-    @department = Department.find(params[:id])
+    @department = Department.find(params_keys)
   end
 
-  def set_department_member
-    @dept = Department.find_by(id: params[:department_id])
-  end
-
-  def set_member
-    dept = Department.find_by(id: params[:department_id])
+  def set_member_add
+    dept = Department.find(params_keys)
     @member = dept.department_users.build(user_id: params[:member][:user],
                                           role_id: params[:member][:role])
   end
 
+  def set_member
+    dept = Department.find(params_keys)
+    @members = dept.users.order('department_users.role_id', :name)
+  end
+
   def department_params
     params.require(:department).permit(:name, :initials, :phone, :description, :local, :email)
+  end
+
+  def params_keys
+    params[:id] || params[:department_id]
   end
 end

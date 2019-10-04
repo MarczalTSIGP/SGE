@@ -4,6 +4,8 @@ pt-BR:
       server: 'Servidor'
       external: 'Externo'
       academic: 'Acadêmico'
+      certified: 'Certificado'
+      event: 'Evento'
   activerecord:
     models:
       department:
@@ -13,11 +15,17 @@ pt-BR:
         one: 'Usuário'
         other: 'Usuários'
       client:
-          one: 'Cliente'
-          other: 'Clientes'
+        one: 'Cliente'
+        other: 'Clientes'
       department_users:
-          one: 'Membro'
-          other: 'Membros'
+        one: 'Membro'
+        other: 'Membros'
+      division_users:
+        one: 'Membro'
+        other: 'Membros'
+      division:
+        one: 'Divisão'
+        other: 'Divisões'
     attributes:
       attribute_commons: &commons
         name: 'Nome'
@@ -47,6 +55,18 @@ pt-BR:
         member:
           user: "Membro"
           role: "Função"
+      department_user:
+        user: Membro
+        user_id: Membro
+        role: Função
+      division:
+        <<: *commons
+        resposable_id: 'Responsavel'
+        kind: 'Módulo'
+      division_user:
+        user: Membro
+        user_id: Membro
+        role: Função
       user:
         <<: *commons
         username: 'Usuário institucional'
