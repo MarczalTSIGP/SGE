@@ -1,8 +1,9 @@
 class Admin::DivisionsController < Admin::BaseController
   before_action :set_division, only: [:show, :edit, :update, :destroy]
-  before_action :set_department_member, only: [:members, :add_member, :remove_member]
+  # before_action :set_department_member, only: [:members, :add_member, :remove_member]
   before_action :set_division_member, only: [:members, :add_member, :remove_member]
   before_action :set_member, only: [:add_member]
+  before_action :set_department
 
   def index
     @divisions = Division.where(department_id: params[:department_id])
@@ -81,7 +82,7 @@ class Admin::DivisionsController < Admin::BaseController
     @division = Division.find(params[:id])
   end
 
-  def set_department_member
+  def set_department
     @dept = Department.find_by(id: params[:department_id])
   end
 

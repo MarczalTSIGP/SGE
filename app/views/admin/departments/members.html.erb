@@ -1,5 +1,5 @@
-<% provide(:head_title, t('views.pages.manager', resource: t('views.names.member.plural', resource: @department.initials))) %>
-<% provide(:page_title, t('views.pages.manager', resource: t('views.names.member.plural', resource: @department.initials))) %>
+<% provide(:head_title, t('views.pages.department.manager.text', dept: @department.initials)) %>
+<% provide(:page_title, raw(t('views.pages.department.manager.html', dept: @department.initials))) %>
 
 <div class="form-group">
   <%= simple_form_for(:member, url: admin_department_members_path(@department),

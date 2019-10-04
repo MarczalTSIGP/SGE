@@ -56,8 +56,7 @@ pt-BR:
           user: "Membro"
           role: "Função"
       division:
-        name: 'Name'
-        description: 'Descrição'
+        <<: *commons
         resposable_id: 'Responsavel'
         kind: 'Módulo'
       user:
