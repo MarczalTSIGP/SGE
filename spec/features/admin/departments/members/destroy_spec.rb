@@ -2,7 +2,10 @@ require 'rails_helper'
 
 describe 'Admin::Departments::Members::destroy', type: :feature do
   let(:admin) { create(:user, :admin) }
-  let!(:dept_users) { create(:department_users) }
+  let(:user) { create(:user) }
+  let!(:div) { create(:division) }
+  let!(:dept_users) { create(:department_users, user_id: user.id,
+                             department_id: div.department_id) }
   let(:resource_name) { I18n.t('views.names.member.singular') }
 
   before(:each) do
@@ -23,6 +26,20 @@ describe 'Admin::Departments::Members::destroy', type: :feature do
 
         within('table tbody') do
           expect(page).not_to have_content(dept_users.user.name)
+        end
+      end
+
+      it 'show bound message' do
+        create(:division_users, user_id: user.id, division_id: div.id)
+        click_on_link(admin_department_remove_member_path(dept_users.department_id,
+                                                          dept_users.user_id),
+                      method: :delete)
+
+        expect(page).to have_current_path admin_department_members_path(dept_users.department_id)
+        expect(page).to have_flash(:danger, text: flash_msg('destroy.bound'))
+
+        within('table tbody') do
+          expect(page).to have_content(dept_users.user.name)
         end
       end
     end
