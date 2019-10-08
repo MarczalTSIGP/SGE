@@ -7,7 +7,6 @@ RSpec.describe Division, type: :model do
 
       it { is_expected.to validate_presence_of(:name) }
       it { is_expected.to validate_presence_of(:description) }
-      it { is_expected.to validate_presence_of(:kind) }
     end
   end
 
@@ -64,30 +63,6 @@ RSpec.describe Division, type: :model do
     end
   end
 
-  describe '.kinds' do
-    subject(:division) { Division.new }
-
-    it 'enum' do
-      expect(division).to define_enum_for(:kind)
-        .with_values(certified: 'certified', event: 'event')
-        .backed_by_column_of_type(:enum)
-        .with_prefix(:kind)
-    end
-
-    it 'human enum' do
-      hash = { I18n.t('enums.kinds.event') => 'event',
-               I18n.t('enums.kinds.certified') => 'certified' }
-
-      expect(Division.human_kinds).to include(hash)
-    end
-
-    it 'validates presence of kind' do
-      c = Division.new
-      c.valid?
-
-      expect(c.errors.messages[:kind]).to include(I18n.t('errors.messages.blank'))
-    end
-  end
 
   describe 'members' do
     let(:division) { create(:division) }

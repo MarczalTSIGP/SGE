@@ -12,7 +12,6 @@ module Populate
         @dept[i].divisions.create!(
           name: Faker::Job.field,
           description: Faker::Lorem.paragraph,
-          kind: Division.kinds.values.sample
         )
       end
     end

@@ -1,5 +1,5 @@
 class Division < ApplicationRecord
-  validates :name, :description, :kind, presence: true
+  validates :name, :description, presence: true
 
   belongs_to :department
   has_many :division_users, dependent: :destroy
@@ -14,13 +14,6 @@ class Division < ApplicationRecord
     else
       order('name ASC')
     end
-  end
-
-  enum kind: { certified: 'certified', event: 'event' }, _prefix: :kind
-  def self.human_kinds
-    hash = {}
-    kinds.each_key { |key| hash[I18n.t("enums.kinds.#{key}")] = key }
-    hash
   end
 
   def self.not_in_user(department, div)

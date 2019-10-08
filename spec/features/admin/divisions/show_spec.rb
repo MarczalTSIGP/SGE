@@ -15,7 +15,6 @@ describe 'Admins::Divisions::show', type: :feature do
       expect(page).to have_content(division.department.initials)
       expect(page).to have_content(division.name)
       expect(page).to have_content(division.description)
-      expect(page).to have_content(I18n.t('enums.kinds.' + division.kind))
       division.division_users do |member|
         expect(page).to have_content(member.name)
       end

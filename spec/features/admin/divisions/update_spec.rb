@@ -15,7 +15,6 @@ describe 'Admin::Departments::update', type: :feature do
     it 'fields should be filled' do
       expect(page).to have_field('division_name', with: division.name)
       expect(page).to have_field('division_description', with: division.description)
-      choose 'division_kind_certified', visible: false
     end
   end
 
@@ -25,7 +24,6 @@ describe 'Admin::Departments::update', type: :feature do
 
       fill_in 'division_name', with: attributes[:name]
       fill_in 'division_description', with: attributes[:description]
-      choose 'division_kind_certified', visible: false
       submit_form
 
       expect(page).to have_current_path admin_department_divisions_path(department)

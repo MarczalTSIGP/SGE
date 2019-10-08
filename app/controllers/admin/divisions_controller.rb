@@ -71,7 +71,7 @@ class Admin::DivisionsController < Admin::BaseController
   private
 
   def division_params
-    params.require(:division).permit(:name, :description, :kind)
+    params.require(:division).permit(:name, :description)
   end
 
   def set_division
