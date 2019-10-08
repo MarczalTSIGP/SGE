@@ -63,7 +63,6 @@ RSpec.describe Division, type: :model do
     end
   end
 
-
   describe 'members' do
     let(:division) { create(:division) }
 

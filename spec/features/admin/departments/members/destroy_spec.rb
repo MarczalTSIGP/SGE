@@ -4,8 +4,9 @@ describe 'Admin::Departments::Members::destroy', type: :feature do
   let(:admin) { create(:user, :admin) }
   let(:user) { create(:user) }
   let!(:div) { create(:division) }
-  let!(:dept_users) { create(:department_users, user_id: user.id,
-                             department_id: div.department_id) }
+  let!(:dept_users) do
+    create(:department_users, user_id: user.id, department_id: div.department_id)
+  end
   let(:resource_name) { I18n.t('views.names.member.singular') }
 
   before(:each) do

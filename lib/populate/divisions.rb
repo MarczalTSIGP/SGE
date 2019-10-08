@@ -11,7 +11,7 @@ module Populate
       15.times do |i|
         @dept[i].divisions.create!(
           name: Faker::Job.field,
-          description: Faker::Lorem.paragraph,
+          description: Faker::Lorem.paragraph
         )
       end
     end
