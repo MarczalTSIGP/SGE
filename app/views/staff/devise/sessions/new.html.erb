@@ -1,0 +1,10 @@
+<% provide(:head_title, t('devise.sessions.sign_in')) %>
+<% provide(:title, t('devise.sessions.new.user.title')) %>
+
+<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <%= f.input :login, required: false, autofocus: true, label_html: {class: 'form-label'} %>
+  <%= f.input :password, required: false, label_html: {class: 'form-label'} %>
+  <%= f.input :remember_me, as: :checkbox_tabler if devise_mapping.rememberable? %>
+
+  <%= f.button :submit, 'Entrar', class: 'btn btn-primary btn-block' %>
+<% end %>

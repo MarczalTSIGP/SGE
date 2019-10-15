@@ -1,0 +1,18 @@
+<tr>
+  <td><%= division.name %></td>
+  <td>
+    <%= link_to staff_department_division_members_path(division.department_id, division) do %>
+      <%= icon('fas', 'plus', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.department.members')) %>
+    <% end %>
+    <%= link_to staff_department_division_path(division.department_id, division) do %>
+      <%= icon('fas', 'search', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.show')) %>
+    <% end %>
+    <%= link_to edit_staff_department_division_path(division.department_id, division) do %>
+      <%= icon('fas', 'edit', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.edit')) %>
+    <% end %>
+    <%= link_to staff_department_division_path(division.department_id, division), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
+      <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
+    <% end %>
+  </td>
+</tr>
+

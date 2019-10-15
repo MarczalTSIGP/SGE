@@ -1,4 +1,4 @@
-class Admin::Devise::SessionsController < Devise::SessionsController
+class Staff::Devise::SessionsController < Devise::SessionsController
   prepend_before_action :require_no_authentication, only: [:cancel]
 
   layout 'layouts/devise/session'

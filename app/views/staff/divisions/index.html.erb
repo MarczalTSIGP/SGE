@@ -1,0 +1,26 @@
+<% provide(:head_title, t('views.pages.division.index.text', dept: @dept.initials)) %>
+<% provide(:page_title, raw(t('views.pages.division.index.html', dept: @dept.initials))) %>
+
+<%= render 'shared/search_and_new', search_path: staff_department_divisions_search_path,
+           new_path: new_staff_department_division_path, new_link: 'division.new' %>
+
+<div class="text-right mt-2 mb-1">
+  <%= page_entries_info @divisions %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-data card-table table-vcenter">
+    <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.department_divisions.name') %></th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <%= render @divisions %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @divisions %>

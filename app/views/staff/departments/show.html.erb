@@ -1,0 +1,43 @@
+<% provide(:head_title, t('views.pages.show', resource: t('views.names.departmment.singular'))) %>
+<% provide(:page_title, t('views.pages.show', resource: t('views.names.departmment.singular'))) %>
+
+<div class="card card-profile">
+  <div class="card-body">
+
+    <h3 class="mb-4"><%= @department.name_with_initials %></h3>
+
+    <p class="mb-3">
+      <span class="text-muted"><%= t('activerecord.attributes.department.local') %>:</span>
+      <%= @department.local %>
+    </p>
+
+    <p class="mb-3">
+      <span class="text-muted"><%= t('activerecord.attributes.department.phone') %>:</span>
+      <%= @department.phone %>
+    </p>
+
+    <p class="mb-3">
+      <span class="text-muted"><%= t('activerecord.attributes.department.email') %>:</span>
+      <%= @department.email_domain %>
+    </p>
+
+    <p class="mb-3">
+      <span class="text-muted"><%= t('activerecord.attributes.department.description') %>:</span>
+      <%= @department.description %>
+    </p>
+
+    <h4>Membros</h4>
+    <% @members.each do |member| %>
+      <p class="mb-3">
+        <span class="text-muted"><%= member.role_for_department(@department).name %>:</span>
+        <%= member.name %>
+        <span class="text-muted"><%= t('activerecord.attributes.user.active') %>:</span>
+      <%= t("views.boolean.#{member.active}") %>
+      </p>
+    <% end %>
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to t('views.links.back'), staff_departments_path, class: 'btn btn-secondary' %>
+</div>

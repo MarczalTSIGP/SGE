@@ -21,17 +21,26 @@
               <small class="text-muted d-block mt-1"></small>
             </span>
           </a>
-
+          <% if current_user.admin? %>
           <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-            <%= link_to send("edit_#{current_user.class.name.underscore.downcase}_registration_path"), class: 'dropdown-item' do %>
+            <%= link_to send("admin_edit_#{current_user.class.name.underscore.downcase}_registration_path"), class: 'dropdown-item' do %>
               <i class="dropdown-icon fe fe-user"></i> <%= t('devise.sessions.profile') %>
             <% end %>
 	    <%= link_to send("destroy_#{current_user.class.name.underscore.downcase}_session_path"), method: :delete, class: 'dropdown-item' do %>
               <i class="dropdown-icon fe fe-log-out"></i> <%= t('devise.sessions.sign_out') %>
             <% end %>
           </div>
+          <% else %>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+              <%= link_to send("staff_edit_#{current_user.class.name.underscore.downcase}_registration_path"), class: 'dropdown-item' do %>
+                <i class="dropdown-icon fe fe-user"></i> <%= t('devise.sessions.profile') %>
+              <% end %>
+              <%= link_to send("destroy_#{current_user.class.name.underscore.downcase}_session_path"), method: :delete, class: 'dropdown-item' do %>
+                <i class="dropdown-icon fe fe-log-out"></i> <%= t('devise.sessions.sign_out') %>
+              <% end %>
+            </div>
+          <% end %>
         </div>
-
         <%= render '/layouts/shared/responsive_menu_toggle' %>
       </div>
   </div>

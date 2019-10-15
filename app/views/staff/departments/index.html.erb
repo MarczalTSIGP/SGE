@@ -1,0 +1,22 @@
+<% provide(:head_title, t('views.names.departmment.plural')) %>
+<% provide(:page_title, t('views.names.departmment.plural')) %>
+
+<div class="table-responsive">
+  <table class="table table-data card-table table-vcenter">
+    <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.department.initials') %></th>
+      <th><%= t('activerecord.attributes.department.local') %></th>
+      <th><%= t('activerecord.attributes.department.email') %></th>
+      <th><%= t('activerecord.attributes.department.phone') %></th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <%= render @departments %>
+    </tbody>
+  </table>
+</div>
+
+

@@ -1,0 +1,61 @@
+<% provide(:head_title, t('views.pages.division.manager.text', id: @division.id, dept: @dept.initials)) %>
+<% provide(:page_title, raw(t('views.pages.division.manager.html', id: @division.id, dept: @dept.initials))) %>
+
+<div class="form-group">
+  <%= simple_form_for(:member, url: staff_department_division_members_path(@dept),
+                      method: :post) do |f| %>
+    <fieldset class="form-fieldset">
+      <legend class="w-auto"><%= t('views.fieldset.members.add_div') %></legend>
+      <div class="row gutters-xs">
+        <div class="col">
+          <%= f.input :user,
+                      class: 'form-control custom-select',
+                      collection: @no_members,
+                      label: t("activerecord.attributes.department.member.user") %>
+        </div>
+
+        <div class="col">
+          <%= f.input :role,
+                      collection: @roles,
+                      class: 'form-control custom-select',
+                      label: t("activerecord.attributes.department.member.role") %>
+        </div>
+
+        <span class="col-auto mt-4 pt-3">
+          <%= button_tag type: 'submit', class: 'btn btn-primary',
+                         'title': t('views.links.department.member.add'),
+                         data: { toggle: 'tooltip', placement: 'bottom' } do %>
+            <i class="fe fe-user-plus"></i>
+          <% end %>
+      </span>
+      </div>
+    </fieldset>
+  <% end %>
+</div>
+
+<fieldset class="form-fieldset">
+  <legend class="w-auto"><%= t('views.fieldset.members.member') %></legend>
+  <table class="table table-data card-table table-vcenter">
+    <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.department.member.user') %></th>
+      <th><%= t('activerecord.attributes.department.member.role') %></th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @members.each do |member| %>
+      <tr>
+        <td><%= member.name %></td>
+        <td><%= member.role_for_division(@division).name %></td>
+        <td>
+          <%= link_to staff_department_division_remove_member_path(@dept, @division, member), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
+            <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</fieldset>

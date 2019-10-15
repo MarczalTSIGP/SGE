@@ -19,4 +19,9 @@ class Division < ApplicationRecord
   def self.not_in_user(department, div)
     User.where(id: department.users).where.not(id: div.users)
   end
+
+  def self.responsible(user)
+    joins(:division_users).where(division_users: { role_id: Role.find_by(identifier: 'responsible'),
+                                                    user_id: user })
+  end
 end
