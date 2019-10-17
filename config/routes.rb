@@ -61,11 +61,14 @@ Rails.application.routes.draw do
         as: 'staff_user_registration'
   end
   #========================================
+  #========================================
+  # Participant area to staff
+  #========================================
   namespace :staff do
     root to: 'home#index'
 
     get '/divisions', to: 'divisions#index_responsible', as: 'divisions'
-    resources :departments, only: [:index, :show, :edit, :update] do
+    resources :departments, constraints: { id: /[0-9]+/ }, only: [:index, :show, :edit, :update] do
       get '/members' => 'departments#members'
       post '/members' => 'departments#add_member'
       delete '/members/:user_id' => 'departments#remove_member', as: 'remove_member'
@@ -83,7 +86,7 @@ Rails.application.routes.draw do
     end
   end
   #========================================
-  # Participant area to user
+  # Participant area to client
   #========================================
   devise_for :clients, path: 'participants', controllers:
     { passwords: 'participants/clients/passwords',

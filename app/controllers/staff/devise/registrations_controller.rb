@@ -1,5 +1,5 @@
 class Staff::Devise::RegistrationsController < Devise::RegistrationsController
-  layout 'layouts/admin/application'
+  layout 'layouts/staff/application'
 
   protected
 

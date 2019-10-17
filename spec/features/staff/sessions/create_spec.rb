@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-RSpec.describe 'Admin::Devise::UsersSessions', type: :feature do
-  let!(:user) { create(:user, :admin) }
+RSpec.describe 'Staff::Devise::UsersSessions', type: :feature do
+  let!(:user) { create(:user) }
   let!(:user_staff) { create(:user) }
   let!(:user_inactive) { create(:user, :inactive) }
 
@@ -17,7 +17,7 @@ RSpec.describe 'Admin::Devise::UsersSessions', type: :feature do
 
         submit_form
 
-        expect(page).to have_current_path(admin_root_path)
+        expect(page).to have_current_path(staff_root_path)
         expect(page).to have_flash(:info, text: devise_signed_in_msg)
       end
 
@@ -27,7 +27,7 @@ RSpec.describe 'Admin::Devise::UsersSessions', type: :feature do
 
         submit_form
 
-        expect(page).to have_current_path(admin_root_path)
+        expect(page).to have_current_path(staff_root_path)
         expect(page).to have_flash(:info, text: devise_signed_in_msg)
       end
     end

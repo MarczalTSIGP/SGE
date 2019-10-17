@@ -15,7 +15,7 @@ FactoryBot.define do
     end
 
     trait :admin do
-      active { true }
+      admin { true }
     end
   end
 end

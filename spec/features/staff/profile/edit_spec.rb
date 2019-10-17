@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-describe 'Admin::Registrations::edit', type: :feature do
+describe 'Staff::Registrations::edit', type: :feature do
   let(:resource_name) { User.model_name.human }
-  let(:user) { create(:user, :admin) }
+  let(:user) { create(:user) }
 
   before(:each) do
     login_as(user, scope: :user)
-    visit admin_edit_user_registration_path
+    visit staff_edit_user_registration_path
   end
 
   context 'when render edit' do
@@ -29,7 +29,7 @@ describe 'Admin::Registrations::edit', type: :feature do
       fill_in 'user_current_password', with: '123456'
       submit_form
 
-      expect(page).to have_current_path(admin_edit_user_registration_path)
+      expect(page).to have_current_path(staff_edit_user_registration_path)
       expect(page).to have_flash(:info, text: devise_registrations_updated_msg)
     end
 
@@ -41,7 +41,7 @@ describe 'Admin::Registrations::edit', type: :feature do
       fill_in 'user_current_password', with: '123456'
       submit_form
 
-      expect(page).to have_current_path(admin_edit_user_registration_path)
+      expect(page).to have_current_path(staff_edit_user_registration_path)
       expect(page).to have_flash(:info, text: devise_registrations_updated_msg)
 
       expect(page).to have_field('user_name', with: user.name)

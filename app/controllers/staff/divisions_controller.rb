@@ -1,8 +1,8 @@
 class Staff::DivisionsController < Staff::BaseController
   before_action :set_department
-  before_action :set_division, except: [:index, :new, :create, :index_responsible]
+  before_action :set_division, except: [:index, :index_responsible, :new, :create]
   before_action :set_member, only: [:add_member]
-  before_action :department_permission, only: [:show, :edit, :update, :members, :remove_member]
+  before_action :department_permission
 
   def index
     @divisions = @dept.divisions.page(params[:page])
@@ -26,7 +26,6 @@ class Staff::DivisionsController < Staff::BaseController
 
   def create
     @division = @dept.divisions.create(division_params)
-
     if @division.save
       success_create_message
       redirect_to staff_department_divisions_path
@@ -36,7 +35,8 @@ class Staff::DivisionsController < Staff::BaseController
     end
   end
 
-  def edit;  end
+  def edit;
+  end
 
   def update
     if @division.update(division_params)
@@ -49,9 +49,14 @@ class Staff::DivisionsController < Staff::BaseController
   end
 
   def destroy
-    @division.destroy
-    success_destroy_message
-    redirect_to staff_department_divisions_path(params[:department_id])
+    dept = Department.manager(current_user.id)
+    if !dept.ids.include?(@division.department.id)
+      flash[:error] = 'não possui permissão para remover Divisão'
+      redirect_to staff_divisions_path
+    elsif @division.destroy
+      success_destroy_message
+      redirect_to staff_divisions_path
+    end
   end
 
   def members
@@ -105,11 +110,14 @@ class Staff::DivisionsController < Staff::BaseController
     dept_id = params[:department_id]
     dept = Department.manager(current_user.id)
     div = Division.responsible(current_user.id)
-    if !dept.ids.include?(dept_id.to_i)
-    elsif div.ids.include?(div_id.to_i)
-    elsif !div.ids.include?(div_id.to_i)
+
+    if dept.ids.include?(dept_id.to_i) && div_id.nil?
+    elsif dept.ids.include?(dept_id.to_i) && !div.ids.include?(div_id.to_i)
+    elsif !dept.ids.include?(dept_id.to_i) && div.ids.include?(div_id.to_i)
+    elsif dept_id.nil? && div_id.nil?
     else
-      redirect_to staff_department_divisions_path
+      flash[:alert] = 'Não possui permissão'
+      redirect_to staff_root_path
     end
   end
 end

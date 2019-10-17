@@ -78,4 +78,14 @@ RSpec.describe Division, type: :model do
       expect(division.users.count).to eq(1)
     end
   end
+
+  describe ',responsible' do
+    let(:division_users) { create(:division_users) }
+
+    it 'return if the user is a responsible' do
+      result = Division.responsible(division_users.user_id)
+      division = division_users.division
+      expect(result.first).to eq(division)
+    end
+  end
 end

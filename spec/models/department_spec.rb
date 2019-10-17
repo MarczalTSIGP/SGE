@@ -117,13 +117,22 @@ RSpec.describe Department, type: :model do
     it 'not add a member to a department twice' do
       member = create(:user)
       role = create(:role, :member_department)
-      du = DepartmentUser.new(user_id: member.id, role_id: role.id)
+      du = DepartmentUser.create(user_id: member.id, role_id: role.id)
 
       department.department_users << du
       expect(department.users.count).to eq(1)
 
       department.department_users << du
       expect(department.users.count).to eq(1)
+    end
+  end
+
+  describe ',manager' do
+    let(:department_users) { create(:department_users) }
+    it 'return if the user is a manager' do
+      result = Department.manager(department_users.user_id)
+      department = department_users.department
+      expect(result.first).to eq(department)
     end
   end
 end
