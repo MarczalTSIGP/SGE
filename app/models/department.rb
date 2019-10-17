@@ -43,13 +43,6 @@ class Department < ApplicationRecord
 
   def self.manager(user)
     joins(:department_users).where(department_users: { role_id: Role.find_by(identifier: 'manager'),
-                             user_id: user })
+                                                       user_id: user })
   end
-  # def add_member(member, role)
-  #   department_users.create(user: member, role: Role.find_by(flag: role))
-  # end
-  #
-  # def remove_member(member, role)
-  #   department_users.destroy(user: member, role: Role.find_by(flag: role))
-  # end
 end

@@ -23,12 +23,10 @@ describe 'Staff::Departments::Members::destroy', type: :feature do
                                                                    div_user2.user_id),
                       method: :delete)
 
-        expect(page).to have_current_path(
-                          staff_department_division_members_path(
-                            div_user.division.department_id,
-                            div_user.division_id
-                          )
-                        )
+        expect(page).to have_current_path(staff_department_division_members_path(
+                                            div_user.division.department_id,
+                                            div_user.division_id
+                                          ))
 
         expect(page).to have_flash(:success, text: flash_msg('destroy.m'))
 

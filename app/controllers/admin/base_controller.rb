@@ -8,6 +8,6 @@ class Admin::BaseController < ActionController::Base
   layout 'layouts/admin/application'
 
   def permission
-    redirect_to staff_root_path if !current_user.admin?
+    redirect_to staff_root_path unless current_user.admin?
   end
 end

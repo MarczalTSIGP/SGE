@@ -84,6 +84,5 @@ RSpec.describe 'Admin::Devise::UsersSessions', type: :feature do
         expect(page).to have_flash(:info, text: devise_signed_in_msg)
       end
     end
-
   end
 end

@@ -21,7 +21,6 @@ describe 'Staff::Departments::Members::create', type: :feature do
   end
 
   context 'with valid fields' do
-
     it 'add member member' do
       find(:css, 'select[id="member_user"]', match: :first).select users.last.name
       find(:css, 'select[id="member_role"]', match: :first).select member.name

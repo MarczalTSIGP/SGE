@@ -21,7 +21,6 @@ describe 'Staff::Departments::Members::destroy', type: :feature do
                                                           dept_users.user_id),
                       method: :delete)
 
-
         expect(page).to have_current_path staff_departments_path
         expect(page).to have_flash(:success, text: flash_msg('destroy.m'))
         within('table tbody') do

@@ -3,7 +3,7 @@ require 'rails_helper'
 describe 'Staff::Divisions::index', type: :feature do
   let(:staff) { create(:user) }
   let(:department_user) { create(:department_users, user: staff) }
-  let!(:divisions) { create_list(:division, 3, department_id: department_user.department_id) }
+  let!(:divs) { create_list(:division, 3, department_id: department_user.department_id) }
   let(:resource_name) { Division.model_name.human }
 
   before(:each) do
@@ -12,16 +12,17 @@ describe 'Staff::Divisions::index', type: :feature do
 
   context 'with data' do
     it 'showed' do
-      visit staff_department_divisions_path(divisions[0].department_id)
+      visit staff_department_divisions_path(divs[0].department_id)
       within('table tbody') do
-        divisions.each do |division|
-          expect(page).to have_content(division.name)
+        divs.each do |div|
+          expect(page).to have_content(div.name)
 
-          expect(page).to have_link(href: staff_department_division_path(division.department_id, division.id),
+          expect(page).to have_link(href: staff_department_division_path(div.department_id, div.id),
                                     count: 2)
-          expect(page).to have_link(href: edit_staff_department_division_path(division.department_id, division))
-          expect(page).to have_link(href: staff_department_division_members_path(division.department_id,
-                                                                                 division))
+          expect(page).to have_link(href: edit_staff_department_division_path(div.department_id,
+                                                                              div))
+          expect(page).to have_link(href: staff_department_division_members_path(div.department_id,
+                                                                                 div))
         end
       end
     end
@@ -34,11 +35,11 @@ describe 'Staff::Divisions::index', type: :feature do
   end
 
   context 'with links' do
-    before(:each) { visit staff_department_divisions_path(divisions[0].department_id) }
+    before(:each) { visit staff_department_divisions_path(divs[0].department_id) }
 
     it {
       expect(page).to have_link(I18n.t('views.links.division.new'),
-                                href: new_staff_department_division_path(divisions[0].department_id))
+                                href: new_staff_department_division_path(divs[0].department_id))
     }
   end
 end

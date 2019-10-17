@@ -7,4 +7,3 @@ class Staff::BaseController < ActionController::Base
 
   layout 'layouts/staff/application'
 end
-

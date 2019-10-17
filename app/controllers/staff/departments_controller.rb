@@ -22,7 +22,6 @@ class Staff::DepartmentsController < Staff::BaseController
     end
   end
 
-
   def members
     @no_members = User.not_in(@department).order(name: :asc)
     @roles = Role.where_roles(params_keys, false)
@@ -53,7 +52,7 @@ class Staff::DepartmentsController < Staff::BaseController
   def department_permission
     id = params_keys
     dept = Department.manager(current_user.id)
-    redirect_to staff_departments_path if !dept.ids.include?(id.to_i)
+    redirect_to staff_departments_path unless dept.ids.include?(id.to_i)
   end
 
   def set_department

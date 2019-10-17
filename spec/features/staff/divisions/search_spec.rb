@@ -4,13 +4,13 @@ describe 'Staff::Divisions::search', type: :feature do
   let(:staff) { create(:user) }
   let!(:department) { create(:department) }
   let!(:manager) { create(:role, :manager) }
-  let!(:dept_users) { create(:department_users, department: department, user: staff, role: manager) }
   let!(:divisions) { create_list(:division, 3, department: department) }
   let!(:division_diff) { create(:division, name: 'teste', department: department) }
   let(:resource_name) { Division.model_name.human.downcase }
   let(:resource_name_plural) { I18n.t('views.names.division.plural').downcase }
 
   before(:each) do
+    create(:department_users, department: department, user: staff, role: manager)
     login_as(staff, scope: :user)
     visit staff_department_divisions_path(department)
   end

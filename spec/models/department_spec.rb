@@ -129,6 +129,7 @@ RSpec.describe Department, type: :model do
 
   describe ',manager' do
     let(:department_users) { create(:department_users) }
+
     it 'return if the user is a manager' do
       result = Department.manager(department_users.user_id)
       department = department_users.department

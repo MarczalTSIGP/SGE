@@ -6,14 +6,14 @@ class Staff::DivisionsController < Staff::BaseController
 
   def index
     @divisions = @dept.divisions.page(params[:page])
-                   .search(params[:term])
+                      .search(params[:term])
   end
 
   def index_responsible
     @divisions = Division
-                   .joins(:division_users)
-                   .where(division_users: { user_id: current_user.id,
-                                            role_id: Role.find_by(identifier: 'responsible') })
+                 .joins(:division_users)
+                 .where(division_users: { user_id: current_user.id,
+                                          role_id: Role.find_by(identifier: 'responsible') })
   end
 
   def show
@@ -35,8 +35,7 @@ class Staff::DivisionsController < Staff::BaseController
     end
   end
 
-  def edit;
-  end
+  def edit; end
 
   def update
     if @division.update(division_params)
@@ -52,11 +51,10 @@ class Staff::DivisionsController < Staff::BaseController
     dept = Department.manager(current_user.id)
     if !dept.ids.include?(@division.department.id)
       flash[:error] = 'não possui permissão para remover Divisão'
-      redirect_to staff_divisions_path
     elsif @division.destroy
       success_destroy_message
-      redirect_to staff_divisions_path
     end
+    redirect_to staff_divisions_path
   end
 
   def members
@@ -106,15 +104,7 @@ class Staff::DivisionsController < Staff::BaseController
   end
 
   def department_permission
-    div_id = params_keys
-    dept_id = params[:department_id]
-    dept = Department.manager(current_user.id)
-    div = Division.responsible(current_user.id)
-
-    if dept.ids.include?(dept_id.to_i) && div_id.nil?
-    elsif dept.ids.include?(dept_id.to_i) && !div.ids.include?(div_id.to_i)
-    elsif !dept.ids.include?(dept_id.to_i) && div.ids.include?(div_id.to_i)
-    elsif dept_id.nil? && div_id.nil?
+    if Division.permission(current_user, params[:department_id], params_keys)
     else
       flash[:alert] = 'Não possui permissão'
       redirect_to staff_root_path

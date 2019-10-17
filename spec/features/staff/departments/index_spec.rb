@@ -6,8 +6,8 @@ describe 'Staff::Departments::index', type: :feature do
   let(:manager) { create(:role, :manager) }
   let!(:depts_user) do
     create_list(:department_users, 3,
-           user_id: staff.id,
-           role_id: manager.id )
+                user_id: staff.id,
+                role_id: manager.id)
   end
 
   before(:each) do

@@ -4,7 +4,6 @@ describe 'Staff::Divisions::Members::create', type: :feature do
   let(:staff) { create(:user) }
   let!(:department) { create(:department) }
   let!(:dept_users) { create_list(:department_users, 3, department: department) }
-  let!(:dept_staff) { create(:department_users, department: department, user: staff, role: manager) }
   let!(:division) { create(:division, department: department) }
   let!(:responsible) { create(:role, :responsible) }
   let!(:member) { create(:role, :member_division) }
@@ -13,7 +12,7 @@ describe 'Staff::Divisions::Members::create', type: :feature do
   let(:resource_name) { I18n.t('views.names.member.singular') }
 
   before(:each) do
-
+    create(:department_users, department: department, user: staff, role: manager)
     login_as(staff, scope: :user)
     visit staff_department_division_members_path(department, division)
   end
