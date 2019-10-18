@@ -25,7 +25,7 @@ class Admin::UsersController < Admin::BaseController
   def edit; end
 
   def update
-    if @user.update_attributes(users_params)
+    if @user.update(users_params)
       success_update_message
       redirect_to admin_users_path
     else

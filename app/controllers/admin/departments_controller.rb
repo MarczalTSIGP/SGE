@@ -1,4 +1,5 @@
 class Admin::DepartmentsController < Admin::BaseController
+  include RemoveMember
   before_action :set_department, only: [:show, :edit, :update, :destroy, :members, :remove_member]
   before_action :set_member_add, only: [:add_member]
   before_action :set_member, only: [:show, :members]
@@ -57,13 +58,7 @@ class Admin::DepartmentsController < Admin::BaseController
   end
 
   def remove_member
-    member = @department.department_users.find_by(user_id: params[:user_id])
-    if member.destroy_custom(member.user_id, @department.divisions)
-      success_remove_member_message(:department_users) if member.destroy
-    else
-      flash[:error] = I18n.t('flash.actions.destroy.bound',
-                             resource_name: I18n.t('activerecord.models.department_users.one'))
-    end
+    remove(@department)
     redirect_to admin_department_members_path(@department)
   end
 
