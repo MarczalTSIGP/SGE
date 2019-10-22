@@ -1,4 +1,5 @@
 class Admin::DepartmentsController < Admin::BaseController
+  include RemoveMember
   before_action :set_department, only: [:show, :edit, :update, :destroy, :members, :remove_member]
   before_action :set_member_add, only: [:add_member]
   before_action :set_member, only: [:show, :members]
@@ -57,8 +58,7 @@ class Admin::DepartmentsController < Admin::BaseController
   end
 
   def remove_member
-    member = @department.department_users.find_by(user_id: params[:user_id])
-    success_remove_member_message(:department_users) if member.destroy
+    remove(@department)
     redirect_to admin_department_members_path(@department)
   end
 

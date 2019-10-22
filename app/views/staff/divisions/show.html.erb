@@ -1,0 +1,32 @@
+<% provide(:head_title, t('views.pages.division.show.text', id: @division.id, dept: @dept.initials)) %>
+<% provide(:page_title, raw(t('views.pages.division.show.html', id: @division.id, dept: @dept.initials))) %>
+
+<div class="card card-profile">
+  <div class="card-body">
+
+    <h3 class="mb-4"><%= @division.department.initials %></h3>
+    <p class="mb-3">
+      <span class="text-muted"><%= t('activerecord.attributes.division.name') %>:</span>
+      <%= @division.name %>
+    </p>
+
+    <p class="mb-3">
+      <span class="text-muted"><%= t('activerecord.attributes.division.description') %>:</span>
+      <%= @division.description %>
+    </p>
+
+    <h4>Membros</h4>
+    <% @members.each do |member| %>
+      <p class="mb-3">
+        <span class="text-muted"><%= member.role_for_division(@division).name %>:</span>
+        <%= member.name %>
+        <span class="text-muted"><%= t('activerecord.attributes.user.active') %>:</span>
+        <%= t("views.boolean.#{member.active}") %>
+      </p>
+    <% end %>
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to t('views.links.back'), staff_department_divisions_path(@division.department_id), class: 'btn btn-secondary' %>
+</div>

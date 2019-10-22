@@ -1,0 +1,44 @@
+<%= simple_form_for [:staff, @department] do |f| %>
+  <fieldset class="form-fieldset">
+    <legend class="w-auto"><%= t('views.fieldset.department') %></legend>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :name %>
+      </div>
+
+      <div class="col-sm-6">
+        <%= f.input :local %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-3">
+        <%= f.input :initials %>
+      </div>
+
+      <div class="col-sm-3">
+        <%= f.input :phone, class: 'form-control', input_html: { 'data-mask' => '(00) 0000-0000',
+                                                                 'placeholder': "(00) 0000-0000",
+                                                                 'autocomplete': 'nope',
+                                                                 'maxlength': '13' } %>
+      </div>
+
+      <div class="col-sm-6">
+        <%= f.input :email do %>
+          <div class='input-group'>
+            <%= f.input_field :email, class: 'form-control' %>
+            <span class='input-group-text'>@utfpr.edu.br</span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <%= f.input :description %>
+
+  </fieldset>
+
+  <div class='d-flex'>
+    <%= link_to t('views.links.back'), staff_departments_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>

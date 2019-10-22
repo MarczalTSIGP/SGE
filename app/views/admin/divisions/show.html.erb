@@ -15,11 +15,6 @@
       <%= @division.description %>
     </p>
 
-    <p class="mb-3">
-      <span class="text-muted"><%= t('activerecord.attributes.division.kind') %>:</span>
-      <%= t("enums.kinds.#{@division.kind}") %>
-    </p>
-
     <h4>Membros</h4>
     <% @members.each do |member| %>
       <p class="mb-3">

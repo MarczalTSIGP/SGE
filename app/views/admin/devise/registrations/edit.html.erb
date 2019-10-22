@@ -2,7 +2,7 @@
 <% provide(:page_title, t('devise.registrations.edit.profile')) %>
 
 <%= simple_form_for(resource, as: resource_name,
-                    url: user_registration_path,
+                    url: admin_user_registration_path,
                     html: { method: :put, multipart: true }) do |f| %>
 
   <%= f.error_notification %>

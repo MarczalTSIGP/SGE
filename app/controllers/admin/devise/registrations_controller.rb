@@ -4,7 +4,7 @@ class Admin::Devise::RegistrationsController < Devise::RegistrationsController
   protected
 
   def after_update_path_for(*)
-    edit_user_registration_path
+    admin_edit_user_registration_path
   end
 
   def account_update_params

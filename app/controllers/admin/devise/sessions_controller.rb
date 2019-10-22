@@ -19,6 +19,10 @@ class Admin::Devise::SessionsController < Devise::SessionsController
   end
 
   def after_sign_in_path_for(_resource)
-    admin_root_path
+    if current_user.admin?
+      admin_root_path
+    else
+      staff_root_path
+    end
   end
 end

@@ -16,7 +16,6 @@ describe 'Admin::Divisions::create', type: :feature do
 
       fill_in 'division_name', with: attributes[:name]
       fill_in 'division_description', with: attributes[:description]
-      choose 'division_kind_certified', visible: false
       submit_form
 
       expect(page).to have_current_path admin_department_divisions_path(department)
@@ -36,7 +35,6 @@ describe 'Admin::Divisions::create', type: :feature do
 
       expect(page).to have_message(sf_blank_error_msg, in: 'div.division_name')
       expect(page).to have_message(sf_blank_error_msg, in: 'div.division_description')
-      expect(page).to have_message(sf_blank_error_msg, in: 'div.division_kind')
     end
   end
 end

@@ -10,6 +10,7 @@ pt-BR:
       destroy:
         m: '%{resource_name} removido com sucesso!'
         f: '%{resource_name} removida com sucesso!'
+        bound: '%{resource_name} não pode ser removido, vinculado a uma divisão'
       active:
         m: '%{resource_name} ativado com sucesso!'
         f: '%{resource_name} ativado com sucesso!'

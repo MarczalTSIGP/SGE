@@ -1,5 +1,5 @@
 class Division < ApplicationRecord
-  validates :name, :description, :kind, presence: true
+  validates :name, :description, presence: true
 
   belongs_to :department
   has_many :division_users, dependent: :destroy
@@ -16,14 +16,25 @@ class Division < ApplicationRecord
     end
   end
 
-  enum kind: { certified: 'certified', event: 'event' }, _prefix: :kind
-  def self.human_kinds
-    hash = {}
-    kinds.each_key { |key| hash[I18n.t("enums.kinds.#{key}")] = key }
-    hash
-  end
-
   def self.not_in_user(department, div)
     User.where(id: department.users).where.not(id: div.users)
+  end
+
+  def self.responsible(user)
+    joins(:division_users).where(division_users: { role_id: Role.find_by(identifier: 'responsible'),
+                                                   user_id: user })
+  end
+
+  def self.permission(user, dept_id, div_id)
+    dept = Department.manager(user.id)
+    div = Division.responsible(user.id)
+    permission = true
+    unless dept_id.nil? && div_id.nil?
+      if dept.ids.include?(dept_id.to_i)
+      elsif !div.ids.include?(div_id.to_i)
+        permission = false
+      end
+    end
+    permission
   end
 end

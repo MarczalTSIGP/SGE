@@ -1,0 +1,31 @@
+<%= render 'layouts/shared/sidebar' do %>
+
+  <span class="sidebar-heading pl-0 pt-2 pb-2">
+    <%= icon('fas', 'user-cog', class: 'mr-2') %>
+    <%= t('views.sidebar.titles.admin') %>
+  </span>
+
+  <%= active_link_to(staff_root_path, active: :exact, class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-2">
+      <%= icon('fas', 'home') %>
+    </span>
+    <%= t('views.sidebar.home') %>
+  <% end %>
+  <% if Department.manager(current_user.id).count > 0 %>
+  <%= active_link_to(staff_departments_path, active: :inclusive, class: 'list-group-item list-group-item-action') do %>
+    <span class="icon mr-2">
+      <%= icon('fas', 'building') %>
+    </span>
+    <%= t('views.sidebar.departments') %>
+  <% end %>
+  <% end %>
+
+  <% if Division.responsible(current_user.id).count > 0 %>
+    <%= active_link_to(staff_divisions_path, active: :inclusive, class: 'list-group-item list-group-item-action') do %>
+      <span class="icon mr-2">
+      <%= icon('fas', 'divide') %>
+    </span>
+      <%= t('views.sidebar.divisions') %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -1,38 +1,56 @@
 <div class="container-fluid fixed-top header py-4">
-    <div class="d-flex">
-      <%= link_to path, class: 'header-brand ml-5 mr-1' do %>
-        <% image_tag 'sge_icon.png', class: 'header-brand-img', alt: 'logo-sge'  %>
-      <% end  %>
+  <div class="d-flex">
+    <%= link_to path, class: 'header-brand ml-5 mr-1' do %>
+      <% image_tag 'sge_icon.png', class: 'header-brand-img', alt: 'logo-sge' %>
+    <% end %>
 
-      <span class="d-lg-block mt-1 text-muted font-weight-bold">
-        <span class="d-none d-md-block" ><%= t('views.app.title') %></span>
-        <span class="d-md-none d-sm-block" >SGE</span>
+    <span class="d-lg-block mt-1 text-muted font-weight-bold">
+        <span class="d-none d-md-block"><%= t('views.app.title') %></span>
+        <span class="d-md-none d-sm-block">SGE</span>
       </span>
 
-      <div class="d-flex order-lg-2 ml-auto mr-1">
-        <div class="dropdown">
-          <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
+    <div class="d-flex order-lg-2 ml-auto mr-1">
+      <div class="dropdown">
+        <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
             <span class="avatar">
               <%= icon('fas', 'user') %>
             </span>
 
-            <span class="ml-2 d-none d-lg-block">
+          <span class="ml-2 d-none d-lg-block">
               <span class="text-default"><%= current_user.name %></span>
               <small class="text-muted d-block mt-1"></small>
             </span>
-          </a>
-
+        </a>
+        <% if current_user.try(:admin?) %>
+          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+            <%= link_to send("admin_edit_#{current_user.class.name.underscore.downcase}_registration_path"), class: 'dropdown-item' do %>
+              <i class="dropdown-icon fe fe-user"></i> <%= t('devise.sessions.profile') %>
+            <% end %>
+            <%= link_to send("destroy_#{current_user.class.name.underscore.downcase}_session_path"), method: :delete, class: 'dropdown-item' do %>
+              <i class="dropdown-icon fe fe-log-out"></i> <%= t('devise.sessions.sign_out') %>
+            <% end %>
+          </div>
+        <% elsif current_client.present? %>
           <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
             <%= link_to send("edit_#{current_user.class.name.underscore.downcase}_registration_path"), class: 'dropdown-item' do %>
               <i class="dropdown-icon fe fe-user"></i> <%= t('devise.sessions.profile') %>
             <% end %>
-	    <%= link_to send("destroy_#{current_user.class.name.underscore.downcase}_session_path"), method: :delete, class: 'dropdown-item' do %>
+            <%= link_to send("destroy_#{current_user.class.name.underscore.downcase}_session_path"), method: :delete, class: 'dropdown-item' do %>
               <i class="dropdown-icon fe fe-log-out"></i> <%= t('devise.sessions.sign_out') %>
             <% end %>
           </div>
-        </div>
-
-        <%= render '/layouts/shared/responsive_menu_toggle' %>
+        <% else %>
+          <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+            <%= link_to send("staff_edit_#{current_user.class.name.underscore.downcase}_registration_path"), class: 'dropdown-item' do %>
+              <i class="dropdown-icon fe fe-user"></i> <%= t('devise.sessions.profile') %>
+            <% end %>
+            <%= link_to send("destroy_#{current_user.class.name.underscore.downcase}_session_path"), method: :delete, class: 'dropdown-item' do %>
+              <i class="dropdown-icon fe fe-log-out"></i> <%= t('devise.sessions.sign_out') %>
+            <% end %>
+          </div>
+        <% end %>
       </div>
+      <%= render '/layouts/shared/responsive_menu_toggle' %>
+    </div>
   </div>
 </div>

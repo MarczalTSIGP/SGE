@@ -34,9 +34,13 @@
       <div class="col-sm-6">
         <%= f.input :registration_number %>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-3">
         <label class="form-control-label" for="user_active">Status</label>
         <%= f.input :active, as: :checkbox_tabler %>
+      </div>
+      <div class="col-sm-3">
+        <label class="form-control-label" for="user_admin">Permisão</label>
+        <%= f.input :admin, as: :checkbox_tabler %>
       </div>
     </div>
   </fieldset>

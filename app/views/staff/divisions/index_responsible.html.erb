@@ -1,0 +1,16 @@
+<% provide(:head_title, t('views.names.division.plural')) %>
+<% provide(:page_title, t('views.names.division.plural')) %>
+<div class="table-responsive">
+  <table class="table table-data card-table table-vcenter">
+    <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.department_divisions.name') %></th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <%= render @divisions %>
+    </tbody>
+  </table>
+</div>

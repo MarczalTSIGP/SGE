@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_12_013249) do
+ActiveRecord::Schema.define(version: 2019_10_07_233618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,8 +52,13 @@ ActiveRecord::Schema.define(version: 2019_09_12_013249) do
     t.index ["user_id"], name: "index_division_users_on_user_id"
   end
 
-# Could not dump table "divisions" because of following StandardError
-#   Unknown type 'division_modules' for column 'kind'
+  create_table "divisions", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.integer "department_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "name"

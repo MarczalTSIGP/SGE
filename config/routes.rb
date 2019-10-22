@@ -46,21 +46,52 @@ Rails.application.routes.draw do
   as :user do
     get '/admin/edit',
         to: 'admin/devise/registrations#edit',
-        as: 'edit_user_registration'
+        as: 'admin_edit_user_registration'
 
     put '/admin',
         to: 'admin/devise/registrations#update',
-        as: 'user_registration'
+        as: 'admin_user_registration'
+
+    get '/staff/edit',
+        to: 'staff/devise/registrations#edit',
+        as: 'staff_edit_user_registration'
+
+    put '/staff',
+        to: 'staff/devise/registrations#update',
+        as: 'staff_user_registration'
   end
   #========================================
-
   #========================================
-  # Participant area to user
+  # Participant area to staff
+  #========================================
+  namespace :staff do
+    root to: 'home#index'
+
+    get '/divisions', to: 'divisions#index_responsible', as: 'divisions'
+    resources :departments, constraints: { id: /[0-9]+/ }, only: [:index, :show, :edit, :update] do
+      get '/members' => 'departments#members'
+      post '/members' => 'departments#add_member'
+      delete '/members/:user_id' => 'departments#remove_member', as: 'remove_member'
+
+      resources :divisions do
+        get '/members' => 'divisions#members'
+        post '/members' => 'divisions#add_member'
+        delete '/members/:user_id' => 'divisions#remove_member', as: 'remove_member'
+      end
+
+      get 'divisions/search/(:term)/(page/:page)',
+          to: 'divisions#index',
+          as: 'divisions_search',
+          constraints: { term: %r{[^/]+} }
+    end
+  end
+  #========================================
+  # Participant area to client
   #========================================
   devise_for :clients, path: 'participants', controllers:
-      { passwords: 'participants/clients/passwords',
-        registrations: 'participants/clients/registrations',
-        sessions: 'participants/clients/sessions' }
+    { passwords: 'participants/clients/passwords',
+      registrations: 'participants/clients/registrations',
+      sessions: 'participants/clients/sessions' }
   authenticate :client do
     namespace :participants do
       root to: 'home#index'

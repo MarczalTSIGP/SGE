@@ -1,0 +1,55 @@
+<% provide(:head_title, t('devise.registrations.edit.profile')) %>
+<% provide(:page_title, t('devise.registrations.edit.profile')) %>
+
+<%= simple_form_for(resource, as: resource_name,
+                    url: staff_user_registration_path,
+                    html: { method: :put, multipart: true }) do |f| %>
+
+  <%= f.error_notification %>
+
+  <fieldset class="form-fieldset">
+    <legend class="w-auto"><%= t('views.fieldset.personal_data') %></legend>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :name, autofocus: true %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.input :cpf, readonly: true %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :email, readonly: true %>
+      </div>
+      <div class="col-sm-6">
+        <%= f.input :alternative_email %>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="form-fieldset">
+    <legend class="w-auto"><%= t('views.fieldset.institutional') %></legend>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :registration_number %>
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset class="form-fieldset">
+    <legend class="w-auto"><%= t('views.fieldset.passwords') %></legend>
+    <div class="row">
+      <div class="col-sm-6">
+        <%= f.input :current_password,
+              hint: t('devise.registrations.edit.we_need_your_current_password_to_confirm_your_changes') %>
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="d-flex">
+    <%= link_to t('views.links.back'), :admin_root, class: 'btn btn-secondary' %>
+    <%= f.button :submit, t('devise.registrations.edit.update'), class: 'btn-primary ml-auto' %>
+  </div>
+<% end %>

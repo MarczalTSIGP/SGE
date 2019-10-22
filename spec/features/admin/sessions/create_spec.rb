@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Admin::Devise::UsersSessions', type: :feature do
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, :admin) }
+  let!(:user_staff) { create(:user) }
   let!(:user_inactive) { create(:user, :inactive) }
 
   describe '#create' do
@@ -59,6 +60,28 @@ RSpec.describe 'Admin::Devise::UsersSessions', type: :feature do
 
         expect(page).to have_current_path(new_user_session_path)
         expect(page).to have_flash(:info, text: devise_user_locked_msg)
+      end
+    end
+
+    context 'with valid user staff' do
+      it 'login by username' do
+        fill_in id: 'user_login', with: user_staff.username
+        fill_in id: 'user_password', with: user_staff.password
+
+        submit_form
+
+        expect(page).to have_current_path(staff_root_path)
+        expect(page).to have_flash(:info, text: devise_signed_in_msg)
+      end
+
+      it 'login by email' do
+        fill_in id: 'user_login', with: user_staff.email
+        fill_in id: 'user_password', with: user_staff.password
+
+        submit_form
+
+        expect(page).to have_current_path(staff_root_path)
+        expect(page).to have_flash(:info, text: devise_signed_in_msg)
       end
     end
   end
