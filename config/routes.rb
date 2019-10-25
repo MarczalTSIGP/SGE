@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  namespace :staff do
+    get 'documents/index'
+    get 'documents/create'
+    get 'documents/new'
+    get 'documents/destroy'
+    get 'documents/show'
+  end
   root to: 'home#index'
   concern :paginatable do
     get '(page/:page)', action: :index, on: :collection, as: ''
@@ -62,10 +69,16 @@ Rails.application.routes.draw do
   end
   #========================================
   #========================================
-  # Participant area to staff
+  # Staff area to user
   #========================================
   namespace :staff do
     root to: 'home#index'
+
+    resources :documents, constraints: { id: /[0-9]+/ }
+    get 'documents/search/(:term)/(page/:page)',
+        to: 'documents#index',
+        as: 'documents_search',
+        constraints: { term: %r{[^/]+} }
 
     get '/divisions', to: 'divisions#index_responsible', as: 'divisions'
     resources :departments, constraints: { id: /[0-9]+/ }, only: [:index, :show, :edit, :update] do

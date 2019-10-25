@@ -1,0 +1,29 @@
+<% provide(:head_title, t('views.pages.show', resource: t('views.names.document.singular'))) %>
+<% provide(:page_title, t('views.pages.show', resource: t('views.names.document.singular'))) %>
+
+<div class="card card-profile">
+  <div class="card-body">
+
+    <h3 class="mb-4"><%= @document.title %></h3>
+
+    <p class="mb-3">
+      <span class="text-muted"><%= t('activerecord.attributes.document.front') %>:</span>
+      <%= @document.front %>
+    </p>
+
+    <p class="mb-3">
+      <span class="text-muted"><%= t('activerecord.attributes.document.back') %>:</span>
+      <%= @document.back %>
+    </p>
+
+    <p class="mb-3">
+      <span class="text-muted"><%= t('activerecord.attributes.document.division_id') %>:</span>
+      <%= @document.division.name %>
+    </p>
+
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to t('views.links.back'), staff_documents_path, class: 'btn btn-secondary' %>
+</div>

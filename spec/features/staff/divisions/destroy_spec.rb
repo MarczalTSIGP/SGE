@@ -26,6 +26,17 @@ describe 'Staff::Divisions::destroy', type: :feature do
         end
       end
 
+      it 'show that it cannot be destroyed, has a link' do
+        create(:document, division: division)
+        visit staff_department_divisions_path(division.department_id)
+        click_on_link(staff_department_division_path(division.department_id,
+                                                     division.id),
+                      method: :delete)
+        expect(page).to have_current_path staff_divisions_path
+        expect(page).to have_flash(:warning,
+                                   text: 'Não pode remover divisão com documento vinculado')
+      end
+
       it 'show not permission' do
         div_users = create(:division_users, user: staff, role: responsible)
         visit staff_divisions_path
@@ -33,7 +44,7 @@ describe 'Staff::Divisions::destroy', type: :feature do
                                                      div_users.division_id),
                       method: :delete)
         expect(page).to have_current_path staff_divisions_path
-        expect(page).to have_flash(:danger, text: 'não possui permissão para remover Divisão')
+        expect(page).to have_flash(:warning, text: 'não possui permissão para remover Divisão')
         within('table tbody') do
           expect(page).to have_content(div_users.division.name)
         end

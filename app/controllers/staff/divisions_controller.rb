@@ -49,8 +49,9 @@ class Staff::DivisionsController < Staff::BaseController
 
   def destroy
     dept = Department.manager(current_user.id)
-    if !dept.ids.include?(@division.department.id)
-      flash[:error] = 'não possui permissão para remover Divisão'
+    permission = Division.permission_destroy(dept, @division)
+    if permission.present?
+      flash[:alert] = permission
     elsif @division.destroy
       success_destroy_message
     end

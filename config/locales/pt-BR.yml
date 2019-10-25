@@ -8,6 +8,9 @@ pt-BR:
       event: 'Evento'
   activerecord:
     models:
+      document:
+        one: 'Documento'
+        other: 'Documentos'
       department:
         one: 'Departamento'
         other: 'Departamentos'
@@ -43,6 +46,12 @@ pt-BR:
         ra: 'Registro Acadêmico'
         current_password: 'Senha Atual'
         reset_password_token: 'Token para alteração de senha'
+      document:
+        title: 'Título'
+        front: 'Frente'
+        back: 'Verso'
+        division_id: 'Divisão'
+        division: 'Divisão'
       department:
         <<: *commons
         initials: 'Sigla'

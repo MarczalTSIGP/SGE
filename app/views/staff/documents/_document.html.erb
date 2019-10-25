@@ -1,0 +1,16 @@
+<tr>
+  <td><%= document.title %></td>
+  <td><%= document.division.name %></td>
+  <td>
+    <%= link_to staff_document_path(document) do %>
+      <%= icon('fas', 'search', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.show')) %>
+    <% end %>
+    <%= link_to edit_staff_document_path(document) do %>
+      <%= icon('fas', 'edit', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.edit')) %>
+    <% end %>
+    <%= link_to staff_document_path(document), method: :delete, data: { confirm: t('views.prompt.confirm') } do %>
+      <%= icon('fas', 'trash', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.destroy')) %>
+    <% end %>
+  </td>
+</tr>
+

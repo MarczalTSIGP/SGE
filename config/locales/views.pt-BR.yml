@@ -15,6 +15,9 @@ pt-BR:
       client:
         singular: Usuário
         plural:  Usuários
+      document:
+        singular: Documento
+        plural: Documentos
       departmment:
         singular: Departamento
         plural: Departamentos
@@ -46,6 +49,7 @@ pt-BR:
     sidebar:
       titles:
         admin: Administrar
+      documents: Documentos
       departments: Departamentos
       divisions: Divisões
       home: Página Inicial
@@ -81,6 +85,8 @@ pt-BR:
       show: Visualizar
       destroy: Remover
       back: Voltar
+      document:
+        new: Novo Documento
       department:
         new: Novo Departamento
         divisions: Gerenciar Divisões

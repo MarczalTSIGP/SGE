@@ -41,6 +41,13 @@ class Department < ApplicationRecord
     self[:initials] = initials.to_s.upcase # The to_s is in case you get nil/non-string
   end
 
+  def self.divisions(depts, divs)
+    depts.each do |dept|
+      divs += dept.divisions
+    end
+    divs
+  end
+
   def self.manager(user)
     joins(:department_users).where(department_users: { role_id: Role.find_by(identifier: 'manager'),
                                                        user_id: user })

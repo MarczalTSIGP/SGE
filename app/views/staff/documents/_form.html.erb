@@ -1,0 +1,15 @@
+<%= simple_form_for [:staff, @document] do |f| %>
+  <%= f.input :title %>
+  <%= f.input :front %>
+  <%= f.input :back %>
+
+  <%= f.association :division,
+              collection: @divisions,
+              class: 'form-control custom-select',
+              label: t("activerecord.attributes.document.division_id") %>
+
+  <div class='d-flex'>
+    <%= link_to t('views.links.back'), staff_documents_path, class: 'btn btn-secondary' %>
+    <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
+  </div>
+<% end %>
