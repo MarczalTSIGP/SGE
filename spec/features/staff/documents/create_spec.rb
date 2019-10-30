@@ -13,7 +13,7 @@ describe 'Staff::Documents::create', type: :feature do
            user_id: staff.id,
            role_id: manager.id)
     login_as(staff, scope: :user)
-    visit new_staff_document_path
+    visit new_staff_department_division_document_path(department, division)
   end
 
   context 'with valid fields' do
@@ -23,10 +23,11 @@ describe 'Staff::Documents::create', type: :feature do
       fill_in 'document_title', with: attributes[:title]
       fill_in 'document_front', with: attributes[:front]
       fill_in 'document_back', with: attributes[:back]
-      find(:css, 'select[id="document_division_id"]', match: :first).select division.name
+
       submit_form
 
-      expect(page).to have_current_path staff_documents_path
+      expect(page).to have_current_path staff_department_division_documents_path(department,
+                                                                                 division)
       expect(page).to have_flash(:success, text: flash_msg('create.m'))
 
       within('table tbody') do

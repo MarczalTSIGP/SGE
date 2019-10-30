@@ -25,5 +25,5 @@
 </div>
 
 <div class="d-flex">
-  <%= link_to t('views.links.back'), staff_documents_path, class: 'btn btn-secondary' %>
+  <%= link_to t('views.links.back'), staff_department_division_documents_path(@document.division.department, @document.division), class: 'btn btn-secondary' %>
 </div>

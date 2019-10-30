@@ -17,14 +17,18 @@ describe 'Staff::Documents::index', type: :feature do
 
   context 'with data' do
     it 'showed' do
-      visit staff_documents_path
+      visit staff_department_division_documents_path(department, division)
       within('table tbody') do
         documents.each do |document|
           expect(page).to have_content(document.title)
 
-          expect(page).to have_link(href: staff_document_path(document),
+          expect(page).to have_link(href: staff_department_division_document_path(department,
+                                                                                  division,
+                                                                                  document),
                                     count: 2)
-          expect(page).to have_link(href: edit_staff_document_path(document))
+          expect(page).to have_link(href: edit_staff_department_division_document_path(department,
+                                                                                       division,
+                                                                                       document))
         end
       end
     end

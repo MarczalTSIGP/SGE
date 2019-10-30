@@ -1,24 +1,24 @@
 class Staff::DivisionsController < Staff::BaseController
   before_action :set_department
-  before_action :set_division, except: [:index, :index_responsible, :new, :create]
+  before_action :set_division, except: [:index, :index_bound, :new, :create]
   before_action :set_member, only: [:add_member]
   before_action :department_permission
 
   def index
-    @divisions = @dept.divisions.page(params[:page])
+    @divisions = @dept.divisions
+                      .page(params[:page])
                       .search(params[:term])
   end
 
-  def index_responsible
-    @divisions = Division
-                 .joins(:division_users)
-                 .where(division_users: { user_id: current_user.id,
-                                          role_id: Role.find_by(identifier: 'responsible') })
+  def index_bound
+    @divisions = current_user.departments.find_by(department_users:
+                                                    { role_id: Role.manager }).divisions
+    @divisions += Division.joins(:division_users)
+                          .where(division_users: { user_id: current_user.id })
+    @divisions.uniq! { |d| d[:id] }
   end
 
-  def show
-    @members = @division.users.order('division_users.role_id', :name)
-  end
+  def show; end
 
   def new
     @division = @dept.divisions.build

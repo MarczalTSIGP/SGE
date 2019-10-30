@@ -16,7 +16,7 @@
     </p>
 
     <h4>Membros</h4>
-    <% @members.each do |member| %>
+    <% @division.users.each do |member| %>
       <p class="mb-3">
         <span class="text-muted"><%= member.role_for_division(@division).name %>:</span>
         <%= member.name %>

@@ -1,26 +1,26 @@
 class Staff::DocumentsController < Staff::BaseController
   before_action :set_document, only: [:edit, :update, :destroy, :show]
-  before_action :set_divisions
+  before_action :set_division
   before_action :permission
 
   def show; end
 
   def index
-    @documents = Document.where(division_id: @divisions)
-                         .includes(:division)
+    @documents = Document.where(division_id: params[:division_id])
                          .page(params[:page])
                          .search(params[:term])
   end
 
   def new
-    @document = Document.new
+    @document = @div.documents.build
   end
 
   def create
-    @document = Document.create(document_params)
+    @document = @div.documents.create(document_params)
     if @document.save
       success_create_message
-      redirect_to staff_documents_path
+      redirect_to staff_department_division_documents_path(@document.division.department,
+                                                           @document.division)
     else
       error_message
       render :new
@@ -32,7 +32,8 @@ class Staff::DocumentsController < Staff::BaseController
   def update
     if @document.update(document_params)
       success_update_message
-      redirect_to staff_documents_path
+      redirect_to staff_department_division_documents_path(@document.division.department,
+                                                           @document.division)
     else
       error_message
       render :edit
@@ -41,23 +42,26 @@ class Staff::DocumentsController < Staff::BaseController
 
   def destroy
     success_destroy_message if @document.destroy
-    redirect_to staff_documents_path
+    redirect_to staff_department_division_documents_path(@document.division.department,
+                                                         @document.division)
   end
 
   private
 
-  def set_divisions
-    @divisions = Division.responsible(current_user)
-    dept = Department.manager(current_user)
-    @divisions = Department.divisions(dept, @divisions) if dept.present?
+  def set_division
+    @div = Division.find(params[:division_id])
   end
 
   def permission
-    ids = @divisions.map(&:id)
-    if params[:id].nil? || ids.include?(@document.division_id)
+    @divs = current_user.departments.find_by(department_users:
+                                                    { role_id: Role.manager }).divisions
+    @divs += Division.joins(:division_users)
+                     .where(division_users: { user_id: current_user.id })
+
+    if @divs.include?(@div)
     else
-      flash[:alert] = 'Não possui permissão'
-      redirect_to staff_documents_path
+      flash[:alert] = 'Não possui permissão documento'
+      redirect_to staff_root_path
     end
   end
 

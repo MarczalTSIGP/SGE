@@ -74,13 +74,7 @@ Rails.application.routes.draw do
   namespace :staff do
     root to: 'home#index'
 
-    resources :documents, constraints: { id: /[0-9]+/ }
-    get 'documents/search/(:term)/(page/:page)',
-        to: 'documents#index',
-        as: 'documents_search',
-        constraints: { term: %r{[^/]+} }
-
-    get '/divisions', to: 'divisions#index_responsible', as: 'divisions'
+    get '/divisions', to: 'divisions#index_bound', as: 'divisions'
     resources :departments, constraints: { id: /[0-9]+/ }, only: [:index, :show, :edit, :update] do
       get '/members' => 'departments#members'
       post '/members' => 'departments#add_member'
@@ -90,6 +84,12 @@ Rails.application.routes.draw do
         get '/members' => 'divisions#members'
         post '/members' => 'divisions#add_member'
         delete '/members/:user_id' => 'divisions#remove_member', as: 'remove_member'
+
+        resources :documents, constraints: { id: /[0-9]+/ }
+        get 'documents/search/(:term)/(page/:page)',
+            to: 'documents#index',
+            as: 'documents_search',
+            constraints: { term: %r{[^/]+} }
       end
 
       get 'divisions/search/(:term)/(page/:page)',

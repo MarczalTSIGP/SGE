@@ -49,7 +49,7 @@ class Department < ApplicationRecord
   end
 
   def self.manager(user)
-    joins(:department_users).where(department_users: { role_id: Role.find_by(identifier: 'manager'),
+    joins(:department_users).where(department_users: { role_id: Role.manager,
                                                        user_id: user })
   end
 end

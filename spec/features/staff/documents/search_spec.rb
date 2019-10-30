@@ -20,31 +20,43 @@ describe 'Staff::Documents::search', type: :feature do
 
   context 'with data' do
     it 'search an unique field' do
-      visit staff_documents_search_path(document.title)
+      visit staff_department_division_documents_search_path(department, division, document.title)
 
       expect(page.html).to include(pagination_one_entry)
 
       expect(page).to have_content(document.title)
 
-      expect(page).to have_link(href: staff_document_path(document), count: 2)
-      expect(page).to have_link(href: edit_staff_document_path(document))
+      expect(page).to have_link(href: staff_department_division_document_path(department,
+                                                                              division,
+                                                                              document),
+                                count: 2)
+      expect(page).to have_link(href: edit_staff_department_division_document_path(department,
+                                                                                   division,
+                                                                                   document))
     end
 
     it 'search an document using common name' do
-      visit staff_documents_search_path('title')
+      visit staff_department_division_documents_search_path(department, division, 'title')
 
       expect(page.html).to include(pagination_total_entries(count: 3))
 
       documents.each do |document|
         expect(page).to have_content(document.title)
 
-        expect(page).to have_link(href: staff_document_path(document), count: 2)
-        expect(page).to have_link(href: edit_staff_document_path(document))
+        expect(page).to have_link(href: staff_department_division_document_path(department,
+                                                                                division,
+                                                                                document),
+                                  count: 2)
+        expect(page).to have_link(href: edit_staff_department_division_document_path(department,
+                                                                                     division,
+                                                                                     document))
       end
     end
 
     it 'search with no existent term' do
-      visit staff_documents_search_path('no-existent-term')
+      visit staff_department_division_documents_search_path(department,
+                                                            division,
+                                                            'no-existent-term')
 
       expect(page.html).to include('0 documentos encontrado')
     end
@@ -52,15 +64,20 @@ describe 'Staff::Documents::search', type: :feature do
 
   context 'with no data' do
     it 'show all documents' do
-      visit staff_documents_search_path('')
+      visit staff_department_division_documents_search_path(department, division, '')
 
       expect(page.html).to include(pagination_total_entries(count: 4))
 
       documents.each do |document|
         expect(page).to have_content(document.title)
 
-        expect(page).to have_link(href: staff_document_path(document), count: 2)
-        expect(page).to have_link(href: edit_staff_document_path(document))
+        expect(page).to have_link(href: staff_department_division_document_path(department,
+                                                                                division,
+                                                                                document),
+                                  count: 2)
+        expect(page).to have_link(href: edit_staff_department_division_document_path(department,
+                                                                                     division,
+                                                                                     document))
       end
     end
   end

@@ -62,6 +62,13 @@ pt-BR:
         manager:
           text: 'Gerenciar Membros do Departamento %{dept}'
           html: 'Gerenciar Membros do Departamento <b><i>%{dept}</i></b>'
+      document:
+        new:
+          text: 'Novo Documento para o Divisão %{div}'
+          html: 'Novo Documento para o Divisão <b><i>%{div}</i></b>'
+        index:
+          text: 'Documentos da divisão %{div}'
+          html: 'Documentos da divisão <b><i>%{div}</i></b>'
       division:
         new:
           text: 'Nova Divisão para o Departamento %{dept}'
@@ -95,6 +102,7 @@ pt-BR:
           add: Adicionar Membro
       division:
         new: Nova Divisão
+        documents: Gerenciar Documentos
       status:
         active: Ativar
         disable: Desativar

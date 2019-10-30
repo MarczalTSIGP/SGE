@@ -19,11 +19,12 @@ describe 'Staff::Documents::destroy', type: :feature do
   describe '#destroy' do
     context 'when document is destroyed' do
       it 'show success message' do
-        visit staff_documents_path
-        click_on_link(staff_document_path(document),
+        visit staff_department_division_documents_path(department, division)
+        click_on_link(staff_department_division_document_path(department, division, document),
                       method: :delete)
 
-        expect(page).to have_current_path staff_documents_path
+        expect(page).to have_current_path staff_department_division_documents_path(department,
+                                                                                   division)
         expect(page).to have_flash(:success, text: flash_msg('destroy.m'))
         within('table tbody') do
           expect(page).not_to have_content(document.title)
