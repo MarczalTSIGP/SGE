@@ -1,13 +1,15 @@
 class Staff::DocumentsController < Staff::BaseController
   before_action :set_document, only: [:edit, :update, :destroy, :show]
   before_action :set_division
+  before_action :load_users, only: [:new, :create, :edit, :update]
   before_action :permission
 
   def show; end
 
   def index
-    @documents = Document.where(division_id: params[:division_id])
-                         .page(params[:page])
+    @documents = Document.includes(:division)
+                          .where(division_id: params[:division_id])
+                          .page(params[:page])
                          .search(params[:term])
   end
 
@@ -48,6 +50,10 @@ class Staff::DocumentsController < Staff::BaseController
 
   private
 
+  def load_users
+    @users = User.activated.order('name ASC')
+  end
+
   def set_division
     @div = Division.find(params[:division_id])
   end
@@ -70,6 +76,9 @@ class Staff::DocumentsController < Staff::BaseController
   end
 
   def document_params
-    params.require(:document).permit(:title, :front, :back, :division_id)
+    params.require(:document).permit(:title, :front, :back, :division_id,
+                                     document_users_attributes: [:id, :user_id,
+                                                                 :function,
+                                                                 :destroy])
   end
 end

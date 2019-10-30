@@ -1,11 +1,4 @@
 Rails.application.routes.draw do
-  namespace :staff do
-    get 'documents/index'
-    get 'documents/create'
-    get 'documents/new'
-    get 'documents/destroy'
-    get 'documents/show'
-  end
   root to: 'home#index'
   concern :paginatable do
     get '(page/:page)', action: :index, on: :collection, as: ''

@@ -20,6 +20,8 @@ class User < ApplicationRecord
   has_many :departments, through: :department_users
   has_many :division_users, dependent: :destroy
   has_many :divisions, through: :division_users
+  has_many :document_users, dependent: :destroy
+  has_many :documents, through: :document_users
 
   def username=(username)
     super

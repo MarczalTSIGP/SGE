@@ -50,8 +50,9 @@ pt-BR:
         title: 'Título'
         front: 'Frente'
         back: 'Verso'
-        division_id: 'Divisão'
-        division: 'Divisão'
+      document_user:
+        user: 'Nome'
+        function: 'Função'
       department:
         <<: *commons
         initials: 'Sigla'

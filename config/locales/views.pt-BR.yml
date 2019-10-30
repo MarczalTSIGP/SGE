@@ -41,6 +41,7 @@ pt-BR:
       personal_data: Dados Pessoais
       institutional: Dados Institucionais
       department: Dados Departamentais
+      document_users: Responsáveis
       members:
         add_dept: Adicionar membros ao departamento
         add_div: Adicionar membros a divisão
@@ -94,6 +95,8 @@ pt-BR:
       back: Voltar
       document:
         new: Novo Documento
+        add:
+          user: 'Adicionar Responsável'
       department:
         new: Novo Departamento
         divisions: Gerenciar Divisões
