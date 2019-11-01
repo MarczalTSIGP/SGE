@@ -16,15 +16,14 @@ describe 'Staff::Documents::create', type: :feature do
     visit new_staff_department_division_document_path(department, division)
   end
 
-  context 'with valid fields', js: true do
-    it 'create an document' do
+  context 'with valid fields' do
+    it 'create an document', js: true do
       attributes = attributes_for(:document)
 
       fill_in 'document_title', with: attributes[:title]
       fill_in 'document_front', with: attributes[:front]
       fill_in 'document_back', with: attributes[:back]
-
-      find(:css, "select[id*='document']", match: :first).select staff.name
+      selectize(staff.name, 'div.document_document_users_user_id input')
       find(:css, 'div.document_document_users_function input').set(Faker::Lorem.word)
 
       submit_form
@@ -40,7 +39,7 @@ describe 'Staff::Documents::create', type: :feature do
   end
 
   context 'with fields' do
-    it 'filled blank show errors' do
+    it 'filled blank show errors', js: true do
       submit_form
 
       expect(page).to have_flash(:danger, text: flash_errors_msg)
@@ -48,7 +47,8 @@ describe 'Staff::Documents::create', type: :feature do
       expect(page).to have_message(sf_blank_error_msg, in: 'div.document_title')
       expect(page).to have_message(sf_blank_error_msg, in: 'div.document_front')
       expect(page).to have_message(sf_blank_error_msg, in: 'div.document_back')
-      expect(page).to have_message(sf_blank_error_msg, in: 'div.document_back')
+      expect(page).to have_message(sf_blank_error_msg, in: 'div.document_document_users_function')
+      expect(page).to have_message(sf_blank_error_msg, in: 'div.document_document_users_user_id')
     end
   end
 end

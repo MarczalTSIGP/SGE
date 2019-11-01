@@ -11,11 +11,12 @@ class Staff::DivisionsController < Staff::BaseController
   end
 
   def index_bound
-    @divisions = current_user.departments.find_by(department_users:
-                                                    { role_id: Role.manager }).divisions
-    @divisions += Division.joins(:division_users)
-                          .where(division_users: { user_id: current_user.id })
-    @divisions.uniq! { |d| d[:id] }
+    @divisions = Division.joins(:division_users)
+                         .where(division_users: { user_id: current_user.id })
+
+    deps = current_user.departments
+                       .find_by(department_users: { role_id: Role.manager })
+    @divisions += deps.divisions if deps.present?
   end
 
   def show; end

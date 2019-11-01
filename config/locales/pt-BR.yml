@@ -51,7 +51,7 @@ pt-BR:
         front: 'Frente'
         back: 'Verso'
       document_user:
-        user: 'Nome'
+        user_id: 'Nome'
         function: 'Função'
       department:
         <<: *commons

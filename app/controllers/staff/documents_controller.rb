@@ -8,8 +8,8 @@ class Staff::DocumentsController < Staff::BaseController
 
   def index
     @documents = Document.includes(:division)
-                          .where(division_id: params[:division_id])
-                          .page(params[:page])
+                         .where(division_id: params[:division_id])
+                         .page(params[:page])
                          .search(params[:term])
   end
 
@@ -72,7 +72,7 @@ class Staff::DocumentsController < Staff::BaseController
   end
 
   def set_document
-    @document = Document.includes(document_users: :user).find(params[:id])
+    @document = Document.find(params[:id])
   end
 
   def document_params

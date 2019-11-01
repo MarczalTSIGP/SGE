@@ -32,6 +32,7 @@ describe 'Staff::Documents::update', type: :feature do
       fill_in 'document_title', with: attributes[:title]
       fill_in 'document_front', with: attributes[:front]
       fill_in 'document_back', with: attributes[:back]
+
       submit_form
 
       expect(page).to have_current_path staff_department_division_documents_path(department,
@@ -45,7 +46,7 @@ describe 'Staff::Documents::update', type: :feature do
   end
 
   context 'with invalids fields' do
-    it 'show errors when fields are blank' do
+    it 'show errors when fields are blank', js: true do
       fill_in 'document_title', with: ''
       fill_in 'document_front', with: ''
       fill_in 'document_back', with: ''
@@ -54,12 +55,11 @@ describe 'Staff::Documents::update', type: :feature do
 
       expect(page).to have_flash(:danger, text: flash_errors_msg)
 
-      expect(page).to have_flash(:danger, text: flash_errors_msg)
-
       expect(page).to have_message(sf_blank_error_msg, in: 'div.document_title')
       expect(page).to have_message(sf_blank_error_msg, in: 'div.document_front')
       expect(page).to have_message(sf_blank_error_msg, in: 'div.document_back')
-      expect(page).to have_message(sf_blank_error_msg, in: 'div.document_back')
+      expect(page).to have_message(sf_blank_error_msg, in: 'div.document_document_users_function')
+      expect(page).to have_message(sf_blank_error_msg, in: 'div.document_document_users_user_id')
     end
   end
 end

@@ -24,6 +24,10 @@ describe 'Staff::Documents::show', type: :feature do
       expect(page).to have_content(document.back)
       expect(page).to have_content(document.front)
       expect(page).to have_content(document.division.name)
+      document.document_users.each do |ds|
+        expect(page).to have_content(ds.function)
+        expect(page).to have_content(ds.user.name)
+      end
     end
   end
 
