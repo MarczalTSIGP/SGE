@@ -72,7 +72,7 @@ class Staff::DocumentsController < Staff::BaseController
   end
 
   def set_document
-    @document = Document.find(params[:id])
+    @document = Document.includes(document_users: :user).find(params[:id])
   end
 
   def document_params

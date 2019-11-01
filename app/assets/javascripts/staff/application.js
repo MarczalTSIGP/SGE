@@ -31,3 +31,4 @@
 // App files
 //--------------------
 //= require staff/document
+//= require staff/cocoon

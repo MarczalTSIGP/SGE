@@ -16,13 +16,16 @@ describe 'Staff::Documents::create', type: :feature do
     visit new_staff_department_division_document_path(department, division)
   end
 
-  context 'with valid fields' do
+  context 'with valid fields', js: true do
     it 'create an document' do
       attributes = attributes_for(:document)
 
       fill_in 'document_title', with: attributes[:title]
       fill_in 'document_front', with: attributes[:front]
       fill_in 'document_back', with: attributes[:back]
+
+      find(:css, "select[id*='document']", match: :first).select staff.name
+      find(:css, 'div.document_document_users_function input').set(Faker::Lorem.word)
 
       submit_form
 

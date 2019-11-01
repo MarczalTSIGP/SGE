@@ -21,6 +21,15 @@
       <%= @document.division.name %>
     </p>
 
+    <h4>Responsáveis</h4>
+    <% @document.document_users.each do |du| %>
+      <p class="mb-3">
+        <span class="text-muted">Nome:</span>
+        <%= du.user.name %>
+        <span class="text-muted">Função:</span>
+        <%= du.function%>
+      </p>
+    <% end %>
   </div>
 </div>
 
