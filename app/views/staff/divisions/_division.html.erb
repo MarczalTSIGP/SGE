@@ -1,6 +1,9 @@
 <tr>
-  <td><%= division.name %></td>
+  <td><%= division.name %> </td>
   <td>
+    <%= link_to staff_department_division_documents_path(division.department_id, division) do %>
+      <%= icon('fas', 'file', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.division.documents')) %>
+    <% end %>
     <%= link_to staff_department_division_members_path(division.department_id, division) do %>
       <%= icon('fas', 'plus', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.department.members')) %>
     <% end %>
@@ -15,4 +18,3 @@
     <% end %>
   </td>
 </tr>
-

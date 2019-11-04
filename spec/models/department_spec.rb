@@ -127,13 +127,36 @@ RSpec.describe Department, type: :model do
     end
   end
 
-  describe ',manager' do
+  describe '.manager' do
     let(:department_users) { create(:department_users) }
 
     it 'return if the user is a manager' do
       result = Department.manager(department_users.user_id)
       department = department_users.department
       expect(result.first).to eq(department)
+    end
+  end
+
+  describe '.divisions' do
+    let!(:user) { create(:user) }
+    let!(:department) { create(:department) }
+    let!(:division1) { create(:division, department: department) }
+    let!(:manager) { create(:role, :manager) }
+    let!(:responsible) { create(:role, :responsible) }
+    let!(:division2) { create(:division) }
+    let(:div_user1) { create(:division_users, user: user, division: division2, role: responsible) }
+
+    before :each do
+      create(:department_users,
+             department: department,
+             user: user, role: manager)
+    end
+
+    it 'return ids division on department' do
+      divs = Division.responsible(user)
+      depts = Department.manager(user)
+      result = Department.divisions(depts, divs)
+      expect(result.first.id).to eq(division1.id)
     end
   end
 end

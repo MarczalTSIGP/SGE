@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_07_233618) do
+ActiveRecord::Schema.define(version: 2019_10_30_120514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,27 @@ ActiveRecord::Schema.define(version: 2019_10_07_233618) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "document_users", force: :cascade do |t|
+    t.bigint "document_id"
+    t.bigint "user_id"
+    t.string "function"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["document_id", "user_id"], name: "index_document_users_on_document_id_and_user_id", unique: true
+    t.index ["document_id"], name: "index_document_users_on_document_id"
+    t.index ["user_id"], name: "index_document_users_on_user_id"
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.string "title"
+    t.text "front"
+    t.text "back"
+    t.bigint "division_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["division_id"], name: "index_documents_on_division_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.string "identifier"
@@ -97,4 +118,7 @@ ActiveRecord::Schema.define(version: 2019_10_07_233618) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "document_users", "documents"
+  add_foreign_key "document_users", "users"
+  add_foreign_key "documents", "divisions"
 end

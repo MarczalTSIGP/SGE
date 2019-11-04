@@ -20,7 +20,7 @@
   <% end %>
   <% end %>
 
-  <% if Division.responsible(current_user.id).count > 0 %>
+  <% if DivisionUser.find_by(user_id: current_user.id).present? %>
     <%= active_link_to(staff_divisions_path, active: :inclusive, class: 'list-group-item list-group-item-action') do %>
       <span class="icon mr-2">
       <%= icon('fas', 'divide') %>

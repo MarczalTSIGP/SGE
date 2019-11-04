@@ -6,6 +6,10 @@ class Division < ApplicationRecord
   has_many :divisions, through: :division_users
   has_many :users, through: :division_users
   has_many :roles, through: :division_users
+  has_many :documents,
+           foreign_key: 'division_id',
+           dependent: :destroy,
+           inverse_of: :division
 
   def self.search(search)
     if search
@@ -23,6 +27,15 @@ class Division < ApplicationRecord
   def self.responsible(user)
     joins(:division_users).where(division_users: { role_id: Role.find_by(identifier: 'responsible'),
                                                    user_id: user })
+  end
+
+  def self.permission_destroy(dept, div)
+    if !dept.ids.include?(div.department.id)
+      erro = 'não possui permissão para remover Divisão'
+    elsif div.documents.present?
+      erro = 'Não pode remover divisão com documento vinculado'
+    end
+    erro
   end
 
   def self.permission(user, dept_id, div_id)

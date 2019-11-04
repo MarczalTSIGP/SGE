@@ -25,8 +25,8 @@ module Helpers
       find("div.#{options[:from]} label.custom-radio", text: value).click
     end
 
-    def selectize(name, options = {})
-      find("\##{options[:from]}").click
+    def selectize(name, id)
+      find(:css, id).set(name)
       find('div.selectize-dropdown-content .option', text: name).click
     end
   end

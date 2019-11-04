@@ -15,6 +15,9 @@ pt-BR:
       client:
         singular: Usuário
         plural:  Usuários
+      document:
+        singular: Documento
+        plural: Documentos
       departmment:
         singular: Departamento
         plural: Departamentos
@@ -38,6 +41,7 @@ pt-BR:
       personal_data: Dados Pessoais
       institutional: Dados Institucionais
       department: Dados Departamentais
+      document_users: Responsáveis
       members:
         add_dept: Adicionar membros ao departamento
         add_div: Adicionar membros a divisão
@@ -46,6 +50,7 @@ pt-BR:
     sidebar:
       titles:
         admin: Administrar
+      documents: Documentos
       departments: Departamentos
       divisions: Divisões
       home: Página Inicial
@@ -58,6 +63,13 @@ pt-BR:
         manager:
           text: 'Gerenciar Membros do Departamento %{dept}'
           html: 'Gerenciar Membros do Departamento <b><i>%{dept}</i></b>'
+      document:
+        new:
+          text: 'Novo Documento para o Divisão %{div}'
+          html: 'Novo Documento para o Divisão <b><i>%{div}</i></b>'
+        index:
+          text: 'Documentos da divisão %{div}'
+          html: 'Documentos da divisão <b><i>%{div}</i></b>'
       division:
         new:
           text: 'Nova Divisão para o Departamento %{dept}'
@@ -81,6 +93,10 @@ pt-BR:
       show: Visualizar
       destroy: Remover
       back: Voltar
+      document:
+        new: Novo Documento
+        add:
+          user: 'Adicionar Responsável'
       department:
         new: Novo Departamento
         divisions: Gerenciar Divisões
@@ -89,6 +105,7 @@ pt-BR:
           add: Adicionar Membro
       division:
         new: Nova Divisão
+        documents: Gerenciar Documentos
       status:
         active: Ativar
         disable: Desativar

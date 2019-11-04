@@ -1,24 +1,25 @@
 class Staff::DivisionsController < Staff::BaseController
   before_action :set_department
-  before_action :set_division, except: [:index, :index_responsible, :new, :create]
+  before_action :set_division, except: [:index, :index_bound, :new, :create]
   before_action :set_member, only: [:add_member]
   before_action :department_permission
 
   def index
-    @divisions = @dept.divisions.page(params[:page])
+    @divisions = @dept.divisions
+                      .page(params[:page])
                       .search(params[:term])
   end
 
-  def index_responsible
-    @divisions = Division
-                 .joins(:division_users)
-                 .where(division_users: { user_id: current_user.id,
-                                          role_id: Role.find_by(identifier: 'responsible') })
+  def index_bound
+    @divisions = Division.joins(:division_users)
+                         .where(division_users: { user_id: current_user.id })
+
+    deps = current_user.departments
+                       .find_by(department_users: { role_id: Role.manager })
+    @divisions += deps.divisions if deps.present?
   end
 
-  def show
-    @members = @division.users.order('division_users.role_id', :name)
-  end
+  def show; end
 
   def new
     @division = @dept.divisions.build
@@ -49,8 +50,9 @@ class Staff::DivisionsController < Staff::BaseController
 
   def destroy
     dept = Department.manager(current_user.id)
-    if !dept.ids.include?(@division.department.id)
-      flash[:error] = 'não possui permissão para remover Divisão'
+    permission = Division.permission_destroy(dept, @division)
+    if permission.present?
+      flash[:alert] = permission
     elsif @division.destroy
       success_destroy_message
     end

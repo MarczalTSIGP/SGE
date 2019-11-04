@@ -11,6 +11,6 @@ if ENV['browser.headless'].eql?('true')
       driven_by :firefox_headless
     end
   end
-
-  Capybara.javascript_driver = :firefox_headless
 end
+
+Capybara.javascript_driver = :firefox_headless
