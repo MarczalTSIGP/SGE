@@ -1,10 +1,12 @@
 class Staff::DocumentsController < Staff::BaseController
-  before_action :set_document, only: [:edit, :update, :destroy, :show]
+  before_action :set_document, only: [:edit, :update, :destroy]
   before_action :set_division
   before_action :load_users, only: [:new, :create, :edit, :update]
   before_action :permission
 
-  def show; end
+  def show
+    @document = Document.includes(document_users: :user).find(params[:id])
+  end
 
   def index
     @documents = Document.includes(:division)
