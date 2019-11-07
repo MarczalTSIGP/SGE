@@ -5,7 +5,9 @@ class Document < ApplicationRecord
 
   validates :title, :front, :back, :division, presence: true
 
-  accepts_nested_attributes_for :document_users, :users, allow_destroy: true
+  attr_accessor :variable_json
+  
+  accepts_nested_attributes_for :document_users, allow_destroy: true
 
   def self.search(search)
     if search

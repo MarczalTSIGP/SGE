@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_30_120514) do
+ActiveRecord::Schema.define(version: 2019_11_06_004759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 2019_10_30_120514) do
     t.bigint "division_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "variables", default: {}, null: false
     t.index ["division_id"], name: "index_documents_on_division_id"
   end
 
