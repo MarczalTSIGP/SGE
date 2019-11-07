@@ -1,4 +1,50 @@
-jQuery(document).on 'turbolinks:load', ->
+toolbarCustom = [
+  ['style', ['style']],
+  ['font', ['bold', 'italic', 'underline', 'clear']],
+  ['fontname', ['fontname']],
+  ['fontsize', ['fontsize']],
+  ['color', ['color']],
+  ['para', ['ul', 'ol', 'paragraph']],
+  ['height', ['height']],
+  ['table', ['table']],
+  ['insert', ['link']],
+  ['view', ['codeview']],
+  ['help', ['help']],
+]
+
+generic = (val) ->
+  genericButton = (context) ->
+    ui = $.summernote.ui
+    button = ui.button(
+      contents: '<i >' + val + '</i>'
+      click: ->
+        context.invoke 'editor.insertText', '{' + val + '}'
+    )
+    button.render()
+
+gButtons = new Array
+gbtn = new Array
+
+summernote_custom = ->
+  val = $('input[id="document_variables"').val()
+  if val != undefined
+    val = val.replace(/=>/g, ':')
+    obj = JSON.parse(val)
+    if obj != '{}'
+      count = 0
+      $.each obj, (o, value) ->
+        gButtons.push generic(value)
+        gbtn[value] = gButtons[count]
+        toolbarCustom.push(['generic', [value]],)
+        count++
+  $('[data-provider="summernote"]').each ->
+    $(this).summernote
+      height: 200
+      toolbar: toolbarCustom
+      buttons: gbtn
+  $('div').removeClass('card-header').addClass('panel-heading')
+
+$(document).on 'turbolinks:load', ->
   count = 0
   $('#plus_variable_json').on 'click', ->
     input = "<div id='div_variable_json_" + count + "' class='row'>
@@ -17,18 +63,21 @@ jQuery(document).on 'turbolinks:load', ->
     $(this).parent().parent().remove()
     return
 
+  $('#close_modal').on 'click', ->
+    summernote_custom()
+
   $('#save_variables').on 'click', ->
     inputs = $('#variables_json').find('input')
     json = '{'
     c = 0
     inputs.each ->
-      console.log('aqui')
       json += '"' + @value + '"' + ':' + '"' + @value + '"'
       if c < inputs.length - 1
         json += ','
       c++
     json += '}'
     $('#document_variables').val(json)
+    summernote_custom()
 
   $('#modal_variables').modal()
   val = $('input[id="document_variables"').val()

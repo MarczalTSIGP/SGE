@@ -32,5 +32,7 @@
 // App files
 //--------------------
 //= require staff/cocoon
-//= require staff/summernote-init
 //= require staff/document
+// require staff/summernote-init
+
+

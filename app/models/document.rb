@@ -3,10 +3,10 @@ class Document < ApplicationRecord
   has_many :document_users, dependent: :destroy
   has_many :users, through: :document_users, class_name: 'User'
 
-  validates :title, :front, :back, :division, presence: true
+  validates :title, :front, :back, :division, :variables, presence: true
 
   attr_accessor :variable_json
-  
+
   accepts_nested_attributes_for :document_users, allow_destroy: true
 
   def self.search(search)
