@@ -1,16 +1,3 @@
-HelloButton = (context) ->
-  ui = $.summernote.ui
-  # create button
-  button = ui.button(
-    contents: '<i class="fa fa-child"/> Hello'
-    tooltip: 'hello'
-    click: ->
-# invoke insertText method with 'hello' on editor module.
-      context.invoke 'editor.insertText', 'hello'
-      return
-  )
-  button.render()
-
 jQuery(document).on 'turbolinks:load', ->
   count = 0
   $('#plus_variable_json').on 'click', ->
@@ -42,11 +29,6 @@ jQuery(document).on 'turbolinks:load', ->
       c++
     json += '}'
     $('#document_variables').val(json)
-    console.log('summernote')
-    $('[data-provider="summernote"]').each ->
-      $(this).summernote
-        height: 500
-
 
   $('#modal_variables').modal()
   val = $('input[id="document_variables"').val()
