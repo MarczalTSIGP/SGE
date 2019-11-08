@@ -6,6 +6,11 @@ class Staff::DocumentsController < Staff::BaseController
 
   def show
     @document = Document.includes(document_users: :user).find(params[:id])
+    respond_to do |format|
+      format.html
+      format.csv
+      send_data Document.to_csv(params[:id]), filename: "document-#{@document.title}.csv"
+    end
   end
 
   def index
