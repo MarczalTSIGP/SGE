@@ -20,6 +20,9 @@ pt-BR:
       client:
         one: 'Cliente'
         other: 'Clientes'
+      document_client:
+        one: 'Participante'
+        other: 'Participantes'
       department_users:
         one: 'Membro'
         other: 'Membros'

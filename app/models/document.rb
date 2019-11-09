@@ -3,6 +3,8 @@ class Document < ApplicationRecord
   belongs_to :division
   has_many :document_users, dependent: :destroy
   has_many :users, through: :document_users, class_name: 'User'
+  has_many :document_clients, dependent: :destroy
+  has_many :clients, through: :document_clients
 
   validates :title, :front, :back, :division, :variables, presence: true
 

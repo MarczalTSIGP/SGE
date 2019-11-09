@@ -78,7 +78,11 @@ Rails.application.routes.draw do
         post '/members' => 'divisions#add_member'
         delete '/members/:user_id' => 'divisions#remove_member', as: 'remove_member'
 
-        resources :documents, constraints: { id: /[0-9]+/ }
+        resources :documents, constraints: { id: /[0-9]+/ } do
+          resources :document_clients, constraints: { id: /[0-9]+/ } do
+            collection { post :import }
+          end
+        end
         get 'documents/search/(:term)/(page/:page)',
             to: 'documents#index',
             as: 'documents_search',

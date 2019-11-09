@@ -18,6 +18,9 @@ pt-BR:
       document:
         singular: Documento
         plural: Documentos
+      document_clients:
+        singular: Participante
+        plural: Participantes
       departmment:
         singular: Departamento
         plural: Departamentos
@@ -71,6 +74,13 @@ pt-BR:
         index:
           text: 'Documentos da divisão %{div}'
           html: 'Documentos da divisão <b><i>%{div}</i></b>'
+      document_clients:
+        index:
+          text: 'Participantes do Documento %{title}'
+          html: 'Participantes do Documento <b><i>%{title}</i></b>'
+        new:
+          text: 'Novo Participante para no Documento %{title}'
+          html: 'Novo Participane para o Documento <b><i>%{title}</i></b>'
       division:
         new:
           text: 'Nova Divisão para o Departamento %{dept}'
@@ -90,12 +100,15 @@ pt-BR:
     links:
       active: Ativar
       disable: Desativar
-      edit: Editar
       show: Visualizar
+      edit: Editar
+      download:
+        csv: Download CSV
       destroy: Remover
       back: Voltar
       document:
         new: Novo Documento
+        document_clients: Gerenciar Participantes
         add:
           user: 'Adicionar Responsável'
       department:
@@ -104,6 +117,8 @@ pt-BR:
         members: Gerenciar Membros
         member:
           add: Adicionar Membro
+      document_clients:
+        new: Novo Participante
       division:
         new: Nova Divisão
         documents: Gerenciar Documentos

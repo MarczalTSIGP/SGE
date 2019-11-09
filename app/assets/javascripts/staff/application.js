@@ -33,6 +33,7 @@
 //--------------------
 //= require staff/cocoon
 //= require staff/document
+//= require staff/client_document
 // require staff/summernote-init
 
 
