@@ -4,6 +4,15 @@ class DocumentClient < ApplicationRecord
 
   # validates :client_id, uniqueness: { scope: :document_id }
 
+  def self.search(search)
+    if search
+      where('unaccent(cpf) ILIKE unaccent(?)',
+            "%#{search}%").order('cpf ASC')
+    else
+      order('cpf ASC')
+    end
+  end
+
   def self.import(file, id)
     document = Document.find(id)
     return if file.blank?

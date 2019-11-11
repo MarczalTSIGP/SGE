@@ -5,7 +5,9 @@ class Staff::DocumentClientsController < Staff::BaseController
   before_action :set_document_client, only: [:edit, :update, :show, :destroy]
 
   def index
-    @document_clients = DocumentClient.where(document_id: params[:document_id]).page(params[:page])
+    @document_clients = DocumentClient.where(document_id: params[:document_id])
+                                      .page(params[:page])
+                                      .search(params[:term])
   end
 
   def new

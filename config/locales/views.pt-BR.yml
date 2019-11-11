@@ -60,6 +60,10 @@ pt-BR:
       home: Página Inicial
       server: Servidores
     pages:
+      sign:
+        sucess: 'Documento assinado com sucesso'
+        erro:  'Erro na assinatura do documento'
+        empty: 'Não foi encontrado documento para assinar'
       show: 'Visualizar %{resource}'
       edit: 'Editar %{resource}'
       create: 'Criar %{resource}'
@@ -74,6 +78,7 @@ pt-BR:
         index:
           text: 'Documentos da divisão %{div}'
           html: 'Documentos da divisão <b><i>%{div}</i></b>'
+        empty: 'Nenhum documento para assinar'
       document_clients:
         index:
           text: 'Participantes do Documento %{title}'
@@ -108,9 +113,11 @@ pt-BR:
       back: Voltar
       document:
         new: Novo Documento
+        sign: Assinar Documento
+        request_signature: Solicitar Assinatura
         document_clients: Gerenciar Participantes
         add:
-          user: 'Adicionar Responsável'
+          user: Adicionar Responsável
       department:
         new: Novo Departamento
         divisions: Gerenciar Divisões

@@ -1,5 +1,6 @@
 class Document < ApplicationRecord
   require 'csv'
+
   belongs_to :division
   has_many :document_users, dependent: :destroy
   has_many :users, through: :document_users, class_name: 'User'
@@ -8,7 +9,7 @@ class Document < ApplicationRecord
 
   validates :title, :front, :back, :division, :variables, presence: true
 
-  attr_accessor :variable_json
+  attr_accessor :variable_json, :login, :password
 
   accepts_nested_attributes_for :document_users, allow_destroy: true
 

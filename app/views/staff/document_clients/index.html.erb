@@ -1,7 +1,7 @@
 <% provide(:head_title, t('views.pages.document_clients.index.text', title: @doc.title)) %>
 <% provide(:page_title, raw(t('views.pages.document_clients.index.html', title: @doc.title))) %>
 
-<%= render 'shared/search_and_new', search_path: staff_department_divisions_search_path,
+<%= render 'shared/search_and_new', search_path: staff_department_division_document_document_clients_search_path,
            new_path: new_staff_department_division_document_document_client_path(@dept,@div,@doc), new_link: 'document_clients.new' %>
 
   <%= form_tag import_staff_department_division_document_document_clients_path, multipart: true do %>

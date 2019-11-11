@@ -1,5 +1,5 @@
 class Staff::DocumentsController < Staff::BaseController
-  before_action :set_document, only: [:edit, :update, :destroy]
+  before_action :set_document, only: [:edit, :update, :destroy, :request_signature, :sign]
   before_action :set_division
   before_action :load_users, only: [:new, :create, :edit, :update]
   before_action :permission
@@ -54,6 +54,35 @@ class Staff::DocumentsController < Staff::BaseController
     redirect_to staff_department_division_documents_path(@document.division.department,
                                                          @document.division)
   end
+
+  def request_signature
+    if !@document.request_signature?
+      flash[:success] = 'Sucesso solicitação de assinatura'
+      @document.request_signature = true
+      @document.save
+    else
+      # flash[:alert] = I18n.t('flash.actions.request_signature.signature')
+      flash[:alert] = 'Já possui assinatura'
+    end
+    redirect_to staff_department_division_documents_path(@document.division.department,
+                                                         @document.division)
+  end
+
+  def auth
+    @user = User.auth(params[:document][:login], params[:document][:password])
+    if current_user == @user
+      @user_documents = DocumentUser.find_by(document_id: params[:id], user_id: @user)
+      @user_documents.signature_datetime = Time.zone.now
+      DocumentUser.toggle_subscription(@user_documents)
+      flash[:success] = t('views.pages.sign.sucess')
+      redirect_to staff_root_path
+    else
+      flash[:alert] = I18n.t('views.pages.sign.erro')
+      render :sign
+    end
+  end
+
+  def sign; end
 
   private
 

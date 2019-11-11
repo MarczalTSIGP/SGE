@@ -82,7 +82,16 @@ Rails.application.routes.draw do
           resources :document_clients, constraints: { id: /[0-9]+/ } do
             collection { post :import }
           end
+          get 'document_clients/search/(:term)/(page/:page)',
+              to: 'document_clients#index',
+              as: 'document_clients_search',
+              constraints: { term: %r{[^/]+} }
         end
+        put 'documents/request_signature/:id',
+            to: 'documents#request_signature',
+            as: 'put_documents_request_signature'
+        get 'documents/:id/sign/', to: 'documents#sign', as: 'user_documents_sign'
+        post 'documents/:id/sign', to: 'documents#auth', as: 'post_user_documents_sign'
         get 'documents/search/(:term)/(page/:page)',
             to: 'documents#index',
             as: 'documents_search',
