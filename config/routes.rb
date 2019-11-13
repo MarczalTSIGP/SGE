@@ -90,8 +90,6 @@ Rails.application.routes.draw do
         put 'documents/request_signature/:id',
             to: 'documents#request_signature',
             as: 'put_documents_request_signature'
-        get 'documents/:id/sign/', to: 'documents#sign', as: 'user_documents_sign'
-        post 'documents/:id/sign', to: 'documents#auth', as: 'post_user_documents_sign'
         get 'documents/search/(:term)/(page/:page)',
             to: 'documents#index',
             as: 'documents_search',
@@ -103,6 +101,8 @@ Rails.application.routes.draw do
           as: 'divisions_search',
           constraints: { term: %r{[^/]+} }
     end
+    get 'documents/:id/sign/', to: 'documents#sign', as: 'user_documents_sign'
+    post 'documents/:id/sign', to: 'documents#auth', as: 'post_user_documents_sign'
   end
   #========================================
   # Participant area to client
@@ -114,6 +114,7 @@ Rails.application.routes.draw do
   authenticate :client do
     namespace :participants do
       root to: 'home#index'
+      resources :documents, only: [:index, :show]
     end
   end
 end

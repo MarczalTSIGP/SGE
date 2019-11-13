@@ -53,7 +53,7 @@ pt-BR:
         title: 'Título'
         front: 'Frente'
         back: 'Verso'
-        request_assignature: Assinar?
+        request_assignature: Assinado
         signed: Assinado
       document_user:
         user_id: 'Nome'

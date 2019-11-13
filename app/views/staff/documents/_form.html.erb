@@ -25,6 +25,9 @@
 
   <div class='d-flex'>
     <%= link_to t('views.links.back'), staff_department_division_documents_path(@document.division.department, @document.division), class: 'btn btn-secondary' %>
+    <button type="button" class="btn btn-info ml-auto" data-toggle="modal" data-target="#modal_variables">
+      Variáveis
+    </button>
     <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
   </div>
 

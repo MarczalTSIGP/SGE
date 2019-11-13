@@ -32,6 +32,8 @@ summernote_custom = ->
     obj = JSON.parse(val)
     if obj != '{}'
       count = 0
+      obj['cpf'] = 'cpf'
+      console.log(obj)
       $.each obj, (o, value) ->
         gButtons.push generic(value)
         gbtn[value] = gButtons[count]
@@ -39,9 +41,11 @@ summernote_custom = ->
         count++
   $('[data-provider="summernote"]').each ->
     $(this).summernote
-      height: 200
+      height: 500
+      fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24','30', '36', '42', '48','54','60', '64', '82', '150']
       toolbar: toolbarCustom
       buttons: gbtn
+
   $('div').removeClass('card-header').addClass('panel-heading')
 
 $(document).on 'turbolinks:load', ->
@@ -49,7 +53,7 @@ $(document).on 'turbolinks:load', ->
   $('#plus_variable_json').on 'click', ->
     input = "<div id='div_variable_json_" + count + "' class='row'>
       <div class='col'>
-        <div class='form-group string optional document_variable_json'><label class='form-control-label string optional' for='variable_json_0'>Variable json</label><input class='form-control string optional' id='variable_json_" + count + "' type='text' name='document[variable_json]'></div>
+        <div class='form-group string optional document_variable_json'><label class='form-control-label string optional' for='variable_json_0'>Variável</label><input class='form-control string optional' id='variable_json_" + count + "' type='text' name='document[variable_json]'></div>
       </div>
       <div class='col-2 pt-5 mt-1'>
         <a id='remove_variable_json' data='" + count + "' class='remove_variable_json btn btn-secondary'><i class='fe fe-trash'></i></a>

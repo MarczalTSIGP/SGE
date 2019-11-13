@@ -4,7 +4,7 @@
 <div class="card">
   <div class="card-body p-6">
 
-    <%= simple_form_for [:staff, @document.division.department, @document.division, @document], method: :post, url: staff_department_division_post_user_documents_sign_path(@document.division.department, @document.division, @document) do |f| %>
+    <%= simple_form_for [:staff, @document], method: :post, url: staff_post_user_documents_sign_path(@document) do |f| %>
       <h3>Assinar <%= @document.title.titleize %></h3>
       <%= f.input :login, required: false, autofocus: true, label_html: {class: 'form-label'} %>
       <%= f.input :password, required: false, label_html: {class: 'form-label'} %>

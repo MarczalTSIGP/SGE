@@ -1,15 +1,16 @@
 class Staff::DocumentsController < Staff::BaseController
   before_action :set_document, only: [:edit, :update, :destroy, :request_signature, :sign]
-  before_action :set_division
+  before_action :set_division, except: [:sign, :auth]
   before_action :load_users, only: [:new, :create, :edit, :update]
-  before_action :permission
+  before_action :permission, except: [:sign, :auth]
 
   def show
     @document = Document.includes(document_users: :user).find(params[:id])
     respond_to do |format|
       format.html
-      format.csv
-      send_data Document.to_csv(params[:id]), filename: "document-#{@document.title}.csv"
+      format.csv {
+        send_data Document.to_csv(params[:id]), filename: "document-#{@document.title}.csv"
+      }
     end
   end
 

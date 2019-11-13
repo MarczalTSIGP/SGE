@@ -1,8 +1,10 @@
 class DocumentClient < ApplicationRecord
+  include PrettyCPF
   belongs_to :document #, required: true
   belongs_to :client #, required: true
 
   # validates :client_id, uniqueness: { scope: :document_id }
+  validates :cpf, cpf: true
 
   def self.search(search)
     if search
