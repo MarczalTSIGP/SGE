@@ -116,6 +116,6 @@ class Staff::DocumentsController < Staff::BaseController
     params.require(:document).permit(:title, :front, :back, :division_id, :variables,
                                      document_users_attributes: [:id, :user_id,
                                                                  :function,
-                                                                 :destroy])
+                                                                 :_destroy])
   end
 end

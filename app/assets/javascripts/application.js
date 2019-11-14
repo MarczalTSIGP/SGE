@@ -16,6 +16,9 @@
 //--------------------
 //= require config/namespace
 
+// Lib files
+//--------------------
+//= require lib/search_submit
 
 // App files
 //--------------------

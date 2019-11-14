@@ -18,6 +18,7 @@ class Staff::DocumentClientsController < Staff::BaseController
 
   def create
     @document_client = @doc.document_clients.build(params_document_client)
+    @document_client.key_code = SecureRandom.urlsafe_base64(nil, false)
     if @document_client.save
       success_create_message
       redirect_to staff_department_division_document_document_clients_path(@dept.id, @div.id, @doc.id)

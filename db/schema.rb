@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_09_201007) do
+ActiveRecord::Schema.define(version: 2019_11_13_003223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,7 +67,9 @@ ActiveRecord::Schema.define(version: 2019_11_09_201007) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "key_code"
     t.index ["document_id"], name: "index_document_clients_on_document_id"
+    t.index ["key_code"], name: "index_document_clients_on_key_code", unique: true
   end
 
   create_table "document_users", force: :cascade do |t|

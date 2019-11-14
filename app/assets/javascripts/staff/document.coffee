@@ -20,7 +20,7 @@ generic = (val) ->
       click: ->
         context.invoke 'editor.insertText', '{' + val + '}'
     )
-    button.render()
+    return button.render()
 
 gButtons = new Array
 gbtn = new Array
@@ -33,7 +33,6 @@ summernote_custom = ->
     if obj != '{}'
       count = 0
       obj['cpf'] = 'cpf'
-      console.log(obj)
       $.each obj, (o, value) ->
         gButtons.push generic(value)
         gbtn[value] = gButtons[count]
@@ -42,10 +41,10 @@ summernote_custom = ->
   $('[data-provider="summernote"]').each ->
     $(this).summernote
       height: 500
-      fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24','30', '36', '42', '48','54','60', '64', '82', '150']
+      fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24', '30', '36', '42', '48', '54', '60',
+        '64', '82', '150']
       toolbar: toolbarCustom
       buttons: gbtn
-
   $('div').removeClass('card-header').addClass('panel-heading')
 
 $(document).on 'turbolinks:load', ->
@@ -70,6 +69,7 @@ $(document).on 'turbolinks:load', ->
   $('#close_modal').on 'click', ->
     summernote_custom()
 
+
   $('#save_variables').on 'click', ->
     inputs = $('#variables_json').find('input')
     json = '{'
@@ -82,6 +82,7 @@ $(document).on 'turbolinks:load', ->
     json += '}'
     $('#document_variables').val(json)
     summernote_custom()
+
 
   $('#modal_variables').modal()
   val = $('input[id="document_variables"').val()

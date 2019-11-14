@@ -27,7 +27,7 @@ class Participants::DocumentsController < Participants::BaseController
                              model: t('activerecord.models.document.one'))
       redirect_to participants_documents_path
     else
-      render layout: '/layouts/participants/print'
+      render layout: '/layoutsprint'
     end
   end
 end

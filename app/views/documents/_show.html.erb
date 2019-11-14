@@ -15,7 +15,7 @@
         <h5>Universidade Tecnológica Federal do Paraná</h5>
       </div>
       <div class="p-7 pt-0" id="document_description_view">
-        <%= raw(sub_hash_fields(@document, 'front', current_client)) %>
+        <%= raw(sub_hash_fields_document(@document, 'front', @document_client.cpf)) %>
       </div>
 
     </td>
@@ -25,7 +25,7 @@
 </page>
 <page size="A4">
   <div class="px-5 pt-0" id="document_activity_view">
-    <%= raw(sub_hash_fields(@document, 'back', current_client)) %>
+    <%= raw(sub_hash_fields_document(@document, 'back', @document_client.cpf)) %>
   </div>
   <table class="table">
     <tbody>
@@ -45,7 +45,7 @@
   </table>
   <div class="mx-5 my-0 small">
     <p>Código de autenticação:
-            <strong><%= @document.document_clients.find_by(cpf: current_client.cpf).key_code %></strong>
+            <strong><%= @document.document_clients.find_by(cpf: @document_client.cpf).key_code %></strong>
     </p>
         <p>Para conferir a autenticidade do documento acesse: <%= link_to nil, documents_url %></p>
   </div>

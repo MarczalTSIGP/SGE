@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   concern :paginatable do
     get '(page/:page)', action: :index, on: :collection, as: ''
   end
+  resources :documents, only: [:index, :show]
+  get 'documents/search/(:code)',
+      to: 'documents#search',
+      as: 'document_search'
 
   resources :my_resources, concerns: :paginatable
   #========================================
