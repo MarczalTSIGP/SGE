@@ -1,16 +1,4 @@
-toolbarCustom = [
-  ['style', ['style']],
-  ['font', ['bold', 'italic', 'underline', 'clear']],
-  ['fontname', ['fontname']],
-  ['fontsize', ['fontsize']],
-  ['color', ['color']],
-  ['para', ['ul', 'ol', 'paragraph']],
-  ['height', ['height']],
-  ['table', ['table']],
-  ['insert', ['link']],
-  ['view', ['codeview']],
-  ['help', ['help']],
-]
+
 
 generic = (val) ->
   genericButton = (context) ->
@@ -22,11 +10,26 @@ generic = (val) ->
     )
     return button.render()
 
-gButtons = new Array
-gbtn = new Array
+
+
 
 summernote_custom = ->
   val = $('input[id="document_variables"').val()
+  toolbarCustom = [
+    ['style', ['style']],
+    ['font', ['bold', 'italic', 'underline', 'clear']],
+    ['fontname', ['fontname']],
+    ['fontsize', ['fontsize']],
+    ['color', ['color']],
+    ['para', ['ul', 'ol', 'paragraph']],
+    ['height', ['height']],
+    ['table', ['table']],
+    ['insert', ['link']],
+    ['view', ['codeview']],
+    ['help', ['help']],
+  ]
+  gbtn = new Array
+  gButtons = new Array
   if val != undefined
     val = val.replace(/=>/g, ':')
     obj = JSON.parse(val)
@@ -81,8 +84,9 @@ $(document).on 'turbolinks:load', ->
       c++
     json += '}'
     $('#document_variables').val(json)
+    $('[data-provider="summernote"]').each ->
+      $(this).summernote('destroy')
     summernote_custom()
-
 
   $('#modal_variables').modal()
   val = $('input[id="document_variables"').val()
