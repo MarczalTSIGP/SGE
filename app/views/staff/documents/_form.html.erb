@@ -28,6 +28,9 @@
     <button type="button" class="btn btn-info ml-auto" data-toggle="modal" data-target="#modal_variables">
       Variáveis
     </button>
+    <button id="preview-button" type="button" class="btn btn-info ml-auto" data-toggle="modal" >
+      Preview
+    </button>
     <%= f.button :submit, class: 'btn btn-primary ml-auto' %>
   </div>
 
@@ -52,3 +55,27 @@
     </div>
   </div>
 <% end %>
+
+<!-- Modal -->
+<div class="modal fade" id="myModalPreview" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Preview</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12">
+            <%= render 'staff/documents/show', document: @document  %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('helpers.buttons.close') %></button>
+      </div>
+    </div>
+  </div>
+</div>
+
