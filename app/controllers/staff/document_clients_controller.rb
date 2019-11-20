@@ -3,6 +3,7 @@ class Staff::DocumentClientsController < Staff::BaseController
   before_action :set_division
   before_action :set_department
   before_action :set_document_client, only: [:edit, :update, :show, :destroy]
+  before_action :request_signature?, except: [:new, :create]
 
   def index
     @document_clients = DocumentClient.where(document_id: params[:document_id])
@@ -76,5 +77,12 @@ class Staff::DocumentClientsController < Staff::BaseController
 
   def set_document
     @doc = Document.find(params[:document_id])
+  end
+
+  def request_signature?
+    if @doc.request_signature
+      redirect_to staff_department_division_documents_path(@dept, @div)
+      flash[:alert] = 'Já foi solicitado assinatura'
+    end
   end
 end

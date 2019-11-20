@@ -55,6 +55,7 @@ pt-BR:
         back: 'Verso'
         request_assignature: Assinado
         signed: Assinado
+        division_id: Divisão
       document_user:
         user_id: 'Nome'
         function: 'Função'

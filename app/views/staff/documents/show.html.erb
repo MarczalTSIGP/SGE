@@ -8,12 +8,12 @@
 
     <p class="mb-3">
       <span class="text-muted"><%= t('activerecord.attributes.document.front') %>:</span>
-      <%= @document.front %>
+      <%= raw(@document.front) %>
     </p>
 
     <p class="mb-3">
       <span class="text-muted"><%= t('activerecord.attributes.document.back') %>:</span>
-      <%= @document.back %>
+      <%= raw(@document.back) %>
     </p>
 
     <p class="mb-3">
@@ -27,7 +27,19 @@
         <span class="text-muted">Nome:</span>
         <%= du.user.name %>
         <span class="text-muted">Função:</span>
-        <%= du.function%>
+        <%= du.function %>
+      </p>
+    <% end %>
+
+    <h4>Participantes</h4>
+    <% @document.document_clients.each do |dc| %>
+      <p class="mb-3">
+        <span class="text-muted">CPF:</span>
+        <%= dc.cpf %>
+        <% dc.information.each do |k, v| %>
+          <span class="text-muted"><%= k %>:</span>
+          <%= v %>
+        <% end %>
       </p>
     <% end %>
   </div>

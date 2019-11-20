@@ -3,6 +3,7 @@ class Staff::DocumentsController < Staff::BaseController
   before_action :set_division, except: [:sign, :auth]
   before_action :load_users, only: [:new, :create, :edit, :update]
   before_action :permission, except: [:sign, :auth]
+  before_action :request_signature?, except: [:sign, :auth, :show, :index, :new, :create]
 
   def show
     @document = Document.includes(document_users: :user).find(params[:id])
@@ -117,5 +118,13 @@ class Staff::DocumentsController < Staff::BaseController
                                      document_users_attributes: [:id, :user_id,
                                                                  :function,
                                                                  :_destroy])
+  end
+
+  def request_signature?
+    if @document.request_signature
+      redirect_to staff_department_division_documents_path(@div.department,
+                                                           @div)
+      flash[:alert] = 'Já foi solicitado assinatura'
+    end
   end
 end
