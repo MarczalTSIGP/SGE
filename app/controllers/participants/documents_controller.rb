@@ -10,8 +10,7 @@ class Participants::DocumentsController < Participants::BaseController
 
     return unless @documents.empty?
 
-    flash.now[:notice] = t('flash.actions.search.empty.m',
-                           model: t('activerecord.models.document.one'))
+    flash.now[:notice] = t('views.pages.document.search.empty')
   end
 
   def show

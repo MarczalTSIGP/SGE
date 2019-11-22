@@ -79,6 +79,8 @@ pt-BR:
           text: 'Documentos da divisão %{div}'
           html: 'Documentos da divisão <b><i>%{div}</i></b>'
         empty: 'Nenhum documento para assinar'
+        search:
+          empty: 'Nenhum documento encontrado'
       document_clients:
         index:
           text: 'Participantes do Documento %{title}'
