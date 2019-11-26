@@ -9,6 +9,6 @@ class Staff::HomeController < Staff::BaseController
     @user_documents = User.signature(current_user).includes(document: [:document_clients])
     return unless @user_documents.empty?
 
-    flash[:notice] = t('views.pages.sign.empty')
+    flash[:alert] = t('views.pages.sign.empty')
   end
 end

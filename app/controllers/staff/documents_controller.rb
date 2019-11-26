@@ -97,15 +97,15 @@ class Staff::DocumentsController < Staff::BaseController
   end
 
   def permission
-    @divs = current_user.departments.find_by(department_users:
-                                                    { role_id: Role.manager }).divisions
-    @divs += Division.joins(:division_users)
-                     .where(division_users: { user_id: current_user.id })
-
+    @divs = Division.joins(:division_users)
+              .where(division_users: { user_id: current_user.id })
+    divs = current_user.departments.find_by(department_users:
+                                                    { role_id: Role.manager })
+      @divs += divs.divisions if divs.present?
     if @divs.include?(@div)
     else
       flash[:alert] = 'Não possui permissão documento'
-      redirect_to staff_root_path
+      redirect_to staff_divisions_path
     end
   end
 

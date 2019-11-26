@@ -17,7 +17,7 @@ class Staff::DivisionsController < Staff::BaseController
     deps = current_user.departments
                        .find_by(department_users: { role_id: Role.manager })
     @divisions += deps.divisions if deps.present?
-    @divisions.uniq!(&:id)
+    @divisions.uniq(&:id)
   end
 
   def show; end
