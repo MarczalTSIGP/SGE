@@ -10,6 +10,16 @@
       </span>
 
     <div class="d-flex order-lg-2 ml-auto mr-1">
+      <% if current_user.try(:admin) %>
+        <div class="nav-item d-none d-md-flex">
+        <% if current_page?('/staff') %>
+          <%= link_to 'Trocar para Administrador', admin_root_path, class: 'btn btn-sm btn-outline-primary' %>
+        <% else %>
+          <%= link_to 'Trocar para Servidor', staff_root_path, class: 'btn btn-sm btn-outline-primary'%>
+        <% end %>
+        </div>
+      <% end %>
+      
       <div class="dropdown">
         <a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
             <span class="avatar">
@@ -32,10 +42,10 @@
           </div>
         <% elsif current_client.present? %>
           <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-            <%= link_to send("edit_#{current_user.class.name.underscore.downcase}_registration_path"), class: 'dropdown-item' do %>
+            <%= link_to send("edit_#{current_client.class.name.underscore.downcase}_registration_path"), class: 'dropdown-item' do %>
               <i class="dropdown-icon fe fe-user"></i> <%= t('devise.sessions.profile') %>
             <% end %>
-            <%= link_to send("destroy_#{current_user.class.name.underscore.downcase}_session_path"), method: :delete, class: 'dropdown-item' do %>
+            <%= link_to send("destroy_#{current_client.class.name.underscore.downcase}_session_path"), method: :delete, class: 'dropdown-item' do %>
               <i class="dropdown-icon fe fe-log-out"></i> <%= t('devise.sessions.sign_out') %>
             <% end %>
           </div>
