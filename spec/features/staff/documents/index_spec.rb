@@ -25,7 +25,7 @@ describe 'Staff::Documents::index', type: :feature do
           expect(page).to have_link(href: staff_department_division_document_path(department,
                                                                                   division,
                                                                                   document),
-                                    count: 2)
+                                    count: 1)
           expect(page).to have_link(href: edit_staff_department_division_document_path(department,
                                                                                        division,
                                                                                        document))

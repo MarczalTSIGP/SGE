@@ -27,4 +27,16 @@ RSpec.describe ApplicationHelper, type: :helper do
       expect(helper.bootstrap_class_for('danger')).to eql('danger')
     end
   end
+
+  describe '#sub_hash_fields_document' do
+    let!(:document_client) { create(:document_clients) }
+
+    it do
+      doc = sub_hash_fields_document(document_client.document,
+                                     'front',
+                                     document_client.cpf)
+
+      expect(doc).to eql("MyString " + document_client.information['name'])
+    end
+  end
 end

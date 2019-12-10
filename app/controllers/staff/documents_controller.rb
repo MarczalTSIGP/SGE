@@ -1,5 +1,5 @@
 class Staff::DocumentsController < Staff::BaseController
-  before_action :set_document, only: [:edit, :update, :destroy, :request_signature, :sign]
+  before_action :set_document, only: [:edit, :update, :destroy, :request_signature, :sign, :auth]
   before_action :set_division, except: [:sign, :auth]
   before_action :load_users, only: [:new, :create, :edit, :update]
   before_action :permission, except: [:sign, :auth]
@@ -17,9 +17,9 @@ class Staff::DocumentsController < Staff::BaseController
 
   def index
     @documents = Document.includes(:division)
-                         .where(division_id: params[:division_id])
-                         .page(params[:page])
-                         .search(params[:term])
+                   .where(division_id: params[:division_id])
+                   .page(params[:page])
+                   .search(params[:term])
   end
 
   def new
@@ -58,14 +58,9 @@ class Staff::DocumentsController < Staff::BaseController
   end
 
   def request_signature
-    if !@document.request_signature?
-      flash[:success] = 'Sucesso solicitação de assinatura'
-      @document.request_signature = true
-      @document.save
-    else
-      # flash[:alert] = I18n.t('flash.actions.request_signature.signature')
-      flash[:alert] = 'Já possui assinatura'
-    end
+    flash[:success] = 'Sucesso solicitação de assinatura'
+    @document.request_signature = true
+    @document.save
     redirect_to staff_department_division_documents_path(@document.division.department,
                                                          @document.division)
   end
@@ -76,10 +71,10 @@ class Staff::DocumentsController < Staff::BaseController
       @user_documents = DocumentUser.find_by(document_id: params[:id], user_id: @user)
       @user_documents.signature_datetime = Time.zone.now
       DocumentUser.toggle_subscription(@user_documents)
-      flash[:success] = t('views.pages.sign.sucess')
+      flash[:success] = t('views.pages.sign.success')
       redirect_to staff_root_path
     else
-      flash[:alert] = I18n.t('views.pages.sign.erro')
+      flash[:alert] = I18n.t('views.pages.sign.error')
       render :sign
     end
   end
@@ -100,8 +95,8 @@ class Staff::DocumentsController < Staff::BaseController
     @divs = Division.joins(:division_users)
               .where(division_users: { user_id: current_user.id })
     divs = current_user.departments.find_by(department_users:
-                                                    { role_id: Role.manager })
-      @divs += divs.divisions if divs.present?
+                                              { role_id: Role.manager })
+    @divs += divs.divisions if divs.present?
     if @divs.include?(@div)
     else
       flash[:alert] = 'Não possui permissão documento'

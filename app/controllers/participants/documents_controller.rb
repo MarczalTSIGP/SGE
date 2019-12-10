@@ -22,8 +22,7 @@ class Participants::DocumentsController < Participants::BaseController
                                  document_users: { subscription: true })
 
     if @document.nil?
-      flash.now[:notice] = t('flash.actions.search.empty.m',
-                             model: t('activerecord.models.document.one'))
+      flash[:notice] = 'Não foi encontrado documento'
       redirect_to participants_documents_path
     else
       render layout: '/layouts/print'

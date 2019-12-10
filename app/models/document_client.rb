@@ -3,7 +3,7 @@ class DocumentClient < ApplicationRecord
   belongs_to :document #, required: true
   belongs_to :client #, required: true
 
-  # validates :client_id, uniqueness: { scope: :document_id }
+  validates :cpf, presence:  true
   validates :cpf, cpf: true
 
   def self.search(search)
@@ -25,8 +25,7 @@ class DocumentClient < ApplicationRecord
       information_fields = information_fields.without('cpf')
       document.document_clients.create(document_id: document.id, cpf: cpf,
                                        information: information_fields,
-                                       key_code:  SecureRandom.urlsafe_base64(nil,
-                                                                              false))
+                                       key_code:  SecureRandom.urlsafe_base64(nil, false))
 
     end
   end

@@ -46,7 +46,7 @@ describe 'Staff::Documents::show', type: :feature do
   context 'when not permission' do
     it do
       visit staff_department_division_document_path(division2.department, division2, document_diff)
-      expect(page).to have_current_path staff_root_path
+      expect(page).to have_current_path staff_divisions_path
       expect(page).to have_flash(:warning, text: 'Não possui permissão documento')
     end
   end

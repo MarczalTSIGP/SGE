@@ -61,8 +61,8 @@ pt-BR:
       server: Servidores
     pages:
       sign:
-        sucess: 'Documento assinado com sucesso'
-        erro:  'Erro na assinatura do documento'
+        success: 'Documento assinado com sucesso'
+        error:  'Erro na assinatura do documento'
         empty: 'Não foi encontrado documento para assinar'
       show: 'Visualizar %{resource}'
       edit: 'Editar %{resource}'

@@ -61,4 +61,14 @@ RSpec.describe Document, type: :model do
       end
     end
   end
+
+  describe '#to_csv' do
+    let(:document) { create(:document) }
+    let(:header) { 'cpf,name' }
+
+    it 'generated' do
+      csv = Document.to_csv(document.id)
+      expect(csv.delete("\n")).to eq(header)
+    end
+  end
 end
