@@ -7,7 +7,7 @@ describe 'Staff::DocumentClients::create', type: :feature do
   let!(:manager) { create(:role, :manager) }
   let!(:division) { create(:division, department_id: department.id) }
   let!(:document) { create(:document, title: 'title', division: division) }
-  let!(:doc_user) { create(:document_users, document: document, user: staff) }
+  let(:doc_user) { create(:document_users, document: document, user: staff) }
 
   before(:each) do
     create(:department_users,
@@ -29,9 +29,10 @@ describe 'Staff::DocumentClients::create', type: :feature do
       submit_form
 
       expect(page).to have_current_path staff_department_division_document_document_clients_path(
-                                          department,
-                                          division,
-                                          document)
+        department,
+        division,
+        document
+      )
       expect(page).to have_flash(:success, text: flash_msg('create.m'))
 
       within('table tbody') do
@@ -47,7 +48,6 @@ describe 'Staff::DocumentClients::create', type: :feature do
       expect(page).to have_flash(:danger, text: flash_errors_msg)
 
       expect(page).to have_message(sf_blank_error_msg, in: 'div.document_client_cpf')
-
     end
   end
 end

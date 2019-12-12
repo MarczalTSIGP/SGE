@@ -7,7 +7,7 @@ describe 'Staff::DocumentClients::index', type: :feature do
   let!(:division) { create(:division, department_id: department.id) }
   let!(:document) { create(:document, title: 'title', division: division) }
   let!(:document2) { create(:document, :request_signature) }
-  let!(:doc_user) { create(:document_users, document: document, user: staff) }
+  let(:doc_user) { create(:document_users, document: document, user: staff) }
   let!(:doc_clients) { create_list(:document_clients, 3, document: document) }
 
   before(:each) do
@@ -18,7 +18,6 @@ describe 'Staff::DocumentClients::index', type: :feature do
     login_as(staff, scope: :user)
     visit staff_department_division_document_document_clients_path(department, division, document)
   end
-
 
   context 'with data' do
     it 'showed' do
@@ -31,12 +30,13 @@ describe 'Staff::DocumentClients::index', type: :feature do
 
           expect(page).to have_link(href:
                                       staff_department_division_document_document_client_path(
-                                        department, division, document, doc_client),
+                                        department, division, document, doc_client
+                                      ),
                                     count: 2)
           expect(page).to have_link(href:
                                       edit_staff_department_division_document_document_client_path(
-                                        department, division, document, doc_client))
-
+                                        department, division, document, doc_client
+                                      ))
         end
       end
     end
@@ -47,9 +47,10 @@ describe 'Staff::DocumentClients::index', type: :feature do
                                                                      document2)
       expect(page).to have_current_path(staff_department_division_documents_path(
                                           department,
-                                          division))
-      expect(page).to have_flash(:warning, text: 'Já foi solicitado assinatura')
+                                          division
+                                        ))
+      expect(page).to have_flash(:warning,
+                                 text: I18n.t('views.pages.document.request_signature.true'))
     end
   end
 end
-

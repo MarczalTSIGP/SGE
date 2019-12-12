@@ -15,7 +15,7 @@ describe 'Staff::Documents::sign', type: :feature do
            user_id: staff.id,
            role_id: manager.id)
     login_as(staff, scope: :user)
-    visit staff_user_documents_sign_path(document)
+    visit staff_user_documents_sign_path(doc_user.document)
   end
 
   describe '#sign' do

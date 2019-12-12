@@ -14,7 +14,7 @@ class Staff::DocumentClientsController < Staff::BaseController
   def new
     @document_client = @doc.document_clients.build
     @document_client.information = ActiveSupport::JSON.decode @doc.variables
-    @document_client.information = @document_client.information.map { |k, v| v }
+    @document_client.information = @document_client.information.map { |_k, v| v }
   end
 
   def create
@@ -22,7 +22,8 @@ class Staff::DocumentClientsController < Staff::BaseController
     @document_client.key_code = SecureRandom.urlsafe_base64(nil, false)
     if @document_client.save
       success_create_message
-      redirect_to staff_department_division_document_document_clients_path(@dept.id, @div.id, @doc.id)
+      redirect_to staff_department_division_document_document_clients_path(@dept.id, @div.id,
+                                                                           @doc.id)
     else
       error_message
       render :new
@@ -34,7 +35,9 @@ class Staff::DocumentClientsController < Staff::BaseController
   def update
     if @document_client.update(params_document_client)
       success_update_message
-      redirect_to staff_department_division_document_document_clients_path(@dept.id, @div.id, @doc.id)
+      redirect_to staff_department_division_document_document_clients_path(@dept.id,
+                                                                           @div.id,
+                                                                           @doc.id)
     else
       error_message
       render :edit
@@ -80,9 +83,7 @@ class Staff::DocumentClientsController < Staff::BaseController
   end
 
   def request_signature?
-    if @doc.request_signature
-      redirect_to staff_department_division_documents_path(@dept, @div)
-      flash[:alert] = 'Já foi solicitado assinatura'
-    end
+    redirect_to staff_department_division_documents_path(@dept, @div) if @doc.request_signature
+    flash[:alert] = t('views.pages.document.request_signature.true')
   end
 end

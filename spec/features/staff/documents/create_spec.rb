@@ -66,4 +66,3 @@ describe 'Staff::Documents::create', type: :feature do
     end
   end
 end
-

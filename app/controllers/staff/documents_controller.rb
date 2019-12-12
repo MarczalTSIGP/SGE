@@ -9,17 +9,17 @@ class Staff::DocumentsController < Staff::BaseController
     @document = Document.includes(document_users: :user).find(params[:id])
     respond_to do |format|
       format.html
-      format.csv {
+      format.csv do
         send_data Document.to_csv(params[:id]), filename: "document-#{@document.title}.csv"
-      }
+      end
     end
   end
 
   def index
     @documents = Document.includes(:division)
-                   .where(division_id: params[:division_id])
-                   .page(params[:page])
-                   .search(params[:term])
+                         .where(division_id: params[:division_id])
+                         .page(params[:page])
+                         .search(params[:term])
   end
 
   def new
@@ -58,7 +58,7 @@ class Staff::DocumentsController < Staff::BaseController
   end
 
   def request_signature
-    flash[:success] = 'Sucesso solicitação de assinatura'
+    flash[:success] = t('views.pages.document.request_signature.success')
     @document.request_signature = true
     @document.save
     redirect_to staff_department_division_documents_path(@document.division.department,
@@ -69,7 +69,6 @@ class Staff::DocumentsController < Staff::BaseController
     @user = User.auth(params[:document][:login], params[:document][:password])
     if current_user == @user
       @user_documents = DocumentUser.find_by(document_id: params[:id], user_id: @user)
-      @user_documents.signature_datetime = Time.zone.now
       DocumentUser.toggle_subscription(@user_documents)
       flash[:success] = t('views.pages.sign.success')
       redirect_to staff_root_path
@@ -93,13 +92,13 @@ class Staff::DocumentsController < Staff::BaseController
 
   def permission
     @divs = Division.joins(:division_users)
-              .where(division_users: { user_id: current_user.id })
+                    .where(division_users: { user_id: current_user.id })
     divs = current_user.departments.find_by(department_users:
                                               { role_id: Role.manager })
     @divs += divs.divisions if divs.present?
     if @divs.include?(@div)
     else
-      flash[:alert] = 'Não possui permissão documento'
+      flash[:alert] = t('views.pages.permission.not')
       redirect_to staff_divisions_path
     end
   end
@@ -116,10 +115,8 @@ class Staff::DocumentsController < Staff::BaseController
   end
 
   def request_signature?
-    if @document.request_signature
-      redirect_to staff_department_division_documents_path(@div.department,
-                                                           @div)
-      flash[:alert] = 'Já foi solicitado assinatura'
-    end
+    validation = @document.request_signature
+    redirect_to staff_department_division_documents_path(@div.department, @div) if validation
+    flash[:alert] = t('views.pages.document.request_signature.true')
   end
 end

@@ -7,7 +7,7 @@ describe 'Staff::DocumentClients::destroy', type: :feature do
   let!(:manager) { create(:role, :manager) }
   let!(:division) { create(:division, department_id: department.id) }
   let!(:document) { create(:document, title: 'title', division: division) }
-  let!(:doc_user) { create(:document_users, document: document, user: staff) }
+  let(:doc_user) { create(:document_users, document: document, user: staff) }
   let!(:doc_client) { create(:document_clients, document: document) }
 
   before(:each) do
@@ -25,15 +25,16 @@ describe 'Staff::DocumentClients::destroy', type: :feature do
                                                                        division,
                                                                        document)
         click_on_link(staff_department_division_document_document_client_path(department,
-                                                              division,
-                                                              document,
-                                                              doc_client),
+                                                                              division,
+                                                                              document,
+                                                                              doc_client),
                       method: :delete)
 
         expect(page).to have_current_path(staff_department_division_document_document_clients_path(
                                             department,
                                             division,
-                                            document))
+                                            document
+                                          ))
         expect(page).to have_flash(:success, text: flash_msg('destroy.m'))
         within('table tbody') do
           expect(page).not_to have_content(doc_client.cpf)

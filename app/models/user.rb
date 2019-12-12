@@ -28,7 +28,6 @@ class User < ApplicationRecord
                                         subscription: false,
                                         documents:
                                           { request_signature: true })
-                # .includes(document: [:document_clients, :division, division: :department])
   end
 
   def self.auth(username, password)

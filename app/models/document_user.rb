@@ -9,6 +9,7 @@ class DocumentUser < ApplicationRecord
 
   def self.toggle_subscription(user)
     user.subscription = true
+    user.signature_datetime = Time.zone.now
     user.save
   end
 end

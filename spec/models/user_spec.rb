@@ -189,7 +189,7 @@ RSpec.describe User, type: :model do
 
     it 'invalid' do
       response = User.auth(user.username, '123')
-      expect(user).to_not eql(response)
+      expect(user).not_to eql(response)
     end
   end
 end

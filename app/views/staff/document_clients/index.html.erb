@@ -2,20 +2,20 @@
 <% provide(:page_title, raw(t('views.pages.document_clients.index.html', title: @doc.title))) %>
 
 <%= render 'shared/search_and_new', search_path: staff_department_division_document_document_clients_search_path,
-           new_path: new_staff_department_division_document_document_client_path(@dept,@div,@doc), new_link: 'document_clients.new' %>
+           new_path: new_staff_department_division_document_document_client_path(@dept, @div, @doc), new_link: 'document_clients.new' %>
 
-  <%= form_tag import_staff_department_division_document_document_clients_path, multipart: true do %>
+<%= form_tag import_staff_department_division_document_document_clients_path, multipart: true do %>
 
-    <div class="custom-file">
-      <%= file_field_tag :csv, class: 'custom-file-input' %>
-      <label id="label-file" class="custom-file-label">Selecionar Arquivo</label>
-    </div>
+  <div class="custom-file">
+    <%= file_field_tag :csv, class: 'custom-file-input' %>
+    <label id="label-file" class="custom-file-label">Selecionar Arquivo</label>
+  </div>
 
-    <div class="text-right">
-      <%= submit_tag "Importar CSV", class: 'btn btn-info my-2' %>
-    </div>
+  <div class="text-right">
+    <%= submit_tag "Importar CSV", class: 'btn btn-info my-2' %>
+  </div>
 
-  <% end %>
+<% end %>
 
 
 <div class="text-right mt-2 mb-1">
@@ -38,3 +38,6 @@
 </div>
 
 <%= paginate @document_clients %>
+<div class='d-flex pl-4 pt-5'>
+  <%= link_to t('views.links.back'), staff_department_division_documents_path(@dept, @div, @doc), class: 'btn btn-secondary' %>
+</div>

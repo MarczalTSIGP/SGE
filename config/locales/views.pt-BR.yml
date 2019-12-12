@@ -7,7 +7,7 @@ pt-BR:
       'false': Não
       user:
         'true': Ativo
-        'false': Desativo
+        'false': Desativado
     names:
       admin:
         singular: Administrador
@@ -60,6 +60,8 @@ pt-BR:
       home: Página Inicial
       server: Servidores
     pages:
+      permission:
+        not: 'Não possui permissão'
       sign:
         success: 'Documento assinado com sucesso'
         error:  'Erro na assinatura do documento'
@@ -72,6 +74,9 @@ pt-BR:
           text: 'Gerenciar Membros do Departamento %{dept}'
           html: 'Gerenciar Membros do Departamento <b><i>%{dept}</i></b>'
       document:
+        request_signature:
+          success: 'Sucesso solicitação de assinatura'
+          true: 'Já foi solicitado assinatura'
         new:
           text: 'Novo Documento para o Divisão %{div}'
           html: 'Novo Documento para o Divisão <b><i>%{div}</i></b>'

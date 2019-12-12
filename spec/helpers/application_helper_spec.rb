@@ -36,7 +36,7 @@ RSpec.describe ApplicationHelper, type: :helper do
                                      'front',
                                      document_client.cpf)
 
-      expect(doc).to eql("MyString " + document_client.information['name'])
+      expect(doc).to eql('MyString ' + document_client.information['name'])
     end
   end
 end

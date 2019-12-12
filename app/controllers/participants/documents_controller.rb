@@ -1,12 +1,11 @@
 class Participants::DocumentsController < Participants::BaseController
-
   def index
     @documents = Document.joins(:document_clients, :document_users)
                          .where(request_signature: true,
-                          document_clients: { cpf: current_client.cpf }).group(:id)
+                                document_clients: { cpf: current_client.cpf }).group(:id)
                          .where.not(id: DocumentUser.where(subscription: false)
                                     .pluck(:'document_users.document_id'))
-                          .page(params[:page]).per(10)
+                         .page(params[:page]).per(10)
 
     return unless @documents.empty?
 
@@ -16,11 +15,9 @@ class Participants::DocumentsController < Participants::BaseController
   def show
     @document = Document.includes(document_users: :user)
                         .joins(:document_clients, :document_users)
-                        .find_by(id: params[:id],
-                                 request_signature: true,
+                        .find_by(id: params[:id], request_signature: true,
                                  document_clients: { cpf: current_client.cpf },
                                  document_users: { subscription: true })
-
     if @document.nil?
       flash[:notice] = 'Não foi encontrado documento'
       redirect_to participants_documents_path

@@ -13,7 +13,6 @@ module Admin::UsersHelper
     link_to path, method: :put,
                   title: t("views.links.#{status}"),
                   data: { toggle: 'tooltip' } do
-
       content_tag(:i, '', class: "fas fa-#{icon} icon")
     end
   end

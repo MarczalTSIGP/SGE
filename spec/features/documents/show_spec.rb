@@ -15,10 +15,8 @@ describe 'Documents::show', type: :feature do
 
       expect(page).to have_content('MyString ' + doc_client.information['name'])
       expect(page).to have_content(document.back)
-      document.document_users.each do |ds|
-        # expect(page).to have_content(ds.function)
-        expect(page).to have_content(ds.user.name)
-      end
+
+      expect(page).to have_content(doc_user.user.name)
     end
   end
 end

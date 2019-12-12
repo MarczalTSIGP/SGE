@@ -1,9 +1,9 @@
 class DocumentClient < ApplicationRecord
   include PrettyCPF
-  belongs_to :document #, required: true
-  belongs_to :client #, required: true
+  belongs_to :document
+  belongs_to :client
 
-  validates :cpf, presence:  true
+  validates :cpf, presence: true
   validates :cpf, cpf: true
 
   def self.search(search)
@@ -25,10 +25,7 @@ class DocumentClient < ApplicationRecord
       information_fields = information_fields.without('cpf')
       document.document_clients.create(document_id: document.id, cpf: cpf,
                                        information: information_fields,
-                                       key_code:  SecureRandom.urlsafe_base64(nil, false))
-
+                                       key_code: SecureRandom.urlsafe_base64(nil, false))
     end
   end
 end
-
-

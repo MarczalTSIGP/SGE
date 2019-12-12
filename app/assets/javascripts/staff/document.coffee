@@ -1,5 +1,3 @@
-
-
 generic = (val) ->
   genericButton = (context) ->
     ui = $.summernote.ui
@@ -9,9 +7,6 @@ generic = (val) ->
         context.invoke 'editor.insertText', '{' + val + '}'
     )
     return button.render()
-
-
-
 
 summernote_custom = ->
   val = $('input[id="document_variables"').val()
@@ -69,9 +64,6 @@ $(document).on 'turbolinks:load', ->
     $(this).parent().parent().remove()
     return
 
-  $('#close_modal').on 'click', ->
-    summernote_custom()
-
 
   $('#save_variables').on 'click', ->
     inputs = $('#variables_json').find('input')
@@ -89,6 +81,7 @@ $(document).on 'turbolinks:load', ->
     summernote_custom()
 
   $('#modal_variables').modal()
+  $('#plus_variable_json').trigger('click')
   val = $('input[id="document_variables"').val()
   if val != undefined
     val = val.replace(/=>/g, ':')
