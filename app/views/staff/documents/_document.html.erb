@@ -1,7 +1,17 @@
 <tr>
   <td><%= document.title %></td>
+  <td><%= t("views.boolean.#{document.request_signature?}") %></td>
   <td>
-    <%= link_to staff_department_division_document_path(document.division.department_id, document.division, document) do %>
+    <%= link_to staff_department_division_put_documents_request_signature_path(document.division.department_id, document.division, document),method: :put, data: { confirm: t('views.prompt.confirm') } do %>
+      <%= icon('fas', 'signature', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.document.request_signature')) %>
+    <% end %>
+    <%= link_to staff_department_division_document_document_clients_path(document.division.department_id, document.division, document) do %>
+      <%= icon('fas', 'user', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.document.document_clients')) %>
+    <% end %>
+    <%= link_to staff_department_division_document_path(document.division.department_id, document.division, document, format: "csv") do %>
+      <%= icon('fas', 'download', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.download.csv')) %>
+    <% end %>
+    <%= link_to staff_department_division_document_path(document.division.department_id, document.division, document, format: 'html') do %>
       <%= icon('fas', 'search', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.show')) %>
     <% end %>
     <%= link_to edit_staff_department_division_document_path(document.division.department_id, document.division, document) do %>

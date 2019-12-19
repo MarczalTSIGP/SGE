@@ -17,6 +17,7 @@ class Staff::DivisionsController < Staff::BaseController
     deps = current_user.departments
                        .find_by(department_users: { role_id: Role.manager })
     @divisions += deps.divisions if deps.present?
+    @divisions.uniq!(&:id)
   end
 
   def show; end
@@ -108,7 +109,7 @@ class Staff::DivisionsController < Staff::BaseController
   def department_permission
     if Division.permission(current_user, params[:department_id], params_keys)
     else
-      flash[:alert] = 'Não possui permissão'
+      flash[:alert] = t('views.pages.permission.not')
       redirect_to staff_root_path
     end
   end

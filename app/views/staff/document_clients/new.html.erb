@@ -1,0 +1,4 @@
+<% provide(:head_title, t('views.pages.document_clients.new.text', title: @doc.title)) %>
+<% provide(:page_title, raw(t('views.pages.document_clients.new.html', title: @doc.title))) %>
+
+<%= render 'staff/document_clients/form' %>

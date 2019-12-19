@@ -5,7 +5,7 @@ class Department < ApplicationRecord
   validates :local, presence: true
   validates :phone, presence: true, length: { minimum: 10, maximum: 14 }
   validates :initials, presence: true, length: { minimum: 3, maximum: 8 }, uniqueness: true
-  VALID_EMAIL_REGEX = /\A[A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*$\Z/
+  VALID_EMAIL_REGEX = /\A[A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*$\Z/.freeze
   validates :email,
             presence: true,
             uniqueness: true,

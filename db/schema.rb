@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_30_120514) do
+ActiveRecord::Schema.define(version: 2019_11_22_170003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,12 +60,26 @@ ActiveRecord::Schema.define(version: 2019_10_30_120514) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "document_clients", force: :cascade do |t|
+    t.bigint "document_id"
+    t.json "information", default: {}, null: false
+    t.string "cpf"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "key_code"
+    t.index ["document_id"], name: "index_document_clients_on_document_id"
+    t.index ["key_code"], name: "index_document_clients_on_key_code", unique: true
+  end
+
   create_table "document_users", force: :cascade do |t|
     t.bigint "document_id"
     t.bigint "user_id"
     t.string "function"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "subscription", default: false
+    t.datetime "signature_datetime"
     t.index ["document_id", "user_id"], name: "index_document_users_on_document_id_and_user_id", unique: true
     t.index ["document_id"], name: "index_document_users_on_document_id"
     t.index ["user_id"], name: "index_document_users_on_user_id"
@@ -78,6 +92,8 @@ ActiveRecord::Schema.define(version: 2019_10_30_120514) do
     t.bigint "division_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "variables", default: {}, null: false
+    t.boolean "request_signature", default: false
     t.index ["division_id"], name: "index_documents_on_division_id"
   end
 
@@ -118,6 +134,7 @@ ActiveRecord::Schema.define(version: 2019_10_30_120514) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "document_clients", "documents"
   add_foreign_key "document_users", "documents"
   add_foreign_key "document_users", "users"
   add_foreign_key "documents", "divisions"

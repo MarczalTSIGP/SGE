@@ -1,0 +1,14 @@
+<% provide(:head_title, t('activerecord.models.document.other')) %>
+<% provide(:page_title, t('activerecord.models.document.other')) %>
+<h5>Verificar autenticidade </h5>
+<div class="input-group mb-3">
+  <div class="input-group">
+    <%= text_field_tag :search, params[:code],
+                       data: { url: document_search_path },
+                       class: 'form-control enter-to-submit-search',
+                       placeholder: 'Informar código' %>
+    <span class="input-group-append">
+          <button class="btn btn-outline-info submit-search" type="button"><i class="fe fe-search"></i></button>
+        </span>
+  </div>
+</div>

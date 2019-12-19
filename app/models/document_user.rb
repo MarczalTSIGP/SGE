@@ -6,4 +6,10 @@ class DocumentUser < ApplicationRecord
 
   validates :user, uniqueness: { scope: :document }
   validates :function, :user_id, presence: true
+
+  def self.toggle_subscription(user)
+    user.subscription = true
+    user.signature_datetime = Time.zone.now
+    user.save
+  end
 end

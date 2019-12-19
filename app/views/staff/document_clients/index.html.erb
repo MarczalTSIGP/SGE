@@ -1,0 +1,43 @@
+<% provide(:head_title, t('views.pages.document_clients.index.text', title: @doc.title)) %>
+<% provide(:page_title, raw(t('views.pages.document_clients.index.html', title: @doc.title))) %>
+
+<%= render 'shared/search_and_new', search_path: staff_department_division_document_document_clients_search_path,
+           new_path: new_staff_department_division_document_document_client_path(@dept, @div, @doc), new_link: 'document_clients.new' %>
+
+<%= form_tag import_staff_department_division_document_document_clients_path, multipart: true do %>
+
+  <div class="custom-file">
+    <%= file_field_tag :csv, class: 'custom-file-input' %>
+    <label id="label-file" class="custom-file-label">Selecionar Arquivo</label>
+  </div>
+
+  <div class="text-right">
+    <%= submit_tag "Importar CSV", class: 'btn btn-info my-2' %>
+  </div>
+
+<% end %>
+
+
+<div class="text-right mt-2 mb-1">
+  <%= page_entries_info @document_clients %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-data card-table table-vcenter">
+    <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.client.cpf') %></th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <%= render @document_clients %>
+    </tbody>
+  </table>
+</div>
+
+<%= paginate @document_clients %>
+<div class='d-flex pl-4 pt-5'>
+  <%= link_to t('views.links.back'), staff_department_division_documents_path(@dept, @div, @doc), class: 'btn btn-secondary' %>
+</div>

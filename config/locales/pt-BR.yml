@@ -20,6 +20,9 @@ pt-BR:
       client:
         one: 'Cliente'
         other: 'Clientes'
+      document_client:
+        one: 'Participante'
+        other: 'Participantes'
       department_users:
         one: 'Membro'
         other: 'Membros'
@@ -50,6 +53,9 @@ pt-BR:
         title: 'Título'
         front: 'Frente'
         back: 'Verso'
+        request_assignature: Assinado
+        signed: Assinado
+        division_id: Divisão
       document_user:
         user_id: 'Nome'
         function: 'Função'
@@ -71,6 +77,7 @@ pt-BR:
         role: Função
       division:
         <<: *commons
+        name: 'Nome'
         resposable_id: 'Responsavel'
         kind: 'Módulo'
       division_user:

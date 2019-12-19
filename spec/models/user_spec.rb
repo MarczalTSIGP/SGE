@@ -178,4 +178,18 @@ RSpec.describe User, type: :model do
       expect(user.cpf).to eql('11598829084')
     end
   end
+
+  describe '#auth' do
+    let!(:user) { create(:user) }
+
+    it 'valid' do
+      response = User.auth(user.username, '123456')
+      expect(user).to eql(response)
+    end
+
+    it 'invalid' do
+      response = User.auth(user.username, '123')
+      expect(user).not_to eql(response)
+    end
+  end
 end

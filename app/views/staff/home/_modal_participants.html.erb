@@ -1,0 +1,21 @@
+<div class="modal fade" id="<%= udd.document.title.titleize.delete(' ') %>" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><%= t('activerecord.models.client.other') %></h5>
+      </div>
+      <div class="modal-body">
+        <% udd.document.document_clients.each do |c| %>
+          <% c.information.each do |k, v| %>
+            <%= k + ': ' + v %>
+          <% end %>
+          <hr>
+        <% end %>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= t('helpers.buttons.close') %></button>
+      </div>
+    </div>
+  </div>
+</div>

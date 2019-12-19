@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   concern :paginatable do
     get '(page/:page)', action: :index, on: :collection, as: ''
   end
+  resources :documents, only: [:index, :show]
+  get 'documents/search/(:code)',
+      to: 'documents#search',
+      as: 'document_search'
 
   resources :my_resources, concerns: :paginatable
   #========================================
@@ -78,7 +82,18 @@ Rails.application.routes.draw do
         post '/members' => 'divisions#add_member'
         delete '/members/:user_id' => 'divisions#remove_member', as: 'remove_member'
 
-        resources :documents, constraints: { id: /[0-9]+/ }
+        resources :documents, constraints: { id: /[0-9]+/ } do
+          resources :document_clients, constraints: { id: /[0-9]+/ } do
+            collection { post :import }
+          end
+          get 'document_clients/search/(:term)/(page/:page)',
+              to: 'document_clients#index',
+              as: 'document_clients_search',
+              constraints: { term: %r{[^/]+} }
+        end
+        put 'documents/request_signature/:id',
+            to: 'documents#request_signature',
+            as: 'put_documents_request_signature'
         get 'documents/search/(:term)/(page/:page)',
             to: 'documents#index',
             as: 'documents_search',
@@ -90,6 +105,8 @@ Rails.application.routes.draw do
           as: 'divisions_search',
           constraints: { term: %r{[^/]+} }
     end
+    get 'documents/:id/sign/', to: 'documents#sign', as: 'user_documents_sign'
+    post 'documents/:id/sign', to: 'documents#auth', as: 'post_user_documents_sign'
   end
   #========================================
   # Participant area to client
@@ -101,6 +118,7 @@ Rails.application.routes.draw do
   authenticate :client do
     namespace :participants do
       root to: 'home#index'
+      resources :documents, only: [:index, :show]
     end
   end
 end

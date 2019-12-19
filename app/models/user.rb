@@ -23,6 +23,18 @@ class User < ApplicationRecord
   has_many :document_users, dependent: :destroy
   has_many :documents, through: :document_users
 
+  def self.signature(user)
+    DocumentUser.joins(:document).where(user_id: user,
+                                        subscription: false,
+                                        documents:
+                                          { request_signature: true })
+  end
+
+  def self.auth(username, password)
+    user = User.find_for_authentication(username: username)
+    user if user.present? && user.valid_password?(password)
+  end
+
   def username=(username)
     super
     self.email = (username + '@utfpr.edu.br')

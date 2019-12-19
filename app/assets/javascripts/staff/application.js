@@ -10,6 +10,7 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require cocoon
+//= require summernote/summernote-bs4.min
 
 // Vendors
 //--------------------
@@ -30,5 +31,10 @@
 
 // App files
 //--------------------
-//= require staff/document
 //= require staff/cocoon
+//= require staff/document
+//= require staff/client_document
+//= require staff/preview_document
+
+
+

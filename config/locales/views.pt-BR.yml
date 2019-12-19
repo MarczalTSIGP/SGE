@@ -7,7 +7,7 @@ pt-BR:
       'false': Não
       user:
         'true': Ativo
-        'false': Desativo
+        'false': Desativado
     names:
       admin:
         singular: Administrador
@@ -18,6 +18,9 @@ pt-BR:
       document:
         singular: Documento
         plural: Documentos
+      document_clients:
+        singular: Participante
+        plural: Participantes
       departmment:
         singular: Departamento
         plural: Departamentos
@@ -50,12 +53,19 @@ pt-BR:
     sidebar:
       titles:
         admin: Administrar
+        staff: Servidor
       documents: Documentos
       departments: Departamentos
       divisions: Divisões
       home: Página Inicial
       server: Servidores
     pages:
+      permission:
+        not: 'Não possui permissão'
+      sign:
+        success: 'Documento assinado com sucesso'
+        error:  'Erro na assinatura do documento'
+        empty: 'Não foi encontrado documento para assinar'
       show: 'Visualizar %{resource}'
       edit: 'Editar %{resource}'
       create: 'Criar %{resource}'
@@ -64,12 +74,25 @@ pt-BR:
           text: 'Gerenciar Membros do Departamento %{dept}'
           html: 'Gerenciar Membros do Departamento <b><i>%{dept}</i></b>'
       document:
+        request_signature:
+          success: 'Sucesso solicitação de assinatura'
+          true: 'Já foi solicitado assinatura'
         new:
           text: 'Novo Documento para o Divisão %{div}'
           html: 'Novo Documento para o Divisão <b><i>%{div}</i></b>'
         index:
           text: 'Documentos da divisão %{div}'
           html: 'Documentos da divisão <b><i>%{div}</i></b>'
+        empty: 'Nenhum documento para assinar'
+        search:
+          empty: 'Nenhum documento encontrado'
+      document_clients:
+        index:
+          text: 'Participantes do Documento %{title}'
+          html: 'Participantes do Documento <b><i>%{title}</i></b>'
+        new:
+          text: 'Novo Participante para no Documento %{title}'
+          html: 'Novo Participane para o Documento <b><i>%{title}</i></b>'
       division:
         new:
           text: 'Nova Divisão para o Departamento %{dept}'
@@ -89,20 +112,27 @@ pt-BR:
     links:
       active: Ativar
       disable: Desativar
-      edit: Editar
       show: Visualizar
+      edit: Editar
+      download:
+        csv: Download CSV
       destroy: Remover
       back: Voltar
       document:
         new: Novo Documento
+        sign: Assinar Documento
+        request_signature: Solicitar Assinatura
+        document_clients: Gerenciar Participantes
         add:
-          user: 'Adicionar Responsável'
+          user: Adicionar Responsável
       department:
         new: Novo Departamento
         divisions: Gerenciar Divisões
         members: Gerenciar Membros
         member:
           add: Adicionar Membro
+      document_clients:
+        new: Novo Participante
       division:
         new: Nova Divisão
         documents: Gerenciar Documentos

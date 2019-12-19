@@ -1,2 +1,39 @@
 <% provide(:head_title, "Dashboard") %>
 <% provide(:page_title, "Dashboard") %>
+
+<h3>Documentos para assinar</h3>
+<hr>
+<div class="table-responsive">
+  <table class="table table-data card-table text-nowrap">
+    <thead>
+    <tr>
+      <th><%= t('activerecord.attributes.document.title') %></th>
+      <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @user_documents.each do |ud| %>
+      <tr>
+        <td><%= ud.document.title %></td>
+        <td>
+          <a title="<%= t('activerecord.models.client.other') %>" class="icon" data-toggle="modal" href="#<%= ud.document.title.titleize.delete(' ') %>">
+            <i class="fe fe-user"></i>
+          </a>
+          <%= link_to staff_user_documents_sign_path(ud.document.id) do %>
+            <%= icon('fas', 'signature', class: 'icon', data: { toggle: 'tooltip' }, title: t('views.links.document.sign')) %>
+          <% end %>
+        </td>
+      </tr>
+
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<% @user_documents.each do |ud| %>
+  <!-- Modal -->
+  <%= render 'modal_participants', udd: ud %>
+<% end %>
+

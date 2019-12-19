@@ -1,0 +1,14 @@
+<% provide(:head_title, t('views.pages.show', resource: t('views.names.document_clients.singular'))) %>
+<% provide(:page_title, t('views.pages.show', resource: t('views.names.document_clients.singular'))) %>
+
+<div class="card card-profile">
+  <div class="card-body">
+    <h3 class="mb-4">CPF: <%= @document_client.cpf %></h3>
+  </div>
+</div>
+
+<div class="d-flex">
+  <%= link_to t('views.links.back'),
+              staff_department_division_document_document_clients_path(@dept, @div, @doc),
+              class: 'btn btn-secondary' %>
+</div>

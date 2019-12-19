@@ -1,10 +1,19 @@
 class Staff::DocumentsController < Staff::BaseController
-  before_action :set_document, only: [:edit, :update, :destroy, :show]
-  before_action :set_division
+  before_action :set_document, only: [:edit, :update, :destroy, :request_signature, :sign, :auth]
+  before_action :set_division, except: [:sign, :auth]
   before_action :load_users, only: [:new, :create, :edit, :update]
-  before_action :permission
+  before_action :permission, except: [:sign, :auth]
+  before_action :request_signature?, except: [:sign, :auth, :show, :index, :new, :create]
 
-  def show; end
+  def show
+    @document = Document.includes(document_users: :user).find(params[:id])
+    respond_to do |format|
+      format.html
+      format.csv do
+        send_data Document.to_csv(params[:id]), filename: "document-#{@document.title}.csv"
+      end
+    end
+  end
 
   def index
     @documents = Document.includes(:division)
@@ -48,6 +57,29 @@ class Staff::DocumentsController < Staff::BaseController
                                                          @document.division)
   end
 
+  def request_signature
+    flash[:success] = t('views.pages.document.request_signature.success')
+    @document.request_signature = true
+    @document.save
+    redirect_to staff_department_division_documents_path(@document.division.department,
+                                                         @document.division)
+  end
+
+  def auth
+    @user = User.auth(params[:document][:login], params[:document][:password])
+    if current_user == @user
+      @user_documents = DocumentUser.find_by(document_id: params[:id], user_id: @user)
+      DocumentUser.toggle_subscription(@user_documents)
+      flash[:success] = t('views.pages.sign.success')
+      redirect_to staff_root_path
+    else
+      flash[:alert] = I18n.t('views.pages.sign.error')
+      render :sign
+    end
+  end
+
+  def sign; end
+
   private
 
   def load_users
@@ -59,15 +91,15 @@ class Staff::DocumentsController < Staff::BaseController
   end
 
   def permission
-    @divs = current_user.departments.find_by(department_users:
-                                                    { role_id: Role.manager }).divisions
-    @divs += Division.joins(:division_users)
-                     .where(division_users: { user_id: current_user.id })
-
+    @divs = Division.joins(:division_users)
+                    .where(division_users: { user_id: current_user.id })
+    divs = current_user.departments.find_by(department_users:
+                                              { role_id: Role.manager })
+    @divs += divs.divisions if divs.present?
     if @divs.include?(@div)
     else
-      flash[:alert] = 'Não possui permissão documento'
-      redirect_to staff_root_path
+      flash[:alert] = t('views.pages.permission.not')
+      redirect_to staff_divisions_path
     end
   end
 
@@ -76,9 +108,15 @@ class Staff::DocumentsController < Staff::BaseController
   end
 
   def document_params
-    params.require(:document).permit(:title, :front, :back, :division_id,
+    params.require(:document).permit(:title, :front, :back, :division_id, :variables,
                                      document_users_attributes: [:id, :user_id,
                                                                  :function,
-                                                                 :destroy])
+                                                                 :_destroy])
+  end
+
+  def request_signature?
+    validation = @document.request_signature
+    redirect_to staff_department_division_documents_path(@div.department, @div) if validation
+    flash[:alert] = t('views.pages.document.request_signature.true')
   end
 end
